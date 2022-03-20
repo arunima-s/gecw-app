@@ -9,7 +9,10 @@ class HoselListScreen extends StatelessWidget {
         title: Text("Hostels"),
       ),
       body: ListView(
-        children: [HostelListItem("Mada", "assets/images/room1.jpeg")],
+        children: [
+          HostelListItem("Mada", "assets/images/room1.jpeg"),
+          HostelListItem("Dharavi", "assets/images/room2.jpeg")
+        ],
       ),
     );
   }
