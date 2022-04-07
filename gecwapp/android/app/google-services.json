@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "954435691352",
+    "firebase_url": "https://gecwapp-default-rtdb.firebaseio.com",
+    "project_id": "gecwapp",
+    "storage_bucket": "gecwapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954435691352:android:e8451859e1747fbbadbb2d",
+        "android_client_info": {
+          "package_name": "com.example.gecwapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954435691352-dg2gvai6u8oee3p5dd4iuqmfngria87m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbKzCovmd31B2Q0Eof87ruqugLzdrc_ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954435691352-dg2gvai6u8oee3p5dd4iuqmfngria87m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
