@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Screens/homeScreen.dart';
 import 'package:gecwapp/screens/hostelListScreen.dart';
 
 void main() {
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HoselListScreen(),
+      home: HomeScreen(),
     );
   }
 }
