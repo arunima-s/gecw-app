@@ -9,7 +9,7 @@ class HostelListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // constraints: BoxConstraints.expand(height: 250.0),
-      padding: EdgeInsets.all(10),
+      // padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(5),
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
