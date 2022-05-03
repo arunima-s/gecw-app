@@ -11,15 +11,19 @@ class ImageBanner extends StatelessWidget {
       constraints: BoxConstraints.expand(
         height: 200.0,
       ),
-      decoration: BoxDecoration(color: Colors.grey),
-      // child: Image.asset(
+      // decoration: BoxDecoration(color: Colors.grey),
+      child: ClipRRect(
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(20)), // Image border
+        child: Image.asset(
+          _assetPath,
+          fit: BoxFit.cover,
+        ),
+      ),
+      // child: Image.network(
       //   _assetPath,
       //   fit: BoxFit.cover,
       // ),
-      child: Image.network(
-        _assetPath,
-        fit: BoxFit.cover,
-      ),
     );
   }
 }
