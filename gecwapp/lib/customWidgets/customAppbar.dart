@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends AppBar {
+class CustomAppBar extends StatelessWidget {
+  // const CustomAppBar({Key? key}) : super(key: key);
+
   @override
-  // TODO: implement backgroundColor
-  Color? get backgroundColor => Colors.white;
-  @override
-  // TODO: implement iconTheme
-  IconThemeData? get iconTheme => IconThemeData(color: Colors.blue);
-  @override
-  // TODO: implement elevation
-  double? get elevation => 0.0;
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      height: MediaQuery.of(context).size.height * 0.1,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            Icons.menu,
+            size: 40,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Text(
+              "WELCOME",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+            ),
+          ),
+          Spacer(),
+          Icon(Icons.notifications)
+        ],
+      ),
+    );
+  }
 }
