@@ -44,19 +44,27 @@ class HostelListItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.lightBlue),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.white)))),
-                    onPressed: () => onDetailsTap(context, hostelListModel),
-                    child: Text("View Details"))
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          // padding: MaterialStateProperty.a,
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.primaryColor),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(
+                                          color: AppColors.primaryColor)))),
+                      onPressed: () => onDetailsTap(context, hostelListModel),
+                      child: Text("View Details")),
+                ),
+                // SizedBox(
+                //   width: 0.01,
+                // )
               ],
             ),
           ),

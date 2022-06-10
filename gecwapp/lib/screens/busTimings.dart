@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gecwapp/CustomWidgets/busTimingListItem.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web_scraper/web_scraper.dart';
 
@@ -18,7 +19,7 @@ class BusTimingState extends State<BusTiming> {
   void fetchTimings() async {
     // Loads web page and downloads into local state of library
     if (await ksrtcUrl.loadWebPage(
-        '//search/results/source/trivandrum/destination/kottayam-bs-(ktm)/timing/morning')) {
+        '/search/results/source/mananthavady-(mnd)/destination/thalappuzha/timing/morning')) {
       setState(() {
         // getElement takes the address of html tag/element and attributes you want to scrap from website
         // it will return the attributes in the same order passed
@@ -45,7 +46,7 @@ class BusTimingState extends State<BusTiming> {
     super.initState();
     print("***************************");
     // Requesting to fetch before UI drawing starts
-    fetchTimings();
+    // fetchTimings();
   }
 
   @override
@@ -58,35 +59,68 @@ class BusTimingState extends State<BusTiming> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Product Catalog'),
-          ),
+          backgroundColor: Color.fromRGBO(243, 242, 249, 1),
+          // appBar: AppBar(
+          //   title: Text('Product Catalog'),
+          // ),
           body: SafeArea(
-              child: busNames == null || departure == null || arrival == null
-                  ? Center(
-                      child:
-                          CircularProgressIndicator(), // Loads Circular Loading Animation
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  child: Text(
+                    "Bus Timings",
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text("Mananthavady"),
+                      color: Colors.pink,
+                    ),
+                    Icon(Icons.swap_horiz),
+                    Container(
+                      child: Text("GECW"),
+                      color: Colors.blue,
                     )
-                  // : DataTable(columns: [
-                  //   DataColumn(label: Text("Route")),
-                  //   DataColumn(label: Text("Departure")),
-                  //   DataColumn(label: Text("Arrival"))
-                  // ], rows: [
+                  ],
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  children: [BusTimingListItem(), BusTimingListItem()],
+                )
+              ],
+            ),
+            // busNames == null || departure == null || arrival == null
+            //     ? Center(
+            //         child:
+            //             CircularProgressIndicator(), // Loads Circular Loading Animation
+            //       )
+            //     // : DataTable(columns: [
+            //     //   DataColumn(label: Text("Route")),
+            //     //   DataColumn(label: Text("Departure")),
+            //     //   DataColumn(label: Text("Arrival"))
+            //     // ], rows: [
 
-                  // ])
-                  : ListView.builder(
-                      itemCount: count,
-                      itemBuilder: (BuildContext context, int index) {
-                        // Attributes are in the form of List<Map<String, dynamic>>.
-                        String place = busNames![index]['title'];
-                        String dep = departure![index]['title'];
-                        String arr = arrival![index]['title'];
+            //     // ])
+            //     : ListView.builder(
+            //         itemCount: count,
+            //         itemBuilder: (BuildContext context, int index) {
+            //           // Attributes are in the form of List<Map<String, dynamic>>.
+            //           String place = busNames![index]['title'];
+            //           String dep = departure![index]['title'];
+            //           String arr = arrival![index]['title'];
 
-                        List<Map<String, dynamic>>? edited;
-                        for (var i = 0; i < count!; i++) {}
+            //           List<Map<String, dynamic>>? edited;
+            //           for (var i = 0; i < count!; i++) {}
 
-                        return BusTimingRow(place, dep, arr);
-                      }))),
+            //           return BusTimingRow(place, dep, arr);
+            //         })
+          )),
     );
   }
 }
