@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "6893811570",
+    "project_id": "gecwapp-c40be",
+    "storage_bucket": "gecwapp-c40be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6893811570:android:359bb8ab9a8a0f23a98feb",
+        "android_client_info": {
+          "package_name": "com.example.gecwapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6893811570-599n015osp0trh67ms2flumd9evl3it3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAjI6BcEQ29Pw-fxdLPSDWCPJ5HPWh1Z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6893811570-599n015osp0trh67ms2flumd9evl3it3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
