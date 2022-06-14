@@ -1,13 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/CustomWidgets/customAppbar.dart';
-import 'package:gecwapp/CustomWidgets/hostelListItem.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Managers/hostelAPIManager.dart';
 
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
@@ -204,16 +200,11 @@ class MainScreen extends State<Main> {
 
   // Fetch notifications
     Future<void> getNotifications() async {
-    print("------------------------");
     final databaseRef = FirebaseDatabase.instance.reference(); //database reference object
-
-    
     await databaseRef.child('notifications').once().then((DataSnapshot snapshot) {
       final data = snapshot.value as List<dynamic>;
       print(data);
-      // final json = snapshot?.value as List<dynamic>;
       final notifications = data.map((e) => NotificationModel.fromJson(e)).toList();
-      // print(json);
       setState(() {
         notificationsList = notifications;
         // hostelData = message;
@@ -254,7 +245,16 @@ class MainScreen extends State<Main> {
             return notificationsList.isEmpty ? CircularProgressIndicator() :
             GestureDetector(
               // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
-              child: ImageBanner(notificationsList[index].image),
+              child: ImageBanner(notificationsList[index].image, MediaQuery.of(context).size.width * 0.6),
+      //         child: ClipRRect(
+      //   borderRadius:
+      //       BorderRadius.all(Radius.circular(20)),
+      //   child: Image.network(
+      //   notificationsList[index].image,
+      //   // width: MediaQuery.of(context).size.width * 0.5,
+      //   fit: BoxFit.cover,
+      // ),
+      // ),
               onTap: () => {
                 openURL(notificationsList[index].link)
               },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Screens/semesterScreen.dart';
 import 'package:gecwapp/screens/hostelListScreen.dart';
+import 'package:gecwapp/screens/scholarshipScreen.dart';
 
 class HomeScreenMenu extends StatefulWidget {
   const HomeScreenMenu({Key? key}) : super(key: key);
@@ -37,7 +38,11 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                           builder: (context) => StudyMaterialsScreen()))
                     },
                 child: StudyMenuItem("assets/images/notes.png", "Notes")),
-            StudyMenuItem("assets/images/notes.png", "Syllabus"),
+            GestureDetector(child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
+            onTap: () => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ScholarshipScreen()))
+                    },),
           ],
         ),
         Row(

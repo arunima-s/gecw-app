@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/CustomWidgets/imagebanner.dart';
+import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/customWidgets/imagebanner.dart';
+
 
 
 class NotificationScreenItems extends StatelessWidget {
+  final NotificationModel notificationItem;
+  NotificationScreenItems(this.notificationItem);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,12 +27,16 @@ class NotificationScreenItems extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset("assets/images/room2.jpeg", width: MediaQuery.of(context).size.width * 0.5,),
+          // Image.asset("assets/images/room2.jpeg", width: MediaQuery.of(context).size.width * 0.5,),
+          // Image.network(notificationItem.image, width: MediaQuery.of(context).size.width * 0.5,),
+          ImageBanner(notificationItem.image, MediaQuery.of(context).size.width * 0.5),
           Container(
+            // color: Colors.red,
+            width:  MediaQuery.of(context).size.width * 0.3,
             margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             child: 
                                   Text(
-                        "Adam Villa",
+                        notificationItem.details,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 10),
                       ), 
