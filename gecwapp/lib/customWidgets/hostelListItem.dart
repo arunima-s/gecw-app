@@ -26,7 +26,7 @@ class HostelListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImageBanner(hostelListModel.image),
+          ImageBanner(hostelListModel.image, MediaQuery.of(context).size.width * 0.8),
           Container(
             margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             child: Row(
