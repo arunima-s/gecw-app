@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gecwapp/CustomWidgets/customAppbar.dart';
 import 'package:gecwapp/CustomWidgets/navdrawer.dart';
 import 'package:gecwapp/CustomWidgets/tabbarMenu.dart';
 import 'package:gecwapp/Screens/busTimings.dart';
-import 'package:gecwapp/Screens/hostelListScreen.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
+import 'package:gecwapp/screens/mainScreen.dart';
 
 import 'calendarScreen.dart';
 
@@ -26,7 +25,7 @@ class HomeScreen extends StatelessWidget {
           //   // width: 5,
           // ),
           body: TabBarView(children: [
-            HostelList(),
+            Main(),
             // HostelList(),
             // WebScraperApp(),
             BusTiming(),

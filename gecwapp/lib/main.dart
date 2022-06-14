@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Screens/homeScreen.dart';
-import 'package:gecwapp/screens/hostelListScreen.dart';
+import 'package:gecwapp/screens/mainScreen.dart';
 
 void main() {
   runApp(MyApp());

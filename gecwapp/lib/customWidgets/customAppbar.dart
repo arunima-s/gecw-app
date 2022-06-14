@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Screens/semesterScreen.dart';
+import 'package:gecwapp/screens/notificationScreen.dart';
 
 class CustomAppBar extends StatelessWidget {
   // const CustomAppBar({Key? key}) : super(key: key);
@@ -23,7 +25,12 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
           Spacer(),
-          Icon(Icons.notifications)
+          IconButton(onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => NotificationScreen()));
+          }
+          
+          , icon: Icon(Icons.notifications))
         ],
       ),
     );

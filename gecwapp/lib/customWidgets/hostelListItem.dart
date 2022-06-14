@@ -11,6 +11,7 @@ class HostelListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: AppColors.systemWhite,
@@ -38,9 +39,9 @@ class HostelListItem extends StatelessWidget {
                       Text(
                         "Adam Villa",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold, fontSize: 10),
                       ),
-                      Text("2000 per month")
+                      Text("2000 per month", style: TextStyle(fontSize: 20),)
                     ],
                   ),
                 ),

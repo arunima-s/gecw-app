@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Screens/semesterScreen.dart';
+import 'package:gecwapp/screens/hostelListScreen.dart';
 
 class HomeScreenMenu extends StatefulWidget {
   const HomeScreenMenu({Key? key}) : super(key: key);
@@ -19,7 +20,12 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
       children: [
         Row(
           children: [
-            StudyMenuItem("assets/images/notes.png", "Hostels"),
+                        GestureDetector(
+                onTap: () => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HostelListScreen()))
+                    },
+                child: StudyMenuItem("assets/images/notes.png", "Hostels")),
             StudyMenuItem("assets/images/notes.png", "Book Bicycle"),
           ],
         ),
