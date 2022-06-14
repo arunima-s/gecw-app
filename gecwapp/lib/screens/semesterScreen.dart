@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/datasets.dart';
+import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,12 +20,7 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   List<String> subjectList = [];
   // = ["EEE", "EC", "MECH", "CS"];
 
-  var data = {
-    1: "EEE",
-    2: "EC",
-    3: "IT",
-    4: "CS"
-  };
+  var data = {1: "EEE", 2: "EC", 3: "MECH", 4: "CS"};
 
   @override
   void initState() {
@@ -37,74 +33,104 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return AlertDialog(
+      content: Container(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Semester"),
-            DropdownButton(
-              // borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              value: selectedSemesterString,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              items: semesterNames.map((items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                setState(() {
-                  selectedSemesterString = newValue.toString();
-                  setSubject();
-                });
-              },
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 20),
+              width: MediaQuery.of(context).size.width * 0.7,
+              decoration: BoxDecoration(
+                  color: AppColors.systemWhite,
+                  border: Border.all(color: AppColors.systemBlack),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: DropdownButton(
+                // borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                value: selectedSemesterString,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: semesterNames.map((items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedSemesterString = newValue.toString();
+                    setSubject();
+                  });
+                },
+              ),
             ),
             ////////////////////////////////////
             ///////////////////////////////////
             //////////////////////////////////
             /////////////////////////////////
             Text("Department"),
-            DropdownButton(
-              // borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              value: selectedDepartmentString,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              items: departmentNames.map((items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                setState(() {
-                  selectedDepartmentString = newValue.toString();
-                  setSubject();
-                });
-              },
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 20),
+              // width: double.infinity,
+              width: MediaQuery.of(context).size.width * 0.6,
+
+              decoration: BoxDecoration(
+                  color: AppColors.systemWhite,
+                  border: Border.all(color: AppColors.systemBlack),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: DropdownButton(
+                // borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                value: selectedDepartmentString,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: departmentNames.map((items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedDepartmentString = newValue.toString();
+                    setSubject();
+                  });
+                },
+              ),
             ),
-                        ////////////////////////////////////
+            ////////////////////////////////////
             ///////////////////////////////////
             //////////////////////////////////
             /////////////////////////////////
             Text("Subjects"),
-            DropdownButton(
-              // borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              value: selectedSubject,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              items: subjectList.map((items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: SizedBox(
-                    width: 300,
-                    child: Text(items)),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                setState(() {
-                  selectedSubject = newValue.toString();
-                  setSubject();
-                });
-              },
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 20),
+              // width: double.infinity,
+              // width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: AppColors.systemWhite,
+                  border: Border.all(color: AppColors.systemBlack),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: DropdownButton(
+                isExpanded: true,
+                // borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                value: selectedSubject,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: subjectList.map((items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: SizedBox(width: 300, child: Text(items)),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedSubject = newValue.toString();
+                    // setSubject();
+                  });
+                },
+              ),
             ),
             ElevatedButton(onPressed: openDrive, child: Text("Get notes"))
           ],
@@ -120,9 +146,11 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
       selectedSubject = subjectList.first;
     });
   }
-  
+
   void openDrive() async {
-    const _url = "https://stackoverflow.com/questions/68610058/how-to-open-url-in-flutter-app-with-url-launcher";
-    await launch(_url, forceSafariVC: true, forceWebView: true, enableJavaScript: true);
-    }
+    const _url =
+        "https://stackoverflow.com/questions/68610058/how-to-open-url-in-flutter-app-with-url-launcher";
+    await launch(_url,
+        forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+  }
 }

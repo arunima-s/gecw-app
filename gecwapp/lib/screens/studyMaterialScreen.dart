@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Screens/semesterScreen.dart';
 import 'package:gecwapp/screens/hostelListScreen.dart';
+import 'package:gecwapp/screens/mainScreen.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 
 class HomeScreenMenu extends StatefulWidget {
@@ -21,7 +22,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
       children: [
         Row(
           children: [
-                        GestureDetector(
+            GestureDetector(
                 onTap: () => {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => HostelListScreen()))
@@ -33,16 +34,15 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
         Row(
           children: [
             GestureDetector(
-                onTap: () => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => StudyMaterialsScreen()))
-                    },
+                onTap: () => openSemesterSelector(context),
                 child: StudyMenuItem("assets/images/notes.png", "Notes")),
-            GestureDetector(child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
-            onTap: () => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ScholarshipScreen()))
-                    },),
+            GestureDetector(
+              child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
+              onTap: () => {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ScholarshipScreen()))
+              },
+            ),
           ],
         ),
         Row(
@@ -53,6 +53,20 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
         )
       ],
     );
+  }
+
+  //Open semester alert
+  void openSemesterSelector(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext buildContext) {
+          return StudyMaterialsScreen();
+        }).then((value) => {
+          // setState(() {
+          // refreshTransactions(currentDate);
+          // refreshTransactions()
+          // })
+        });
   }
 }
 
