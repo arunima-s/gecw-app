@@ -13,9 +13,9 @@ class HostelAPIManager {
   final DatabaseReference _messagesRef =
       FirebaseDatabase.instance.reference().child('messages');
 
-  void saveMessage(HostelListModel hostelListModel) {
-    _messagesRef.push().set(hostelListModel.toJson());
-  }
+  // void saveMessage(HostelListModel hostelListModel) {
+  //   _messagesRef.push().set(hostelListModel.toJson());
+  // }
 
   Query getMessageQuery() {
     return _messagesRef;

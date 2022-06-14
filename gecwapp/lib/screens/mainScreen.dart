@@ -21,41 +21,6 @@ class MainScreen extends State<Main> {
   var hostelData = [];
   List<NotificationModel> notificationsList = [];
 
-  var dummyHostelData = [
-    HostelListModel(
-        "1",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "2",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "3",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "4",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds")
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -239,7 +204,7 @@ class MainScreen extends State<Main> {
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(height: 20);
           },
-          itemCount: dummyHostelData.length,
+          itemCount: notificationsList.length,
           itemBuilder: (BuildContext context, int index) {
             // return HostelListItem(dummyHostelData[index]);
             return notificationsList.isEmpty ? CircularProgressIndicator() :

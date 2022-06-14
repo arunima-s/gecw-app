@@ -104,7 +104,7 @@ class HostelDetailsScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      _hostelListModel.details,
+                                      _hostelListModel.warden,
                                       style: TextStyle(
                                           fontSize: 13,
                                           color: Color.fromRGBO(99, 95, 94, 1)),
@@ -116,7 +116,7 @@ class HostelDetailsScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(_hostelListModel.price,
+                                Text(_hostelListModel.name,
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
