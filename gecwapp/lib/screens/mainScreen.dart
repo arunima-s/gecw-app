@@ -164,12 +164,17 @@ class MainScreen extends State<Main> {
   }
 
   // Fetch notifications
-    Future<void> getNotifications() async {
-    final databaseRef = FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef.child('notifications').once().then((DataSnapshot snapshot) {
+  Future<void> getNotifications() async {
+    final databaseRef =
+        FirebaseDatabase.instance.reference(); //database reference object
+    await databaseRef
+        .child('notifications')
+        .once()
+        .then((DataSnapshot snapshot) {
       final data = snapshot.value as List<dynamic>;
       print(data);
-      final notifications = data.map((e) => NotificationModel.fromJson(e)).toList();
+      final notifications =
+          data.map((e) => NotificationModel.fromJson(e)).toList();
       setState(() {
         notificationsList = notifications;
         // hostelData = message;
@@ -206,7 +211,8 @@ class MainScreen extends State<Main> {
             );
   }
 
-    Future<void> openURL(String _url) async {
-    await launch(_url, forceSafariVC: true, forceWebView: true, enableJavaScript: true);
-    }
+  Future<void> openURL(String _url) async {
+    await launch(_url,
+        forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+  }
 }
