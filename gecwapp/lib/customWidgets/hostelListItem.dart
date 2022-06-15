@@ -11,7 +11,8 @@ class HostelListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+      // width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: AppColors.systemWhite,
@@ -22,26 +23,29 @@ class HostelListItem extends StatelessWidget {
                 spreadRadius: 3.0,
                 blurRadius: 2.0)
           ]),
-      margin: EdgeInsets.all(5),
+      // margin: EdgeInsets.all(5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImageBanner(hostelListModel.image, MediaQuery.of(context).size.width * 0.8),
+          ImageBanner(hostelListModel.images.first, MediaQuery.of(context).size.width),
           Container(
-            margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+            // color: Colors.yellow,
+            // margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(hostelListModel.warden, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                       Text(
-                        "Adam Villa",
+                        hostelListModel.name,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 10),
+                             fontSize: 10),
                       ),
-                      Text("2000 per month", style: TextStyle(fontSize: 20),)
+                      
                     ],
                   ),
                 ),
