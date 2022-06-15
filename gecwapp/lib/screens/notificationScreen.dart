@@ -17,41 +17,6 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
     List<NotificationModel> notificationsList = [];
 
-    var dummyHostelData = [
-    HostelListModel(
-        "1",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "2",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "3",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "4",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds")
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -73,7 +38,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             SizedBox(height: 25,),
             Container(
               // color: AppColors.systemWhite,
-              child: dummyHostelData.isEmpty
+              child: notificationsList.isEmpty
               ? CircularProgressIndicator()
               : 
               // ListView.builder(
