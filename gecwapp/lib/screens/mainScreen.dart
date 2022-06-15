@@ -199,12 +199,17 @@ class MainScreen extends State<Main> {
   }
 
   // Fetch notifications
-    Future<void> getNotifications() async {
-    final databaseRef = FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef.child('notifications').once().then((DataSnapshot snapshot) {
+  Future<void> getNotifications() async {
+    final databaseRef =
+        FirebaseDatabase.instance.reference(); //database reference object
+    await databaseRef
+        .child('notifications')
+        .once()
+        .then((DataSnapshot snapshot) {
       final data = snapshot.value as List<dynamic>;
       print(data);
-      final notifications = data.map((e) => NotificationModel.fromJson(e)).toList();
+      final notifications =
+          data.map((e) => NotificationModel.fromJson(e)).toList();
       setState(() {
         notificationsList = notifications;
         // hostelData = message;
@@ -215,56 +220,57 @@ class MainScreen extends State<Main> {
 
   Widget _getRowList() {
     return Container(
-        // width: MediaQuery.of(context).size.width * 0.8,
-        width: 10,
-        // child: ListView.builder(
-        //     scrollDirection: Axis.horizontal,
-        //     itemCount: 5,
-        //     itemBuilder: (context, position) {
-        //       return Container(
-        //         margin: EdgeInsets.only(right: 10),
-        //         child: ClipRRect(
-        //           borderRadius: BorderRadius.circular(20), // Image border
-        //           child: Image.asset(
-        //             'assets/images/room1.jpeg',
-        //             width: MediaQuery.of(context).size.width * 0.8,
-        //           ),
-        //         ),
-        //       );
-        //     })
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          // shrinkWrap: true,
-          // physics: ClampingScrollPhysics(),
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(height: 20);
-          },
-          itemCount: dummyHostelData.length,
-          itemBuilder: (BuildContext context, int index) {
-            // return HostelListItem(dummyHostelData[index]);
-            return notificationsList.isEmpty ? CircularProgressIndicator() :
-            GestureDetector(
-              // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
-              child: ImageBanner(notificationsList[index].image, MediaQuery.of(context).size.width * 0.6),
+      // width: MediaQuery.of(context).size.width * 0.8,
+      width: 10,
+      // child: ListView.builder(
+      //     scrollDirection: Axis.horizontal,
+      //     itemCount: 5,
+      //     itemBuilder: (context, position) {
+      //       return Container(
+      //         margin: EdgeInsets.only(right: 10),
       //         child: ClipRRect(
-      //   borderRadius:
-      //       BorderRadius.all(Radius.circular(20)),
-      //   child: Image.network(
-      //   notificationsList[index].image,
-      //   // width: MediaQuery.of(context).size.width * 0.5,
-      //   fit: BoxFit.cover,
-      // ),
-      // ),
-              onTap: () => {
-                openURL(notificationsList[index].link)
-              },
-              );
-          },
-          ),
-            );
+      //           borderRadius: BorderRadius.circular(20), // Image border
+      //           child: Image.asset(
+      //             'assets/images/room1.jpeg',
+      //             width: MediaQuery.of(context).size.width * 0.8,
+      //           ),
+      //         ),
+      //       );
+      //     })
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        // shrinkWrap: true,
+        // physics: ClampingScrollPhysics(),
+        separatorBuilder: (BuildContext context, int index) {
+          return SizedBox(height: 20);
+        },
+        itemCount: dummyHostelData.length,
+        itemBuilder: (BuildContext context, int index) {
+          // return HostelListItem(dummyHostelData[index]);
+          return notificationsList.isEmpty
+              ? CircularProgressIndicator()
+              : GestureDetector(
+                  // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
+                  child: ImageBanner(notificationsList[index].image,
+                      MediaQuery.of(context).size.width * 0.6),
+                  //         child: ClipRRect(
+                  //   borderRadius:
+                  //       BorderRadius.all(Radius.circular(20)),
+                  //   child: Image.network(
+                  //   notificationsList[index].image,
+                  //   // width: MediaQuery.of(context).size.width * 0.5,
+                  //   fit: BoxFit.cover,
+                  // ),
+                  // ),
+                  onTap: () => {openURL(notificationsList[index].link)},
+                );
+        },
+      ),
+    );
   }
 
-    Future<void> openURL(String _url) async {
-    await launch(_url, forceSafariVC: true, forceWebView: true, enableJavaScript: true);
-    }
+  Future<void> openURL(String _url) async {
+    await launch(_url,
+        forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+  }
 }
