@@ -65,7 +65,7 @@ class MainScreen extends State<Main> {
             CustomAppBar(),
             Expanded(
               child: ListView(
-                shrinkWrap: true,
+                // shrinkWrap: true,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -180,52 +180,29 @@ class MainScreen extends State<Main> {
 
   Widget _getRowList() {
     return Container(
-        // width: MediaQuery.of(context).size.width * 0.8,
-        width: 10,
-        // child: ListView.builder(
-        //     scrollDirection: Axis.horizontal,
-        //     itemCount: 5,
-        //     itemBuilder: (context, position) {
-        //       return Container(
-        //         margin: EdgeInsets.only(right: 10),
-        //         child: ClipRRect(
-        //           borderRadius: BorderRadius.circular(20), // Image border
-        //           child: Image.asset(
-        //             'assets/images/room1.jpeg',
-        //             width: MediaQuery.of(context).size.width * 0.8,
-        //           ),
-        //         ),
-        //       );
-        //     })
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          // shrinkWrap: true,
-          // physics: ClampingScrollPhysics(),
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(height: 20);
-          },
-          itemCount: notificationsList.length,
-          itemBuilder: (BuildContext context, int index) {
-            // return HostelListItem(dummyHostelData[index]);
-            return notificationsList.isEmpty ? CircularProgressIndicator() :
-            GestureDetector(
-              // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
-              child: ImageBanner(notificationsList[index].image, MediaQuery.of(context).size.width * 0.6),
-      //         child: ClipRRect(
-      //   borderRadius:
-      //       BorderRadius.all(Radius.circular(20)),
-      //   child: Image.network(
-      //   notificationsList[index].image,
-      //   // width: MediaQuery.of(context).size.width * 0.5,
-      //   fit: BoxFit.cover,
-      // ),
-      // ),
-              onTap: () => {
-                openURL(notificationsList[index].link)
-              },
-              );
-          },
-          ),
+        child: Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            // separatorBuilder: (BuildContext context, int index) {
+            //   return SizedBox(height: 20);
+            // },
+                  // physics: NeverScrollableScrollPhysics(), ///
+            itemCount: notificationsList.length,
+            itemBuilder: (BuildContext context, int index) {
+              // return HostelListItem(dummyHostelData[index]);
+              return notificationsList.isEmpty ? CircularProgressIndicator() :
+              GestureDetector(
+                // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
+                child: ImageBanner(notificationsList[index].image, MediaQuery.of(context).size.width * 0.6),
+        
+                onTap: () => {
+                  openURL(notificationsList[index].link)
+                },
+                );
+            },
+            ),
+        ),
             );
   }
 
