@@ -15,7 +15,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-    List<NotificationModel> notificationsList = [];
+  List<NotificationModel> notificationsList = [];
 
   @override
   void initState() {
@@ -33,62 +33,75 @@ class _NotificationScreenState extends State<NotificationScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 15),
-              child: Text("Notifications", style: TextStyle(fontSize: 25,),),
+              child: Text(
+                "Notifications",
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+              ),
             ),
-            SizedBox(height: 25,),
+            SizedBox(
+              height: 25,
+            ),
             Container(
-              // color: AppColors.systemWhite,
-              child: notificationsList.isEmpty
-              ? CircularProgressIndicator()
-              : 
-              // ListView.builder(
-              //     shrinkWrap: true,
-              //     physics: ClampingScrollPhysics(),
-              //     itemCount: hostelData.length,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return HostelListItem(hostelData[index]);
-              //     },
-              //   ),
-              // child:
-                Expanded(
-                  child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(height: 20);
-                  },
-                  itemCount: notificationsList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(child: NotificationScreenItems(notificationsList[index]),
-                    onTap: () {
-                      openURL(notificationsList[index].link);
-                    },
-                    );
-                  },
-                            ),
-                )
-            ),
+                // color: AppColors.systemWhite,
+                child: notificationsList.isEmpty
+                    ? Center(child: CircularProgressIndicator())
+                    :
+                    // ListView.builder(
+                    //     shrinkWrap: true,
+                    //     physics: ClampingScrollPhysics(),
+                    //     itemCount: hostelData.length,
+                    //     itemBuilder: (BuildContext context, int index) {
+                    //       return HostelListItem(hostelData[index]);
+                    //     },
+                    //   ),
+                    // child:
+                    Expanded(
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(height: 20);
+                          },
+                          itemCount: notificationsList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              child: NotificationScreenItems(
+                                  notificationsList[index]),
+                              onTap: () {
+                                openURL(notificationsList[index].link);
+                              },
+                            );
+                          },
+                        ),
+                      )),
           ],
         ),
       ),
     );
   }
 
-
-    // Fetch notifications
-    Future<void> getNotifications() async {
-    final databaseRef = FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef.child('notifications').once().then((DataSnapshot snapshot) {
+  // Fetch notifications
+  Future<void> getNotifications() async {
+    final databaseRef =
+        FirebaseDatabase.instance.reference(); //database reference object
+    await databaseRef
+        .child('notifications')
+        .once()
+        .then((DataSnapshot snapshot) {
       final data = snapshot.value as List<dynamic>;
       print(data);
-      final notifications = data.map((e) => NotificationModel.fromJson(e)).toList();
+      final notifications =
+          data.map((e) => NotificationModel.fromJson(e)).toList();
       setState(() {
         notificationsList = notifications;
       });
     });
   }
 
-    Future<void> openURL(String _url) async {
-    await launch(_url, forceSafariVC: true, forceWebView: true, enableJavaScript: true);
-    }
+  Future<void> openURL(String _url) async {
+    await launch(_url,
+        forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+  }
 }

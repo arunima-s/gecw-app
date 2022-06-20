@@ -36,58 +36,12 @@ class MainScreen extends State<Main> {
     return SafeArea(
       top: true,
       child: Scaffold(
-        body:
-            //  Container(
-            //   color: Colors.white,
-            //   padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
-            //   child:
-            Column(
+        body: Column(
           children: [
-            // Container(
-            //   height: MediaQuery.of(context).size.height * 0.1,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       Icon(Icons.menu),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 20),
-            //         child: Text(
-            //           "WELCOME",
-            //           style:
-            //               TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            //         ),
-            //       ),
-            //       Spacer(),
-            //       Icon(Icons.notifications)
-            //     ],
-            //   ),
-            // ),
             CustomAppBar(),
             Expanded(
               child: ListView(
-                // shrinkWrap: true,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Container(
-                  //   height: MediaQuery.of(context).size.height * 0.1,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Icon(Icons.menu),
-                  //       Padding(
-                  //         padding: const EdgeInsets.only(left: 20),
-                  //         child: Text(
-                  //           "WELCOME",
-                  //           style:
-                  //               TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                  //         ),
-                  //       ),
-                  //       Spacer(),
-                  //       Icon(Icons.notifications)
-                  //     ],
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Text(
@@ -185,30 +139,30 @@ class MainScreen extends State<Main> {
 
   Widget _getRowList() {
     return Container(
-        child: Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            // separatorBuilder: (BuildContext context, int index) {
-            //   return SizedBox(height: 20);
-            // },
-                  // physics: NeverScrollableScrollPhysics(), ///
-            itemCount: notificationsList.length,
-            itemBuilder: (BuildContext context, int index) {
-              // return HostelListItem(dummyHostelData[index]);
-              return notificationsList.isEmpty ? CircularProgressIndicator() :
-              GestureDetector(
-                // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
-                child: ImageBanner(notificationsList[index].image, MediaQuery.of(context).size.width * 0.6),
-        
-                onTap: () => {
-                  openURL(notificationsList[index].link)
-                },
-                );
-            },
-            ),
-        ),
-            );
+      // child: Expanded(
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        // separatorBuilder: (BuildContext context, int index) {
+        //   return SizedBox(height: 20);
+        // },
+        // physics: NeverScrollableScrollPhysics(), ///
+        itemCount: notificationsList.length,
+        itemBuilder: (BuildContext context, int index) {
+          // return HostelListItem(dummyHostelData[index]);
+          return GestureDetector(
+            // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
+            child: notificationsList.isEmpty
+                ? CircularProgressIndicator()
+                : ImageBanner(notificationsList[index].image,
+                    MediaQuery.of(context).size.width * 0.6),
+
+            onTap: () => {openURL(notificationsList[index].link)},
+          );
+        },
+      ),
+      // ),
+    );
   }
 
   Future<void> openURL(String _url) async {
