@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/CustomWidgets/customAppbar.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Managers/hostelAPIManager.dart';
@@ -120,15 +121,16 @@ class MainScreen extends State<Main> {
   // Fetch notifications
   Future<void> getNotifications() async {
     final databaseRef =
-        FirebaseDatabase.instance.reference(); //database reference object
+        await FirebaseDatabase.instance.reference(); //database reference object
     await databaseRef
-        .child('notifications')
+        .child(FirebaseKeys.notifications)
         .once()
         .then((DataSnapshot snapshot) {
-      final data = snapshot.value as List<dynamic>;
+      final data = snapshot.value as Map<dynamic, dynamic>;
+      // final data = snapshot.value;
       print(data);
       final notifications =
-          data.map((e) => NotificationModel.fromJson(e)).toList();
+          data.values.map((e) => NotificationModel.fromJson(e)).toList();
       setState(() {
         notificationsList = notifications;
         // hostelData = message;

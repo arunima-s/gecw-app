@@ -5,6 +5,7 @@ import 'package:gecwapp/CustomWidgets/hostelListItem.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
+import 'package:gecwapp/screens/addNotificationScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -33,11 +34,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 15),
-              child: Text(
-                "Notifications",
-                style: TextStyle(
-                  fontSize: 25,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Notifications",
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddNotificationScreen(
+                                notificationsList.length)));
+                      },
+                      icon: Icon(Icons.edit))
+                ],
               ),
             ),
             SizedBox(
@@ -47,17 +60,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 // color: AppColors.systemWhite,
                 child: notificationsList.isEmpty
                     ? Center(child: CircularProgressIndicator())
-                    :
-                    // ListView.builder(
-                    //     shrinkWrap: true,
-                    //     physics: ClampingScrollPhysics(),
-                    //     itemCount: hostelData.length,
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       return HostelListItem(hostelData[index]);
-                    //     },
-                    //   ),
-                    // child:
-                    Expanded(
+                    : Expanded(
                         child: ListView.separated(
                           shrinkWrap: true,
                           physics: ClampingScrollPhysics(),
@@ -87,15 +90,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
     final databaseRef =
         FirebaseDatabase.instance.reference(); //database reference object
     await databaseRef
-        .child('notifications')
+        .child(FirebaseKeys.notifications)
         .once()
         .then((DataSnapshot snapshot) {
-      final data = snapshot.value as List<dynamic>;
+      final data = snapshot.value as Map<dynamic, dynamic>;
       print(data);
       final notifications =
-          data.map((e) => NotificationModel.fromJson(e)).toList();
+          data.values.map((e) => NotificationModel.fromJson(e)).toList();
       setState(() {
-        notificationsList = notifications;
+        notificationsList = List.from(notifications.reversed);
       });
     });
   }
@@ -104,4 +107,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);
   }
+
+  editHostel() {}
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Screens/homeScreen.dart';
 import 'package:gecwapp/screens/loginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   ///Shared prefs
   void loadPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final _isLoggedIn = prefs.getBool('isLoggedIn');
+    final _isLoggedIn = prefs.getBool(SharedKeys.loginStatus);
     setState(() {
       isLoggedIn = _isLoggedIn ?? false;
     });
