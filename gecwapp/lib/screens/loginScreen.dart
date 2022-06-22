@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/screens/homeScreen.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 import 'package:gecwapp/screens/semesterScreen.dart';
@@ -115,13 +117,38 @@ class LoginScreen extends StatelessWidget {
     assert(await user?.getIdToken() != null);
     final User currentUser = await _auth.currentUser!;
     assert(user?.uid == currentUser.uid);
-
+    createUser(user!);
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => HomeScreen()));
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLoggedIn', true);
+    prefs.setBool(SharedKeys.loginStatus, true);
+    prefs.setInt(SharedKeys.userAccess, 2);
+  }
 
-    // return 'signInWithGoogle succeeded: $user';
+  Future<void> createUser(User currentUser) async {
+    final databaseRef =
+        FirebaseDatabase.instance.reference(); //database reference object
+    await databaseRef
+        .child(FirebaseKeys.users)
+        .child(currentUser.uid)
+        .once()
+        .then((DataSnapshot snapshot) {
+      if (snapshot.value == null) {
+        final userModel = UserModel(currentUser.email!, 2, false);
+        databaseRef
+            .child(FirebaseKeys.users)
+            .child(currentUser.uid)
+            .set(userModel.toJson());
+        // databaseRef.child('users').child(currentUser.uid).set({"world": 0});
+      }
+      // final data = snapshot.value as List<dynamic>;
+      // print(data);
+      // final notifications =
+      //     data.map((e) => NotificationModel.fromJson(e)).toList();
+      // setState(() {
+      //   notificationsList = notifications;
+      // });
+    });
   }
 }
