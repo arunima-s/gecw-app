@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/CustomWidgets/hostelListItem.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:focus_detector/focus_detector.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
 import 'package:gecwapp/screens/addNotificationScreen.dart';
@@ -19,67 +20,66 @@ class _NotificationScreenState extends State<NotificationScreen> {
   List<NotificationModel> notificationsList = [];
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getNotifications();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Notifications",
-                    style: TextStyle(
-                      fontSize: 25,
+      body: FocusDetector(
+        onVisibilityGained: () {
+          getNotifications();
+        },
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Notifications",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AddNotificationScreen(
-                                notificationsList.length)));
-                      },
-                      icon: Icon(Icons.edit))
-                ],
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddNotificationScreen(
+                                  notificationsList.length)));
+                        },
+                        icon: Icon(Icons.edit))
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Container(
-                // color: AppColors.systemWhite,
-                child: notificationsList.isEmpty
-                    ? Center(child: CircularProgressIndicator())
-                    : Expanded(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(height: 20);
-                          },
-                          itemCount: notificationsList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: NotificationScreenItems(
-                                  notificationsList[index]),
-                              onTap: () {
-                                openURL(notificationsList[index].link);
-                              },
-                            );
-                          },
-                        ),
-                      )),
-          ],
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                  // color: AppColors.systemWhite,
+                  child: notificationsList.isEmpty
+                      ? Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(height: 20);
+                            },
+                            itemCount: notificationsList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                child: NotificationScreenItems(
+                                    notificationsList[index]),
+                                onTap: () {
+                                  openURL(notificationsList[index].link);
+                                },
+                              );
+                            },
+                          ),
+                        )),
+            ],
+          ),
         ),
       ),
     );
@@ -94,12 +94,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
         .once()
         .then((DataSnapshot snapshot) {
       final data = snapshot.value as Map<dynamic, dynamic>;
-      print(data);
       final notifications =
           data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      setState(() {
-        notificationsList = List.from(notifications.reversed);
-      });
+      if (this.mounted) {
+        setState(() {
+          notificationsList = List.from(notifications.reversed);
+        });
+      }
     });
   }
 
