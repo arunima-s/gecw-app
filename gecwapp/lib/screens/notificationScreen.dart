@@ -71,22 +71,28 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: notificationsList.isEmpty
                     ? Center(child: CircularProgressIndicator())
                     : Expanded(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(height: 20);
-                          },
-                          itemCount: notificationsList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: NotificationScreenItems(
-                                  notificationsList[index]),
-                              onTap: () {
-                                openURL(notificationsList[index].link);
-                              },
-                            );
-                          },
+                        child: RefreshIndicator(
+                          onRefresh: context
+                              .read<NotificationProvider>()
+                              .getNotifications,
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            // physics: ClampingScrollPhysics(),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(height: 20);
+                            },
+                            itemCount: notificationsList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                child: NotificationScreenItems(
+                                    notificationsList[index]),
+                                onTap: () {
+                                  openURL(notificationsList[index].link);
+                                },
+                              );
+                            },
+                          ),
                         ),
                       )),
           ],
