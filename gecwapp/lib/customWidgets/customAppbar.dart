@@ -25,12 +25,12 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
           Spacer(),
-          IconButton(onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => NotificationScreen()));
-          }
-          
-          , icon: Icon(Icons.notifications))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => NotificationScreen()));
+              },
+              icon: Icon(Icons.notifications))
         ],
       ),
     );

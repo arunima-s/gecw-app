@@ -1,16 +1,17 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/CustomWidgets/hostelListItem.dart';
-import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
 import 'package:gecwapp/screens/addNotificationScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
   // const NotificationScreen({Key? key}) : super(key: key);
-
+  // final List<NotificationModel> notificationList;
+  // NotificationScreen(this.notificationList);
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
 }
@@ -22,11 +23,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getNotifications();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (context.read<NotificationProvider>().notifications.isEmpty) {
+        context.read<NotificationProvider>().getNotifications();
+      }
+    });
+    // getNotifications();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('------------Notification Screen------------------');
+    // context.read<NotificationProvider>().getNotifications;
+    notificationsList = context.watch<NotificationProvider>().notifications;
+    // notificationsList = context.watch<NotificationProvider>().notifications;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -61,22 +71,28 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: notificationsList.isEmpty
                     ? Center(child: CircularProgressIndicator())
                     : Expanded(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(height: 20);
-                          },
-                          itemCount: notificationsList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: NotificationScreenItems(
-                                  notificationsList[index]),
-                              onTap: () {
-                                openURL(notificationsList[index].link);
-                              },
-                            );
-                          },
+                        child: RefreshIndicator(
+                          onRefresh: context
+                              .read<NotificationProvider>()
+                              .getNotifications,
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            // physics: ClampingScrollPhysics(),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(height: 20);
+                            },
+                            itemCount: notificationsList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                child: NotificationScreenItems(
+                                    notificationsList[index]),
+                                onTap: () {
+                                  openURL(notificationsList[index].link);
+                                },
+                              );
+                            },
+                          ),
                         ),
                       )),
           ],
@@ -94,12 +110,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
         .once()
         .then((DataSnapshot snapshot) {
       final data = snapshot.value as Map<dynamic, dynamic>;
-      print(data);
       final notifications =
           data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      setState(() {
-        notificationsList = List.from(notifications.reversed);
-      });
+      if (this.mounted) {
+        setState(() {
+          notificationsList = List.from(notifications.reversed);
+        });
+      }
     });
   }
 

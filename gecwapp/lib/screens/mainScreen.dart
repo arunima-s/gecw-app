@@ -6,8 +6,10 @@ import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Managers/hostelAPIManager.dart';
 
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Main extends StatefulWidget {
@@ -27,13 +29,19 @@ class MainScreen extends State<Main> {
     // TODO: implement initState
     super.initState();
     // getDummyList();
-    getNotifications();
+    // getNotifications();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<NotificationProvider>().getNotifications();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     // _getMessageList();
     // final hostels
+    print('------------Main Screen------------------');
+
+    notificationsList = context.watch<NotificationProvider>().notifications;
     return SafeArea(
       top: true,
       child: Scaffold(
@@ -103,14 +111,11 @@ class MainScreen extends State<Main> {
 
   // List<HostelListModel> getDummyList() {
   Future<void> getDummyList() async {
-    print("myr");
     final databaseRef =
         FirebaseDatabase.instance.reference(); //database reference object
     await databaseRef.child('messages').once().then((DataSnapshot snapshot) {
-      // print('Data : ${snapshot.value}');
       final json = snapshot.value as List<dynamic>;
       final message = json.map((e) => HostelListModel.fromJson(e)).toList();
-      // print(message);
       setState(() {
         hostelData = message;
       });
@@ -128,7 +133,6 @@ class MainScreen extends State<Main> {
         .then((DataSnapshot snapshot) {
       final data = snapshot.value as Map<dynamic, dynamic>;
       // final data = snapshot.value;
-      print(data);
       final notifications =
           data.values.map((e) => NotificationModel.fromJson(e)).toList();
       setState(() {
