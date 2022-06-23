@@ -11,7 +11,7 @@ class NotificationProvider with ChangeNotifier {
   // Fetch notifications
   Future getNotifications() async {
     print(
-        "************************************************************************************************************************************************************************************************************************************************");
+        "**************************************************************************************************************************************************************************************************************");
     final databaseRef =
         await FirebaseDatabase.instance.reference(); //database reference object
     await databaseRef
@@ -23,5 +23,10 @@ class NotificationProvider with ChangeNotifier {
           data.values.map((e) => NotificationModel.fromJson(e)).toList();
       notifyListeners();
     });
+  }
+
+  deleteNotification(int index) {
+    _notifications.removeAt(index);
+    notifyListeners();
   }
 }

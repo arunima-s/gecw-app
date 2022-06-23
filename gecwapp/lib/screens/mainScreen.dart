@@ -7,6 +7,7 @@ import 'package:gecwapp/Managers/hostelAPIManager.dart';
 
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
+import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class MainScreen extends State<Main> {
     // getDummyList();
     // getNotifications();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<UserProvider>().fetchUserDetails();
       context.read<NotificationProvider>().getNotifications();
     });
   }

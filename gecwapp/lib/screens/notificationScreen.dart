@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
 import 'package:gecwapp/screens/addNotificationScreen.dart';
@@ -24,16 +25,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (context.read<NotificationProvider>().notifications.isEmpty) {
-        context.read<NotificationProvider>().getNotifications();
-      }
+      // if (context.read<NotificationProvider>().notifications.isEmpty) {
+      context.read<NotificationProvider>().getNotifications();
+      // }
     });
     // getNotifications();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('------------Notification Screen------------------');
+    print(
+        '---------------------------------------Notification Screen--------------------------------------------------');
     // context.read<NotificationProvider>().getNotifications;
     notificationsList = context.watch<NotificationProvider>().notifications;
     // notificationsList = context.watch<NotificationProvider>().notifications;
@@ -85,8 +87,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             itemCount: notificationsList.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                child: NotificationScreenItems(
-                                    notificationsList[index]),
+                                child: NotificationScreenItems(index),
                                 onTap: () {
                                   openURL(notificationsList[index].link);
                                 },
