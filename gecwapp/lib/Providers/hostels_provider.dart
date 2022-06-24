@@ -4,9 +4,9 @@ import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 
 class HostelProvider with ChangeNotifier {
-  List<HostelListModel>? _hostels;
+  List<HostelListModel> _hostels = [];
 
-  List<HostelListModel> get hostels => _hostels!;
+  List<HostelListModel> get hostels => _hostels;
 
   Future fetchUserDetails() async {
     print('*****************Hostel Provider****************');

@@ -1,32 +1,32 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/hostels_provider.dart';
+import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/customWidgets/hostelListItem.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-class HostelListScreen extends StatefulWidget {
-  // const HostelListScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HostelListScreen> createState() => _HostelListScreenState();
-}
-
-class _HostelListScreenState extends State<HostelListScreen> {
+class HostelListScreen extends StatelessWidget {
   var hostelData = [];
-  var userAccess;
+  // var userAccess;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getHostelList();
-    getSharedPrefs();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getHostelList();
+  //   getSharedPrefs();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    print(userAccess);
+    // context.read<UserProvider>().fetchUserDetails;
+    // context.read<NotificationProvider>().getNotifications;
+    hostelData = context.watch<HostelProvider>().hostels;
+    int userAccess = context.watch<SharedPrefsProvider>().userAccess;
+    if (hostelData.isEmpty) {
+      context.read<HostelProvider>().fetchUserDetails();
+    }
+
+    // print(userAccess);
     return Scaffold(
         body: hostelData.isEmpty
             ? Center(child: CircularProgressIndicator())
@@ -46,22 +46,29 @@ class _HostelListScreenState extends State<HostelListScreen> {
                           ),
                           userAccess == 2
                               ? IconButton(
-                                  onPressed: null, icon: Icon(Icons.edit))
+                                  onPressed: () {
+                                    editHostel(context);
+                                  },
+                                  icon: Icon(Icons.edit))
                               : SizedBox()
                         ],
                       ),
                     ),
                     Expanded(
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: 20);
-                        },
-                        itemCount: hostelData.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return HostelListItem(hostelData[index]);
-                        },
+                      child: RefreshIndicator(
+                        onRefresh:
+                            context.read<HostelProvider>().fetchUserDetails,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          // physics: ClampingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(height: 20);
+                          },
+                          itemCount: hostelData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return HostelListItem(hostelData[index]);
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -69,36 +76,9 @@ class _HostelListScreenState extends State<HostelListScreen> {
               ));
   }
 
-  // Fetch hostels
-  Future<void> getHostelList() async {
-    final databaseRef =
-        FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef
-        .child(FirebaseKeys.hostels)
-        .once()
-        .then((DataSnapshot snapshot) {
-      final data = snapshot.value as List<dynamic>;
-      print(data);
-      final hostels = data.map((e) => HostelListModel.fromJson(e)).toList();
-      setState(() {
-        hostelData = hostels;
-        // hostelData = message;
-      });
-      // snapshot.value
-    });
-  }
-
-  getSharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    int? stringValue = prefs.getInt(SharedKeys.userAccess);
-    setState(() {
-      userAccess = stringValue;
-    });
-    // return stringValue;
+  editHostel(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Swantham aayi cheyy myre"),
+    ));
   }
 }
-
-// class HostelListScreen extends StatelessWidget {
-
-// }

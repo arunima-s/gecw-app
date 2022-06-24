@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
+import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/homeScreen.dart';
 import 'package:gecwapp/screens/loginScreen.dart';
@@ -13,7 +15,9 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => NotificationProvider()),
-      ChangeNotifierProvider(create: (_) => UserProvider())
+      ChangeNotifierProvider(create: (_) => UserProvider()),
+      ChangeNotifierProvider(create: (_) => HostelProvider()),
+      ChangeNotifierProvider(create: (_) => SharedPrefsProvider())
     ],
     child: MyApp(),
   ));
