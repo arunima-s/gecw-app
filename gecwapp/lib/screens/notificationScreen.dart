@@ -9,36 +9,15 @@ import 'package:gecwapp/screens/addNotificationScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
-class NotificationScreen extends StatefulWidget {
-  // const NotificationScreen({Key? key}) : super(key: key);
-  // final List<NotificationModel> notificationList;
-  // NotificationScreen(this.notificationList);
-  @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
-}
-
-class _NotificationScreenState extends State<NotificationScreen> {
+class NotificationScreen extends StatelessWidget {
   List<NotificationModel> notificationsList = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // if (context.read<NotificationProvider>().notifications.isEmpty) {
-      context.read<NotificationProvider>().getNotifications();
-      // }
-    });
-    // getNotifications();
-  }
 
   @override
   Widget build(BuildContext context) {
     print(
         '---------------------------------------Notification Screen--------------------------------------------------');
-    // context.read<NotificationProvider>().getNotifications;
+
     notificationsList = context.watch<NotificationProvider>().notifications;
-    // notificationsList = context.watch<NotificationProvider>().notifications;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -102,29 +81,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  // Fetch notifications
-  Future<void> getNotifications() async {
-    final databaseRef =
-        FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef
-        .child(FirebaseKeys.notifications)
-        .once()
-        .then((DataSnapshot snapshot) {
-      final data = snapshot.value as Map<dynamic, dynamic>;
-      final notifications =
-          data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      if (this.mounted) {
-        setState(() {
-          notificationsList = List.from(notifications.reversed);
-        });
-      }
-    });
-  }
-
   Future<void> openURL(String _url) async {
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);
   }
-
-  editHostel() {}
 }

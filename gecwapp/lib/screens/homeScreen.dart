@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
           //   // width: 5,
           // ),
           body: TabBarView(children: [
-            Main(),
+            MainScreen(),
             // HostelList(),
             // WebScraperApp(),
             BusTiming(),
