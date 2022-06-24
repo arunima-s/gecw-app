@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
@@ -138,11 +139,17 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         .reference()
         .child(FirebaseKeys.notifications); //database reference object
 
+    final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
     final imageUrl = await imgUrl;
+    final uid = await FirebaseAuth.instance.currentUser?.uid;
     final notificationModel = await NotificationModel(
-        imageUrl, tapUrlController.text, detailsController.text);
+        imageUrl,
+        tapUrlController.text,
+        detailsController.text,
+        uid.toString(),
+        timeStamp);
     await notificationRef
-        .child(DateTime.now().millisecondsSinceEpoch.toString())
+        .child(timeStamp)
         // .child((widget.notificationCount + 1).toString())
         .set(notificationModel.toJson())
         .whenComplete(() {

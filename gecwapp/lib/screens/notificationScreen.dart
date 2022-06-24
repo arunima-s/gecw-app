@@ -2,41 +2,22 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
 import 'package:gecwapp/screens/addNotificationScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
-class NotificationScreen extends StatefulWidget {
-  // const NotificationScreen({Key? key}) : super(key: key);
-  // final List<NotificationModel> notificationList;
-  // NotificationScreen(this.notificationList);
-  @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
-}
-
-class _NotificationScreenState extends State<NotificationScreen> {
+class NotificationScreen extends StatelessWidget {
   List<NotificationModel> notificationsList = [];
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (context.read<NotificationProvider>().notifications.isEmpty) {
-        context.read<NotificationProvider>().getNotifications();
-      }
-    });
-    // getNotifications();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    print('------------Notification Screen------------------');
-    // context.read<NotificationProvider>().getNotifications;
+    print(
+        '---------------------------------------Notification Screen--------------------------------------------------');
+
     notificationsList = context.watch<NotificationProvider>().notifications;
-    // notificationsList = context.watch<NotificationProvider>().notifications;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -85,8 +66,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             itemCount: notificationsList.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                child: NotificationScreenItems(
-                                    notificationsList[index]),
+                                child: NotificationScreenItems(index),
                                 onTap: () {
                                   openURL(notificationsList[index].link);
                                 },
@@ -101,29 +81,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  // Fetch notifications
-  Future<void> getNotifications() async {
-    final databaseRef =
-        FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef
-        .child(FirebaseKeys.notifications)
-        .once()
-        .then((DataSnapshot snapshot) {
-      final data = snapshot.value as Map<dynamic, dynamic>;
-      final notifications =
-          data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      if (this.mounted) {
-        setState(() {
-          notificationsList = List.from(notifications.reversed);
-        });
-      }
-    });
-  }
-
   Future<void> openURL(String _url) async {
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);
   }
-
-  editHostel() {}
 }

@@ -7,41 +7,25 @@ import 'package:gecwapp/Managers/hostelAPIManager.dart';
 
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
+import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Main extends StatefulWidget {
-  Main({Key? key}) : super(key: key);
-  final hostelAPIManager = HostelAPIManager();
-  @override
-  MainScreen createState() => MainScreen();
-}
-
-class MainScreen extends State<Main> {
+class MainScreen extends StatelessWidget {
   ScrollController _scrollController = ScrollController();
   var hostelData = [];
   List<NotificationModel> notificationsList = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // getDummyList();
-    // getNotifications();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<NotificationProvider>().getNotifications();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // _getMessageList();
-    // final hostels
     print('------------Main Screen------------------');
-
     notificationsList = context.watch<NotificationProvider>().notifications;
+    context.read<UserProvider>().fetchUserDetails;
+    // context.read<NotificationProvider>().getNotifications;
+    if (notificationsList.isEmpty) {
+      context.read<NotificationProvider>().getNotifications();
+    }
     return SafeArea(
       top: true,
       child: Scaffold(
@@ -63,9 +47,7 @@ class MainScreen extends State<Main> {
                       // Horizontal list view
                       padding: EdgeInsets.only(top: 10, left: 10),
                       height: MediaQuery.of(context).size.height * 0.25,
-                      // width: MediaQuery.of(context).size.height * 0.5,
-                      // width: 500,
-                      child: _getRowList()),
+                      child: _getRowList(context)),
                   Padding(
                     padding: const EdgeInsets.only(top: 30, left: 10),
                     child: Text(
@@ -76,27 +58,6 @@ class MainScreen extends State<Main> {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    // child: hostelData.isEmpty
-                    // ? CircularProgressIndicator()
-                    // : ListView.builder(
-                    //     shrinkWrap: true,
-                    //     physics: ClampingScrollPhysics(),
-                    //     itemCount: hostelData.length,
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       return HostelListItem(hostelData[index]);
-                    //     },
-                    //   ),
-                    // child: ListView.separated(
-                    //   shrinkWrap: true,
-                    //   physics: ClampingScrollPhysics(),
-                    //   separatorBuilder: (BuildContext context, int index) {
-                    //     return SizedBox(height: 20);
-                    //   },
-                    //   itemCount: dummyHostelData.length,
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     return HostelListItem(dummyHostelData[index]);
-                    //   },
-                    // )
                     child: HomeScreenMenu(),
                   )
                 ],
@@ -109,64 +70,45 @@ class MainScreen extends State<Main> {
     );
   }
 
-  // List<HostelListModel> getDummyList() {
-  Future<void> getDummyList() async {
-    final databaseRef =
-        FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef.child('messages').once().then((DataSnapshot snapshot) {
-      final json = snapshot.value as List<dynamic>;
-      final message = json.map((e) => HostelListModel.fromJson(e)).toList();
-      setState(() {
-        hostelData = message;
-      });
-      // snapshot.value
-    });
-  }
-
-  // Fetch notifications
-  Future<void> getNotifications() async {
-    final databaseRef =
-        await FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef
-        .child(FirebaseKeys.notifications)
-        .once()
-        .then((DataSnapshot snapshot) {
-      final data = snapshot.value as Map<dynamic, dynamic>;
-      // final data = snapshot.value;
-      final notifications =
-          data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      setState(() {
-        notificationsList = notifications;
-        // hostelData = message;
-      });
-      // snapshot.value
-    });
-  }
-
-  Widget _getRowList() {
+  Widget _getRowList(BuildContext context) {
     return Container(
       // child: Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        // separatorBuilder: (BuildContext context, int index) {
-        //   return SizedBox(height: 20);
-        // },
-        // physics: NeverScrollableScrollPhysics(), ///
-        itemCount: notificationsList.length,
-        itemBuilder: (BuildContext context, int index) {
-          // return HostelListItem(dummyHostelData[index]);
-          return GestureDetector(
-            // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
-            child: notificationsList.isEmpty
-                ? CircularProgressIndicator()
-                : ImageBanner(notificationsList[index].image,
-                    MediaQuery.of(context).size.width * 0.6),
+      child: notificationsList.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              // separatorBuilder: (BuildContext context, int index) {
+              //   return SizedBox(height: 20);
+              // },
+              // physics: NeverScrollableScrollPhysics(), ///
+              itemCount: notificationsList.length,
+              itemBuilder: (BuildContext context, int index) {
+                // return HostelListItem(dummyHostelData[index]);
+                return GestureDetector(
+                  // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
+                  child: notificationsList.isEmpty
+                      ? Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.red,
+                        )
+                      : ImageBanner(
+                          context
+                              .watch<NotificationProvider>()
+                              .notifications[index]
+                              .image,
+                          MediaQuery.of(context).size.width * 0.6),
 
-            onTap: () => {openURL(notificationsList[index].link)},
-          );
-        },
-      ),
+                  onTap: () => {
+                    openURL(context
+                        .watch<NotificationProvider>()
+                        .notifications[index]
+                        .link)
+                  },
+                );
+              },
+            ),
       // ),
     );
   }
