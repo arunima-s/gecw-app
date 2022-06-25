@@ -4,7 +4,7 @@ import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/CustomWidgets/imagebanner.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as URLLauncher;
 
 class HostelDetailsScreen extends StatelessWidget {
   final HostelListModel _hostelListModel;
@@ -106,8 +106,11 @@ class HostelDetailsScreen extends StatelessWidget {
                             spreadRadius: 1.0,
                             blurRadius: 2.0)
                       ]),
-
+                  ////////////////
+                  //////////////////
+                  ///////////////////Middle Content
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -118,7 +121,7 @@ class HostelDetailsScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Text(
-                          'address',
+                          _hostelListModel.address,
                           style: TextStyle(color: Colors.grey[600]),
                         ),
                       ),
@@ -129,13 +132,56 @@ class HostelDetailsScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          AmnityWidget("food", Icon(Icons.food_bank)),
-                          AmnityWidget("dormitory", Icon(Icons.bed))
+                          AmnityWidget(
+                              _hostelListModel.hasFood ? "food" : "no food",
+                              Icon(Icons.food_bank)),
+                          AmnityWidget(
+                              _hostelListModel.hasRoom ? "room" : "dormitory",
+                              Icon(Icons.bed))
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                        child: Text('Warden: ${_hostelListModel.phoneNum}'),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                      //   child: Text('Warden: ${_hostelListModel.phoneNum}'),
+                      // )
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 30,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            AppColors.primaryColor),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            AppColors.systemWhite),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            side: BorderSide(
+                                                color:
+                                                    AppColors.primaryColor)))),
+                                onPressed: _onLocationTapped,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.location_on_outlined),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text('Location')
+                                  ],
+                                )),
+                          ),
+                        ],
                       )
                     ],
                   ),
@@ -245,6 +291,25 @@ class HostelDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
+
+            //////////
+            //////////
+            //////////Back arrow
+            Positioned(
+              left: 15.0,
+              top: 15.0,
+              child: Container(
+                width: 40,
+                height: 40,
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.all(Radius.circular(25)),
+                //   // color: AppColors.systemWhite,
+                // ),
+                child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: Navigator.of(context).pop),
+              ),
+            )
           ],
         ),
       ),
@@ -259,7 +324,8 @@ class HostelDetailsScreen extends StatelessWidget {
   void _onCallButtonTapped() async {
     // var url = _hostelListModel.phoneNum;
     // if (await canLaunch(url)) {
-    await launch(_hostelListModel.phoneNum);
+    // await launch(url);
+    await URLLauncher.launch('tel:+${_hostelListModel.phoneNum.toString()}');
     // } else {
     //   throw 'Could not launch $url';
     // }
