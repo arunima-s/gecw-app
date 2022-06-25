@@ -27,7 +27,8 @@ class HostelListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImageBanner(hostelListModel.images.first, MediaQuery.of(context).size.width),
+          ImageBanner(
+              hostelListModel.images.first, MediaQuery.of(context).size.width),
           Container(
             // color: Colors.yellow,
             // margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
@@ -39,13 +40,15 @@ class HostelListItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(hostelListModel.warden, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text(
+                        hostelListModel.warden,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                       Text(
                         hostelListModel.name,
-                        style: TextStyle(
-                             fontSize: 10),
+                        style: TextStyle(fontSize: 10),
                       ),
-                      
                     ],
                   ),
                 ),

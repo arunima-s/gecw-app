@@ -27,6 +27,8 @@ class HostelDetailsScreen extends StatelessWidget {
   HostelDetailsScreen(this._hostelListModel);
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       top: true,
       child: Scaffold(
@@ -36,22 +38,18 @@ class HostelDetailsScreen extends StatelessWidget {
         // ),
 
         body: Stack(
-          alignment: Alignment.topCenter,
           children: [
             //Images
             // ImageBanner(_hostelListModel.image),
             Container(
-              // color: Colors.red,
               // decoration: BoxDecoration(),
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.3,
               child: Swiper(
-                itemCount: localImages.length,
-                itemBuilder: (context, index) => Card(
-                  child: Image.asset(
-                    localImages[index],
-                    fit: BoxFit.fill,
-                  ),
+                itemCount: _hostelListModel.images.length,
+                itemBuilder: (context, index) => Image.network(
+                  _hostelListModel.images[index],
+                  fit: BoxFit.fill,
                 ),
                 pagination:
                     const SwiperPagination(alignment: Alignment.topCenter),
@@ -62,6 +60,7 @@ class HostelDetailsScreen extends StatelessWidget {
             // IgnorePointer(
             //   child:
             Positioned(
+              // top: 10.0,
               child: Column(
                 children: [
                   // SizedBox(
@@ -70,175 +69,184 @@ class HostelDetailsScreen extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(
                         top: (MediaQuery.of(context).size.height * 0.3) -
-                            MediaQuery.of(context).size.height * 0.05),
+                            MediaQuery.of(context).size.height * 0.02),
                     padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
                     decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(50)),
-                      color: Colors.white,
-                      // boxShadow: [
-                      // BoxShadow(
-                      //     color: AppColors.grey3,
-                      //     offset: Offset(0.0, -0.1),
-                      //     // spreadRadius: 3.0,
-                      //     blurRadius: 2.0)
-                      // ]
+                          BorderRadius.vertical(top: Radius.circular(20)),
+                      // color: Color.fromARGB(255, 246, 246, 246),
                     ),
-                    height: MediaQuery.of(context).size.height * 0.7,
+                    height: MediaQuery.of(context).size.height * 0.67,
                     // height: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _hostelListModel.name,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      _hostelListModel.warden,
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color: Color.fromRGBO(99, 95, 94, 1)),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(_hostelListModel.name,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold)),
-                                Text(
-                                  "per month",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(99, 95, 94, 1)),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * .15,
-                                height: MediaQuery.of(context).size.width * .15,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                AppColors.primaryColor),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                AppColors.systemWhite),
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                                side: BorderSide(
-                                                    color: AppColors.primaryColor)))),
-                                    onPressed: _onCallButtonTapped,
-                                    child: Icon(Icons.phone_outlined)),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * .70,
-                                height: MediaQuery.of(context).size.width * .15,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                AppColors.systemWhite),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                AppColors.primaryColor),
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                                side: BorderSide(
-                                                    color:
-                                                        AppColors.primaryColor)))),
-                                    onPressed: _onLocationTapped,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.directions_outlined),
-                                        Text("Location"),
-                                      ],
-                                    )),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                    child: Text('sdhbfgds'),
                   )
                 ],
               ),
             ),
             // )
+            //////////
+            ///////////// Middle portion
+            /////////////
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: screenHeight * 0.4,
+                  width: screenWidth * 0.85,
+                  margin: EdgeInsets.fromLTRB(0, screenHeight * 0.225, 0, 0),
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  // color: Colors.red,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: AppColors.systemWhite,
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppColors.grey3,
+                            offset: Offset(2.0, 2.0),
+                            spreadRadius: 1.0,
+                            blurRadius: 2.0)
+                      ]),
+
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _hostelListModel.name,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Text(
+                          'address',
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                        color: Colors.grey[400],
+                        height: 0.5,
+                      ),
+                      Row(
+                        children: [
+                          AmnityWidget("food", Icon(Icons.food_bank)),
+                          AmnityWidget("dormitory", Icon(Icons.bed))
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                        child: Text('Warden: ${_hostelListModel.phoneNum}'),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            /////////////////
+            ///////////////
+            /////////////// Bottom portion
+            Positioned(
+              bottom: 1.0,
+              child: Container(
+                decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: AppColors.systemWhite,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color.fromARGB(255, 177, 177, 177),
+                          offset: Offset(0.0, -3.0),
+                          spreadRadius: 2.0,
+                          blurRadius: 5.0)
+                    ]),
+                width: screenWidth,
+                height: screenHeight * 0.09,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Divider(
+                    //   color: Colors.black,
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Warden: ${_hostelListModel.warden}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text('+91 ${_hostelListModel.phoneNum}')
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 10),
+                          // width: screenWidth * .13,
+                          height: screenWidth * .1,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          AppColors.primaryColor),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          AppColors.systemWhite),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                          side: BorderSide(
+                                              color: AppColors.primaryColor)))),
+                              onPressed: _onCallButtonTapped,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.phone_outlined),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text('Call')
+                                ],
+                              )),
+                        ),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * .70,
+                        //   height: MediaQuery.of(context).size.width * .15,
+                        //   child: ElevatedButton(
+                        //       style: ButtonStyle(
+                        //           foregroundColor: MaterialStateProperty.all<Color>(
+                        //               AppColors.systemWhite),
+                        //           backgroundColor: MaterialStateProperty.all<Color>(
+                        //               AppColors.primaryColor),
+                        //           shape: MaterialStateProperty.all<
+                        //                   RoundedRectangleBorder>(
+                        //               RoundedRectangleBorder(
+                        //                   borderRadius: BorderRadius.circular(12.0),
+                        //                   side: BorderSide(
+                        //                       color: AppColors.primaryColor)))),
+                        //       onPressed: _onLocationTapped,
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           Icon(Icons.directions_outlined),
+                        //           Text("Location"),
+                        //         ],
+                        //       )),
+                        // )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
-
-        // body: ListView(
-        //   // mainAxisAlignment: MainAxisAlignment.start,
-        //   // crossAxisAlignment: CrossAxisAlignment.stretch,
-        //   children: [
-        //     ImageBanner(_hostelListModel.image),
-        //     Container(
-        //       // margin: EdgeInsets.only(top: -10),
-        //       color: Colors.yellow,
-        //       child: SizedBox(
-        //         height: 500,
-        //       ),
-        //     )
-        //     // Row(
-        //     //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //     //   children: [
-        //     //     Expanded(
-        //     //       flex: 2,
-        //     //       child: ElevatedButton(
-        //     //         style: ElevatedButton.styleFrom(primary: Colors.green),
-        //     //         onPressed: _onLocationTapped,
-        //     //         child: Text(
-        //     //           "Location",
-        //     //           style: TextStyle(fontSize: 20, color: Colors.white),
-        //     //         ),
-        //     //       ),
-        //     //     ),
-        //     //     Expanded(
-        //     //       flex: 2,
-        //     //       child: ElevatedButton(
-        //     //         style: ElevatedButton.styleFrom(primary: Colors.blue),
-        //     //         onPressed: _onCallButtonTapped,
-        //     //         child: Text(
-        //     //           "Call",
-        //     //           style: TextStyle(fontSize: 20, color: Colors.white),
-        //     //         ),
-        //     //       ),
-        //     //     )
-        //     //   ],
-        //     // )
-        //   ],
-        // )
       ),
     );
   }
@@ -255,5 +263,33 @@ class HostelDetailsScreen extends StatelessWidget {
     // } else {
     //   throw 'Could not launch $url';
     // }
+  }
+}
+
+class AmnityWidget extends StatelessWidget {
+  final String _text;
+  final Icon _icon;
+  AmnityWidget(this._text, this._icon);
+  // const AminityWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
+      margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _icon,
+          Text(
+            _text,
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+          )
+        ],
+      ),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+    );
   }
 }
