@@ -3,30 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/CustomWidgets/imagebanner.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart' as URLLauncher;
 
 class HostelDetailsScreen extends StatelessWidget {
-  final HostelListModel _hostelListModel;
-  final List<String> imgList = [
-    'https://picsum.photos/id/1/300/200',
-    'https://picsum.photos/id/2/300/200',
-    'https://picsum.photos/id/3/300/200',
-    'https://picsum.photos/id/4/300/200',
-    'https://picsum.photos/id/5/300/200',
-    'https://picsum.photos/id/6/300/200'
-  ];
-
-  final List<String> localImages = [
-    'assets/images/room1.jpeg',
-    'assets/images/room2.jpeg',
-    'assets/images/room1.jpeg',
-    'assets/images/room2.jpeg',
-  ];
-
-  HostelDetailsScreen(this._hostelListModel);
+  HostelListModel? _hostelListModel;
+  final int _index;
+  HostelDetailsScreen(this._index);
   @override
   Widget build(BuildContext context) {
+    _hostelListModel = context.watch<HostelProvider>().hostels[_index];
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -46,9 +34,9 @@ class HostelDetailsScreen extends StatelessWidget {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.3,
               child: Swiper(
-                itemCount: _hostelListModel.images.length,
+                itemCount: _hostelListModel!.images.length,
                 itemBuilder: (context, index) => Image.network(
-                  _hostelListModel.images[index],
+                  _hostelListModel!.images[index],
                   fit: BoxFit.fill,
                 ),
                 pagination:
@@ -114,14 +102,14 @@ class HostelDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _hostelListModel.name,
+                        _hostelListModel!.name,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Text(
-                          _hostelListModel.address,
+                          _hostelListModel!.address,
                           style: TextStyle(color: Colors.grey[600]),
                         ),
                       ),
@@ -133,10 +121,10 @@ class HostelDetailsScreen extends StatelessWidget {
                       Row(
                         children: [
                           AmnityWidget(
-                              _hostelListModel.hasFood ? "food" : "no food",
+                              _hostelListModel!.hasFood ? "food" : "no food",
                               Icon(Icons.food_bank)),
                           AmnityWidget(
-                              _hostelListModel.hasRoom ? "room" : "dormitory",
+                              _hostelListModel!.hasRoom ? "room" : "dormitory",
                               Icon(Icons.bed))
                         ],
                       ),
@@ -221,11 +209,11 @@ class HostelDetailsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Warden: ${_hostelListModel.warden}',
+                                'Warden: ${_hostelListModel!.warden}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                              Text('+91 ${_hostelListModel.phoneNum}')
+                              Text('+91 ${_hostelListModel!.phoneNum}')
                             ],
                           ),
                         ),
@@ -317,7 +305,7 @@ class HostelDetailsScreen extends StatelessWidget {
   }
 
   void _onLocationTapped() {
-    MapsLauncher.launchQuery(_hostelListModel.location);
+    MapsLauncher.launchQuery(_hostelListModel!.location);
     // MapsLauncher.launchCoordinates(8.557810283707571, 76.8716414692874);
   }
 
@@ -325,7 +313,7 @@ class HostelDetailsScreen extends StatelessWidget {
     // var url = _hostelListModel.phoneNum;
     // if (await canLaunch(url)) {
     // await launch(url);
-    await URLLauncher.launch('tel:+${_hostelListModel.phoneNum.toString()}');
+    await URLLauncher.launch('tel:+${_hostelListModel!.phoneNum.toString()}');
     // } else {
     //   throw 'Could not launch $url';
     // }

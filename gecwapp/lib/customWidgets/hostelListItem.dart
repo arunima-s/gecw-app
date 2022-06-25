@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Screens/hostelDetailsScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
+import 'package:provider/provider.dart';
 
 class HostelListItem extends StatelessWidget {
-  HostelListModel hostelListModel;
-  HostelListItem(this.hostelListModel);
+  final int index;
+  HostelListItem(this.index);
 
   @override
   Widget build(BuildContext context) {
+    final hostelListModel = context.watch<HostelProvider>().hostels[index];
     return Container(
       margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
       // width: MediaQuery.of(context).size.width * 0.8,
@@ -82,9 +85,7 @@ class HostelListItem extends StatelessWidget {
   }
 
   void onDetailsTap(BuildContext context, HostelListModel hostelListModel) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HostelDetailsScreen(hostelListModel)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => HostelDetailsScreen(index)));
   }
 }

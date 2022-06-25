@@ -66,7 +66,7 @@ class HostelListScreen extends StatelessWidget {
                           },
                           itemCount: hostelData.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return HostelListItem(hostelData[index]);
+                            return HostelListItem(index);
                           },
                         ),
                       ),
