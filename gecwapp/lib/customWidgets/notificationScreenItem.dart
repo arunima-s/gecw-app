@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
@@ -63,9 +64,9 @@ class NotificationScreenItems extends StatelessWidget {
 
   deleteNotification(BuildContext context) async {
     final notificationRef = await FirebaseDatabase.instance.reference();
-    // notificationRef.child(FirebaseKeys.notifications).once().then((DataSnapshot snapshot) {
-    //   final data = snapshot.value as List;
-    // });
+    final storageRef =
+        await FirebaseStorage.instance.refFromURL(notificationItem!.image);
+    storageRef.delete();
     context.read<NotificationProvider>().deleteNotification(index);
     await notificationRef
         .child(FirebaseKeys.notifications)

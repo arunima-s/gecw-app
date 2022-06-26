@@ -21,9 +21,10 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print('------------Main Screen------------------');
     notificationsList = context.watch<NotificationProvider>().notifications;
-    context.read<UserProvider>().fetchUserDetails;
+
     // context.read<NotificationProvider>().getNotifications;
     if (notificationsList.isEmpty) {
+      context.read<UserProvider>().fetchUserDetails();
       context.read<NotificationProvider>().getNotifications();
     }
     return SafeArea(
