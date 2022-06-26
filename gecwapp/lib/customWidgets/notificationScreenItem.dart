@@ -7,6 +7,7 @@ import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
@@ -41,9 +42,15 @@ class NotificationScreenItems extends StatelessWidget {
             // color: Colors.red,
             width: MediaQuery.of(context).size.width * 0.3,
             margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-            child: Text(
-              notificationItem!.details,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(notificationItem!.eventDate),
+                Text(
+                  notificationItem!.details,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                ),
+              ],
             ),
           ),
           userId == notificationItem!.userId
