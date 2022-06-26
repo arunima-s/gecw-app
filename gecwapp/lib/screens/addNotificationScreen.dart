@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class AddNotificationScreen extends StatefulWidget {
   final int notificationCount;
@@ -18,6 +19,7 @@ class AddNotificationScreen extends StatefulWidget {
 
 class _AddNotificationScreenState extends State<AddNotificationScreen> {
   File? image;
+  DateTime selectedDate = DateTime.now();
   bool progressEnabled = false;
   TextEditingController tapUrlController = new TextEditingController();
   TextEditingController detailsController = new TextEditingController();
@@ -27,36 +29,46 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            ListView(
+              // shrinkWrap: true,
+              // scrollDirection: Axis.vertical,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: 100,
+                ),
                 GestureDetector(
-                  child: Container(
-                      height: 200,
-                      width: 300,
-                      margin: const EdgeInsets.all(15.0),
-                      padding: const EdgeInsets.all(3.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.systemWhite,
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //       color: AppColors.grey3,
-                        //       offset: Offset(2.0, 2.0),
-                        //       spreadRadius: 3.0,
-                        //       blurRadius: 2.0)
-                        // ]
-                      ),
-                      child: Center(
-                        child: image != null
-                            ? Image.file(image!)
-                            : Text("Pick an image"),
-                      )),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                        height: 200,
+                        width: 300,
+                        margin: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: AppColors.systemWhite,
+                        ),
+                        child: Center(
+                          child: image != null
+                              ? Image.file(image!)
+                              : Text("Pick an image"),
+                        )),
+                  ),
                   onTap: () {
                     pickImage();
                   },
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                      child:
+                          Text(DateFormat('yyyy-MM-dd').format(selectedDate))),
                 ),
                 TextField(
                   controller: tapUrlController,
@@ -71,21 +83,24 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                   decoration: InputDecoration(
                       border: InputBorder.none, hintText: 'Enter details'),
                 ),
-                ElevatedButton(
-                    onPressed: (() {
-                      if (!tapUrlController.text.isEmpty &&
-                          !detailsController.text.isEmpty) {
-                        setState(() {
-                          progressEnabled = true;
-                        });
-                        uploadImage(context);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Enter all details"),
-                        ));
-                      }
-                    }),
-                    child: Text("Upload notification"))
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                      onPressed: (() {
+                        if (!tapUrlController.text.isEmpty &&
+                            !detailsController.text.isEmpty) {
+                          setState(() {
+                            progressEnabled = true;
+                          });
+                          uploadImage(context);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Enter all details"),
+                          ));
+                        }
+                      }),
+                      child: Text("Upload notification")),
+                )
               ],
             ),
             progressEnabled ? LoaderTransparent() : Container()
@@ -95,13 +110,9 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
     );
   }
 
-  // checkButtonStatus() {
-  //   setState(() {
-  //     isButtonDisabled =
-  //         tapUrlController.text.isEmpty && detailsController.text.isEmpty;
-  //   });
-  // }
-
+/////////////
+////////////////
+///////////////Pick image
   pickImage() async {
     var _image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, maxHeight: 200, maxWidth: 300);
@@ -111,11 +122,22 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         image = imageFile;
       });
     }
-    // print(_image?.path);
-    // final tempImage = File(_image!.path);
-    // setState(() {
-    //   image = tempImage;
-    // });
+  }
+
+///////////
+//////////////
+/////////////DatePicker
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
   }
 
   uploadImage(BuildContext context) async {
@@ -147,7 +169,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         tapUrlController.text,
         detailsController.text,
         uid.toString(),
-        timeStamp);
+        timeStamp,
+        DateFormat('yyyy-MM-dd').format(selectedDate));
     await notificationRef
         .child(timeStamp)
         // .child((widget.notificationCount + 1).toString())

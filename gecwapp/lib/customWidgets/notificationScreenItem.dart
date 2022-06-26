@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
@@ -6,6 +7,7 @@ import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
@@ -40,9 +42,15 @@ class NotificationScreenItems extends StatelessWidget {
             // color: Colors.red,
             width: MediaQuery.of(context).size.width * 0.3,
             margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-            child: Text(
-              notificationItem!.details,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(notificationItem!.eventDate),
+                Text(
+                  notificationItem!.details,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                ),
+              ],
             ),
           ),
           userId == notificationItem!.userId
@@ -63,9 +71,9 @@ class NotificationScreenItems extends StatelessWidget {
 
   deleteNotification(BuildContext context) async {
     final notificationRef = await FirebaseDatabase.instance.reference();
-    // notificationRef.child(FirebaseKeys.notifications).once().then((DataSnapshot snapshot) {
-    //   final data = snapshot.value as List;
-    // });
+    final storageRef =
+        await FirebaseStorage.instance.refFromURL(notificationItem!.image);
+    storageRef.delete();
     context.read<NotificationProvider>().deleteNotification(index);
     await notificationRef
         .child(FirebaseKeys.notifications)
