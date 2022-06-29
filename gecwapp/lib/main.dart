@@ -8,6 +8,7 @@ import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/homeScreen.dart';
 import 'package:gecwapp/screens/loginScreen.dart';
+import 'package:gecwapp/screens/mainScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,4 +64,33 @@ class _MyAppState extends State<MyApp> {
   //
   ///////////Local Notifications
 
+  Future<void> init() async {
+    //Initialization Settings for Android
+    final AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+
+    //Initialization Settings for iOS
+    final IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+
+    //InitializationSettings for initializing settings for both platforms (Android & iOS)
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS);
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+  }
+
+  Future selectNotification(String payload) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (context) => MainScreen()),
+    );
+  }
 }
