@@ -9,7 +9,6 @@ import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/homeScreen.dart';
 import 'package:gecwapp/screens/loginScreen.dart';
-import 'package:gecwapp/screens/mainScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,7 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var isLoggedIn = false;
 
   @override
@@ -41,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     Firebase.initializeApp();
     loadPrefs();
-    // initNotifications();
+    initNotifications();
   }
 
   @override
@@ -64,34 +63,24 @@ class _MyAppState extends State<MyApp> {
 
   //
   ///////////Local Notifications
-
-  Future<void> init() async {
-    //Initialization Settings for Android
-    final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-
-    //Initialization Settings for iOS
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
-      requestSoundPermission: false,
-      requestBadgePermission: false,
-      requestAlertPermission: false,
-    );
-
-    //InitializationSettings for initializing settings for both platforms (Android & iOS)
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS);
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+  ///
+  void initNotifications() {
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSetttings = new InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
   }
 
-  Future selectNotification(String payload) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (context) => MainScreen()),
+  Future onSelectNotification(String payload) {
+    debugPrint("payload : $payload");
+    showDialog(
+      context: context,
+      builder: (_) => new AlertDialog(
+        title: new Text('Notification'),
+        content: new Text('$payload'),
+      ),
     );
   }
 }
