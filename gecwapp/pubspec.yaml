@@ -43,6 +43,8 @@ dependencies:
   # focus_detector: ^2.0.1
   #provider
   provider: ^6.0.3
+  #local notifications
+  flutter_local_notifications: ^9.6.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,7 +52,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   card_swiper: ^2.0.3
   syncfusion_flutter_calendar: ^20.1.52
-  flutter_local_notifications: ^9.5.2
+  # flutter_local_notifications: ^9.5.2
 
 
 

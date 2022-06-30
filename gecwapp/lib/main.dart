@@ -32,7 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var isLoggedIn = false;
 
   @override
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     Firebase.initializeApp();
     loadPrefs();
-    // initNotifications();
+    initNotifications();
   }
 
   @override
@@ -62,102 +62,25 @@ class _MyAppState extends State<MyApp> {
   }
 
   //
-  //Notifications
-  Future<void> initNotifications() async {
-    final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-
-    // final IOSInitializationSettings initializationSettingsIOS =
-    //     IOSInitializationSettings(
-    //   requestSoundPermission: false,
-    //   requestBadgePermission: false,
-    //   requestAlertPermission: false,
-    //   onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-    // );
-
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            // iOS: initializationSettingsIOS,
-            macOS: null);
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+  ///////////Local Notifications
+  ///
+  void initNotifications() {
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSetttings = new InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
   }
 
-  Future selectNotification(String payload) async {
-    //Handle notification tapped logic here
+  Future onSelectNotification(String payload) {
+    debugPrint("payload : $payload");
+    showDialog(
+      context: context,
+      builder: (_) => new AlertDialog(
+        title: new Text('Notification'),
+        content: new Text('$payload'),
+      ),
+    );
   }
-
-  // Future onSelectNotification(String? payload) async {
-  //   // showDialog(
-  //   //   context: context,
-  //   //   builder: (_) {
-  //   //     return new AlertDialog(
-  //   //       title: Text("PayLoad"),
-  //   //       content: Text("Payload : $payload"),
-  //   //     );
-  //   //   },
-  //   // );
-  // }
 }
-
-// class MyApp extends StatelessWidget {
-//   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-//   @override
-//   Widget build(BuildContext context) {
-//     initNotifications();
-//     return MaterialApp(
-//       home: HomeScreen(),
-//     );
-//   }
-
-//   void initNotifications() {
-//     final AndroidInitializationSettings initializationSettingsAndroid =
-//         AndroidInitializationSettings('app_icon');
-
-//     // final IOSInitializationSettings initializationSettingsIOS =
-//     //     IOSInitializationSettings(
-//     //   requestSoundPermission: false,
-//     //   requestBadgePermission: false,
-//     //   requestAlertPermission: false,
-//     //   onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-//     // );
-
-//     final InitializationSettings initializationSettings =
-//         InitializationSettings(
-//       android: initializationSettingsAndroid,
-//       // iOS: initializationSettingsIOS,
-//       // macOS: null
-//     );
-//     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-//     flutterLocalNotificationsPlugin.initialize(initializationSettings,
-//         onSelectNotification: onSelectNotification);
-//   }
-
-//   Future onSelectNotification(String payload) async {
-//     showDialog(
-//       context: context,
-//       builder: (_) {
-//         return new AlertDialog(
-//           title: Text("PayLoad"),
-//           content: Text("Payload : $payload"),
-//         );
-//       },
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatefulWidget {
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Text("Hello"),
-//     );
-//   }
-// }
