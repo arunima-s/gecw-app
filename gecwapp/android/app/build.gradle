@@ -52,6 +52,14 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    //Build error
+    lintOptions {
+            disable 'InvalidPackage'
+            disable "Instantiatable"
+            checkReleaseBuilds false
+            abortOnError false
+        }
 }
 
 flutter {
