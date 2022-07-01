@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Providers/calendardata_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
@@ -70,15 +71,24 @@ class NotificationScreenItems extends StatelessWidget {
   }
 
   deleteNotification(BuildContext context) async {
-    final notificationRef = await FirebaseDatabase.instance.reference();
+    //////
+    //////Notification Delete
+    final notificationRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.notifications);
     final storageRef =
         await FirebaseStorage.instance.refFromURL(notificationItem!.image);
     storageRef.delete();
     context.read<NotificationProvider>().deleteNotification(index);
-    await notificationRef
-        .child(FirebaseKeys.notifications)
-        .child(notificationItem!.timeStamp)
-        .remove();
-    // print(notificationItem);
+    await notificationRef.child(notificationItem!.timeStamp).remove();
+
+    //////
+    //////Calendar Delete
+    context.read<CalendarDataProvider>().deleteNotification(index);
+
+    final calendarRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.calendar);
+    await calendarRef.child(notificationItem!.timeStamp).remove();
   }
 }

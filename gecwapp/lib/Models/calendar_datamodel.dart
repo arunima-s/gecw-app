@@ -8,12 +8,6 @@ class CalendarDataModel {
         date = json['date'] as String,
         details = json['detail'] as String;
 
-  // Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
-  //       'image': image,
-  //       'link': link,
-  //       'details': details,
-  //       'uuid': userId,
-  //       'time': timeStamp,
-  //       'eventDate': eventDate
-  //     };
+  Map<dynamic, dynamic> toJson() =>
+      <dynamic, dynamic>{'title': title, 'date': date, 'detail': details};
 }
