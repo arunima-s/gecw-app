@@ -19,4 +19,5 @@ class FirebaseKeys {
   static const notifications = "notifications";
   static const hostels = "hostels";
   static const users = "users";
+  static const calendar = "calendar";
 }
