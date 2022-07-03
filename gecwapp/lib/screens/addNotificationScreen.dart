@@ -24,6 +24,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   bool progressEnabled = false;
   TextEditingController tapUrlController = new TextEditingController();
   TextEditingController detailsController = new TextEditingController();
+  TextEditingController nameController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +72,12 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                       },
                       child:
                           Text(DateFormat('yyyy-MM-dd').format(selectedDate))),
+                ),
+                TextField(
+                  controller: nameController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: InputBorder.none, hintText: 'Enter name'),
                 ),
                 TextField(
                   controller: tapUrlController,
@@ -171,6 +179,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
     final uid = await FirebaseAuth.instance.currentUser?.uid;
     final notificationModel = NotificationModel(
         imageUrl,
+        nameController.text,
         tapUrlController.text,
         detailsController.text,
         uid.toString(),
@@ -178,7 +187,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         DateFormat('yyyy-MM-dd').format(selectedDate));
 
     final calendarModel = CalendarDataModel(
-        "title",
+        nameController.text,
         DateFormat('yyyy-MM-dd hh:mm:ss').format(selectedDate),
         detailsController.text);
 

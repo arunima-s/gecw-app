@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => NotificationProvider()),
@@ -40,7 +42,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
+    initFirebase();
+
+    initCM();
     loadPrefs();
     initNotifications();
   }
@@ -51,6 +55,12 @@ class _MyAppState extends State<MyApp> {
       // home: HomeScreen(),
       home: isLoggedIn ? HomeScreen() : LoginScreen(),
     );
+  }
+
+  ///////
+  /////
+  Future initFirebase() async {
+    await Firebase.initializeApp();
   }
 
   //
@@ -84,5 +94,23 @@ class _MyAppState extends State<MyApp> {
         content: new Text('$payload'),
       ),
     );
+  }
+
+  /////////
+  ///////Cloud messaging
+  ///
+  initCM() async {
+    FirebaseMessaging messaging = await FirebaseMessaging.instance;
+    messaging.getToken().then((value) {
+      print("///////////////////////////////////$value/////////////////////");
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      print("message recieved");
+      print(event.notification.body);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print('Message clicked!');
+    });
   }
 }

@@ -104,7 +104,7 @@ class CalendarScreen extends StatelessWidget {
     //     Meeting('Veruthe', startTime, endTime, const Color(0xFF0F8644), false));
 
     notificationsList.map((e) {
-      meetings.add(Meeting(e.details, DateTime.parse(e.date), startTime,
+      meetings.add(Meeting(e.title, DateTime.parse(e.date), endTime,
           const Color(0xFF0F8644), false));
     }).toList();
     // meetings.add(Meeting(
@@ -115,36 +115,4 @@ class CalendarScreen extends StatelessWidget {
     //     false));
     return meetings;
   }
-
-  //   Future getCalendarData() async {
-  //   print(
-  //       "**************************************************************************************************************************************************************************************************************");
-  //   final databaseRef =
-  //       await FirebaseDatabase.instance.reference(); //database reference object
-  //   await databaseRef
-  //       .child(FirebaseKeys.calendar)
-  //       .once()
-  //       .then((DataSnapshot snapshot) {
-  //     final data = snapshot.value as Map<dynamic, dynamic>;
-  //     _notifications =
-  //         data.values.map((e) => NotificationModel.fromJson(e)).toList();
-  //     notifyListeners();
-  //   });
-  // }
-
-  // Future _showNotificationWithDefaultSound() async {
-  //   var flutterLocalNotificationsPlugin;
-  //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-  //       'your channel id', 'your channel name',
-  //       importance: Importance.max, priority: Priority.high);
-  //   // var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-  //   var platformChannelSpecifics = new NotificationDetails();
-  //   await flutterLocalNotificationsPlugin.show(
-  //     0,
-  //     'New Post',
-  //     'How to Show Notification in Flutter',
-  //     platformChannelSpecifics,
-  //     payload: 'Default_Sound',
-  //   );
-  // }
 }

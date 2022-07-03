@@ -8,7 +8,6 @@ import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
@@ -47,6 +46,7 @@ class NotificationScreenItems extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(notificationItem!.eventDate),
+                Text(notificationItem!.name),
                 Text(
                   notificationItem!.details,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
