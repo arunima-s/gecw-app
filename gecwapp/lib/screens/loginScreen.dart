@@ -12,6 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+
 class LoginScreen extends StatelessWidget {
   // const LoginScreen({Key? key}) : super(key: key);
 
@@ -24,6 +27,22 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(hintText: 'Email'),
+              ),
+              TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    loginButtonTapped(context);
+                  },
+                  child: Text('Login')),
+
               Text("Login"),
               // Login Button
               Container(
@@ -41,7 +60,9 @@ class LoginScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(
                                         color: AppColors.primaryColor)))),
-                    onPressed: null,
+                    onPressed: () {
+                      signInWithGoogle(context);
+                    },
                     child: Row(
                       children: [
                         Image.asset('assets/images/google24.png'),
@@ -83,25 +104,27 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  // Future<void> signInWithGoogle() async {
-  //   // Trigger the authentication flow
-  //   final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  Future loginButtonTapped(BuildContext context) async {
+    final email = _emailController.text;
+    final password = _passwordController.text;
 
-  //   // Obtain the auth details from the request
-  //   final GoogleSignInAuthentication googleAuth =
-  //       await googleUser?.authentication;
-
-  //   // Create a new credential
-  //   final credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth?.accessToken,
-  //     idToken: googleAuth?.idToken,
-  //   );
-
-  //   print(await FirebaseAuth.instance.signInWithCredential(credential));
-
-  //   // Once signed in, return the UserCredential
-  //   // return await FirebaseAuth.instance.signInWithCredential(credential);
-  // }
+    if (await FirebaseAuth.instance.currentUser != null) {
+      // signed in
+      final User? user = (await _auth.signInWithEmailAndPassword(
+              email: email, password: password))
+          .user;
+      if (user != null) {
+        createUser(user, context);
+      }
+    } else {
+      final User? user = (await _auth.createUserWithEmailAndPassword(
+              email: email, password: password))
+          .user;
+      if (user != null) {
+        createUser(user, context);
+      }
+    }
+  }
 
   Future<void> signInWithGoogle(BuildContext context) async {
     final GoogleSignInAccount? googleSignInAccount =
@@ -118,16 +141,13 @@ class LoginScreen extends StatelessWidget {
     assert(await user?.getIdToken() != null);
     final User currentUser = await _auth.currentUser!;
     assert(user?.uid == currentUser.uid);
-    createUser(user!);
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+    createUser(user!, context);
+  }
 
+  Future<void> createUser(User currentUser, BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(SharedKeys.loginStatus, true);
     prefs.setInt(SharedKeys.userAccess, 2);
-  }
-
-  Future<void> createUser(User currentUser) async {
     final databaseRef =
         FirebaseDatabase.instance.reference(); //database reference object
     await databaseRef
@@ -140,16 +160,12 @@ class LoginScreen extends StatelessWidget {
         databaseRef
             .child(FirebaseKeys.users)
             .child(currentUser.uid)
-            .set(userModel.toJson());
-        // databaseRef.child('users').child(currentUser.uid).set({"world": 0});
+            .set(userModel.toJson())
+            .whenComplete(() {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+        });
       }
-      // final data = snapshot.value as List<dynamic>;
-      // print(data);
-      // final notifications =
-      //     data.map((e) => NotificationModel.fromJson(e)).toList();
-      // setState(() {
-      //   notificationsList = notifications;
-      // });
     });
   }
 }
