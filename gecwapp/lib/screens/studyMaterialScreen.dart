@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Screens/semesterScreen.dart';
 import 'package:gecwapp/screens/hostelListScreen.dart';
@@ -12,6 +13,9 @@ class HomeScreenMenu extends StatefulWidget {
 }
 
 class _HomeScreenMenuState extends State<HomeScreenMenu> {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      new FlutterLocalNotificationsPlugin();
+
   var screenType = 0;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
       children: [
         Row(
           children: [
-                        GestureDetector(
+            GestureDetector(
                 onTap: () => {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => HostelListScreen()))
@@ -38,21 +42,55 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                           builder: (context) => StudyMaterialsScreen()))
                     },
                 child: StudyMenuItem("assets/images/notes.png", "Notes")),
-            GestureDetector(child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
-            onTap: () => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ScholarshipScreen()))
-                    },),
+            GestureDetector(
+              child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
+              onTap: () => {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ScholarshipScreen()))
+              },
+            ),
           ],
         ),
         Row(
           children: [
             StudyMenuItem("assets/images/notes.png", "Notes"),
-            StudyMenuItem("assets/images/notes.png", "Notes"),
+            GestureDetector(
+              child: StudyMenuItem("assets/images/notes.png", "Notes"),
+              onTap: () {
+                showNotification();
+              },
+            ),
           ],
         )
       ],
     );
+  }
+
+  // Future _showNotificationWithDefaultSound() async {
+  //   print('///////////////////////////////////');
+  //   var flutterLocalNotificationsPlugin;
+  //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+  //       'your channel id', 'your channel name',
+  //       importance: Importance.max, priority: Priority.high);
+  //   // var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+  //   var platformChannelSpecifics = new NotificationDetails();
+  //   await flutterLocalNotificationsPlugin.show(
+  //     0,
+  //     'New Post',
+  //     'How to Show Notification in Flutter',
+  //     platformChannelSpecifics,
+  //     payload: 'Default_Sound',
+  //   );
+  // }
+
+  Future showNotification() async {
+    var android = new AndroidNotificationDetails('channel id', 'channel NAME',
+        priority: Priority.high, importance: Importance.max);
+    var iOS = new IOSNotificationDetails();
+    var platform = new NotificationDetails(android: android, iOS: iOS);
+    await flutterLocalNotificationsPlugin.show(
+        0, 'New Video is out', 'Flutter Local Notification', platform,
+        payload: 'Nitish Kumar Singh is part time Youtuber');
   }
 }
 
