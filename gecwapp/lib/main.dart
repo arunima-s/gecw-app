@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initFirebase();
 
-    initCM();
+    // initCM();
     loadPrefs();
     initNotifications();
   }
@@ -61,7 +61,9 @@ class _MyAppState extends State<MyApp> {
   ///////
   /////
   Future initFirebase() async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp().whenComplete(() {
+      initCM();
+    });
   }
 
   //
