@@ -1,15 +1,23 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Providers/calendardata_provider.dart';
+import 'package:gecwapp/Providers/notification_provider.dart';
+import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
-
-
+import 'package:provider/provider.dart';
 
 class NotificationScreenItems extends StatelessWidget {
-  final NotificationModel notificationItem;
-  NotificationScreenItems(this.notificationItem);
+  NotificationModel? notificationItem;
+  final int index;
+  NotificationScreenItems(this.index);
   @override
   Widget build(BuildContext context) {
+    notificationItem =
+        context.watch<NotificationProvider>().notifications[index];
+    final userId = context.watch<UserProvider>().uuId;
     return Container(
       // width: 10,
       decoration: BoxDecoration(
@@ -22,48 +30,65 @@ class NotificationScreenItems extends StatelessWidget {
                 spreadRadius: 3.0,
                 blurRadius: 2.0)
           ]),
-          // margin: EdgeInsets.only(top: 10),
+      // margin: EdgeInsets.only(top: 10),
       margin: EdgeInsets.fromLTRB(20, 5, 20, 0),
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image.asset("assets/images/room2.jpeg", width: MediaQuery.of(context).size.width * 0.5,),
-          // Image.network(notificationItem.image, width: MediaQuery.of(context).size.width * 0.5,),
-          ImageBanner(notificationItem.image, MediaQuery.of(context).size.width * 0.5),
+          ImageBanner(
+              notificationItem!.image, MediaQuery.of(context).size.width * 0.5),
           Container(
             // color: Colors.red,
-            width:  MediaQuery.of(context).size.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.3,
             margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-            child: 
-                                  Text(
-                        notificationItem.details,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 10),
-                      ), 
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Padding(
-            //       padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-            //       child: Column(
-            //         children: [
-            //           Text(
-            //             "Adam Villa",
-            //             style: TextStyle(
-            //                 fontWeight: FontWeight.bold, fontSize: 10),
-            //           ),
-            //           Text("2000 per month", style: TextStyle(fontSize: 20),)
-            //         ],
-            //       ),
-            //     ),
-            //     // SizedBox(
-            //     //   width: 0.01,
-            //     // )
-            //   ],
-            // ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(notificationItem!.eventDate),
+                Text(notificationItem!.name),
+                Text(
+                  notificationItem!.details,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                ),
+              ],
+            ),
           ),
+          userId == notificationItem!.userId
+              ? Expanded(
+                  child: IconButton(
+                    // iconSize: 0.1,
+                    onPressed: () {
+                      deleteNotification(context);
+                    },
+                    icon: Icon(Icons.delete),
+                  ),
+                )
+              : SizedBox()
         ],
       ),
     );
+  }
+
+  deleteNotification(BuildContext context) async {
+    //////
+    //////Notification Delete
+    final notificationRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.notifications);
+    final storageRef =
+        await FirebaseStorage.instance.refFromURL(notificationItem!.image);
+    storageRef.delete();
+    context.read<NotificationProvider>().deleteNotification(index);
+    await notificationRef.child(notificationItem!.timeStamp).remove();
+
+    //////
+    //////Calendar Delete
+    context.read<CalendarDataProvider>().deleteNotification(index);
+
+    final calendarRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.calendar);
+    await calendarRef.child(notificationItem!.timeStamp).remove();
   }
 }

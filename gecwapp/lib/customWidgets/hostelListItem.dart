@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Screens/hostelDetailsScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
+import 'package:provider/provider.dart';
 
 class HostelListItem extends StatelessWidget {
-  HostelListModel hostelListModel;
-  HostelListItem(this.hostelListModel);
+  final int index;
+  HostelListItem(this.index);
 
   @override
   Widget build(BuildContext context) {
+    final hostelListModel = context.watch<HostelProvider>().hostels[index];
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+      // width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: AppColors.systemWhite,
@@ -22,26 +26,32 @@ class HostelListItem extends StatelessWidget {
                 spreadRadius: 3.0,
                 blurRadius: 2.0)
           ]),
-      margin: EdgeInsets.all(5),
+      // margin: EdgeInsets.all(5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImageBanner(hostelListModel.image, MediaQuery.of(context).size.width * 0.8),
+          ImageBanner(
+              hostelListModel.images.first, MediaQuery.of(context).size.width),
           Container(
-            margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+            // color: Colors.yellow,
+            // margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Adam Villa",
+                        hostelListModel.warden,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 10),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Text("2000 per month", style: TextStyle(fontSize: 20),)
+                      Text(
+                        hostelListModel.name,
+                        style: TextStyle(fontSize: 10),
+                      ),
                     ],
                   ),
                 ),
@@ -75,9 +85,7 @@ class HostelListItem extends StatelessWidget {
   }
 
   void onDetailsTap(BuildContext context, HostelListModel hostelListModel) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HostelDetailsScreen(hostelListModel)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => HostelDetailsScreen(index)));
   }
 }

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "6893811570",
+    "firebase_url": "https://gecwapp-c40be-default-rtdb.firebaseio.com",
     "project_id": "gecwapp-c40be",
     "storage_bucket": "gecwapp-c40be.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "6893811570-lgnn33ktebmmj1570jto041mu9kmaoon.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gecwapp",
+            "certificate_hash": "e54b4909969bdf6a8c427c74af862f4f086dd387"
+          }
+        },
         {
           "client_id": "6893811570-599n015osp0trh67ms2flumd9evl3it3.apps.googleusercontent.com",
           "client_type": 3

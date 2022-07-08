@@ -1,82 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/hostels_provider.dart';
+import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/customWidgets/hostelListItem.dart';
+import 'package:provider/provider.dart';
 
 class HostelListScreen extends StatelessWidget {
-      var dummyHostelData = [
-    HostelListModel(
-        "1",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "2",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "3",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds"),
-    HostelListModel(
-        "4",
-        "name",
-        "assets/images/room2.jpeg",
-        "https://goo.gl/maps/1uRL72EP91LrVsR26",
-        "9074746225",
-        "₹1250",
-        "For boys | With Food | 9 Beds")
-  ];
+  var hostelData = [];
+  // var userAccess;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getHostelList();
+  //   getSharedPrefs();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    // context.read<UserProvider>().fetchUserDetails;
+    // context.read<NotificationProvider>().getNotifications;
+    hostelData = context.watch<HostelProvider>().hostels;
+    int userAccess = context.watch<SharedPrefsProvider>().userAccess;
+    if (hostelData.isEmpty) {
+      context.read<HostelProvider>().fetchUserDetails();
+    }
+
+    // print(userAccess);
     return Scaffold(
-                          body: dummyHostelData.isEmpty
-                    ? CircularProgressIndicator()
-                    : 
-                    // ListView.builder(
-                    //     shrinkWrap: true,
-                    //     physics: ClampingScrollPhysics(),
-                    //     itemCount: hostelData.length,
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       return HostelListItem(hostelData[index]);
-                    //     },
-                    //   ),
-                    // child:
-                     SafeArea(
-                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Padding(
-                             padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                             child: Text("Hostels", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
-                           ),
-                           Expanded(
-                             child: ListView.separated(
-                              shrinkWrap: true,
-                              physics: ClampingScrollPhysics(),
-                              separatorBuilder: (BuildContext context, int index) {
-                                return SizedBox(height: 20);
-                              },
-                              itemCount: dummyHostelData.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return HostelListItem(dummyHostelData[index]);
-                              },
-                              ),
-                           ),
-                         ],
-                       ),
-                     )
-    );
+        body: hostelData.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Hostels",
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          ),
+                          userAccess == 2
+                              ? IconButton(
+                                  onPressed: () {
+                                    editHostel(context);
+                                  },
+                                  icon: Icon(Icons.edit))
+                              : SizedBox()
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        onRefresh:
+                            context.read<HostelProvider>().fetchUserDetails,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          // physics: ClampingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(height: 20);
+                          },
+                          itemCount: hostelData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return HostelListItem(index);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ));
+  }
+
+  editHostel(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Swantham aayi cheyy myre"),
+    ));
   }
 }

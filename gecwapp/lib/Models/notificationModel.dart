@@ -1,21 +1,25 @@
 class NotificationModel {
-  // final String id;
-  final String image, link, details;
-  // final String name;
-  // final String image;
-  // final String location;
+  final String image, name, link, details, userId, timeStamp, eventDate;
 
-  // HostelListModel(this.id, this.name, this.image, this.location);
-
-  NotificationModel(this.image, this.link, this.details);
+  NotificationModel(this.image, this.name, this.link, this.details, this.userId,
+      this.timeStamp, this.eventDate);
 
   NotificationModel.fromJson(Map<dynamic, dynamic> json)
-      // : date = DateTime.parse(json['date'] as String),
-      // : id = json['id'] as String,
-        : image = json['image'] as String,
+      : image = json['image'] as String,
+        name = json['name'] as String,
         link = json['link'] as String,
-        details = json['details'] as String;
+        details = json['details'] as String,
+        userId = json['uuid'] as String,
+        timeStamp = json['time'] as String,
+        eventDate = json['eventDate'] as String;
 
-  Map<dynamic, dynamic> toJson() =>
-      <dynamic, dynamic>{'image': image, 'link': link};
+  Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+        'image': image,
+        'name': name,
+        'link': link,
+        'details': details,
+        'uuid': userId,
+        'time': timeStamp,
+        'eventDate': eventDate
+      };
 }

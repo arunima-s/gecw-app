@@ -9,3 +9,15 @@ class AppColors {
   static const grey3 = Color.fromRGBO(189, 189, 199, 1);
   static const darkGrey = Color.fromRGBO(80, 80, 80, 1);
 }
+
+class SharedKeys {
+  static const userAccess = "userAccess";
+  static const loginStatus = "isLoggedIn";
+}
+
+class FirebaseKeys {
+  static const notifications = "notifications";
+  static const hostels = "hostels";
+  static const users = "users";
+  static const calendar = "calendar";
+}

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/CustomWidgets/navdrawer.dart';
 import 'package:gecwapp/CustomWidgets/tabbarMenu.dart';
+import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Screens/busTimings.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/screens/mainScreen.dart';
+import 'package:provider/provider.dart';
 
 import 'calendarScreen.dart';
 
@@ -11,6 +13,8 @@ class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    print('------------------Home Screen-------------------');
+    context.read<SharedPrefsProvider>().fetchSharedPrefs();
     return MaterialApp(
       home: DefaultTabController(
         length: 4,
@@ -18,14 +22,9 @@ class HomeScreen extends StatelessWidget {
           drawer: NavDrawer(),
           // appBar: CustomAppBar(),
           bottomNavigationBar: TabBarMenu(),
-          // bottomNavigationBar: Container(
-          //   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-          //   color: Colors.red,
-          //   height: 50,
-          //   // width: 5,
-          // ),
+
           body: TabBarView(children: [
-            Main(),
+            MainScreen(),
             // HostelList(),
             // WebScraperApp(),
             BusTiming(),
