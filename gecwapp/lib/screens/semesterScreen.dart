@@ -27,7 +27,8 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
     // TODO: implement initState
     super.initState();
     departmentNames = data.values.toList();
-    subjectList = DropDownDataset.subjectList["EEES3"]!;
+    subjectList =
+        DropDownDataset.subjectList["EEES3"]!.map((e) => e.first).toList();
     selectedSubject = subjectList.first;
   }
 
@@ -101,8 +102,6 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
             ),
             ////////////////////////////////////
             ///////////////////////////////////
-            //////////////////////////////////
-            /////////////////////////////////
             Text("Subjects"),
             Container(
               alignment: Alignment.center,
@@ -140,16 +139,19 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   }
 
   void setSubject() {
-    var dep = selectedDepartmentString + selectedSemesterString;
+    final dep = selectedDepartmentString + selectedSemesterString;
     setState(() {
-      subjectList = DropDownDataset.subjectList[dep]!;
+      subjectList =
+          DropDownDataset.subjectList[dep]!.map((e) => e.first).toList();
       selectedSubject = subjectList.first;
     });
   }
 
   void openDrive() async {
-    const _url =
-        "https://stackoverflow.com/questions/68610058/how-to-open-url-in-flutter-app-with-url-launcher";
+    final dep = selectedDepartmentString + selectedSemesterString;
+    final index = subjectList.indexOf(selectedSubject);
+    final _url = DropDownDataset.subjectList[dep]![index][1];
+    // "https://stackoverflow.com/questions/68610058/how-to-open-url-in-flutter-app-with-url-launcher";
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);
   }
