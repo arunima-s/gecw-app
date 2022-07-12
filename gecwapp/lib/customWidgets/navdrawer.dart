@@ -9,8 +9,8 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'Side menu',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              'GECWAPP',
+              style: TextStyle(color: Colors.black, fontSize: 25),
             ),
             decoration: BoxDecoration(
                 color: Colors.green,
@@ -18,11 +18,11 @@ class NavDrawer extends StatelessWidget {
                     fit: BoxFit.fill,
                     image: AssetImage('assets/images/room1.jpeg'))),
           ),
-          ListTile(
-            leading: Icon(Icons.input),
-            title: Text('Welcome'),
-            onTap: () => {},
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.input),
+          //   title: Text('Welcome'),
+          //   onTap: () => {},
+          // ),
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
