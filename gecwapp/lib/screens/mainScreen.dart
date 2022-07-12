@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/CustomWidgets/customAppbar.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Managers/hostelAPIManager.dart';
 
@@ -9,7 +8,9 @@ import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
+import 'package:gecwapp/customWidgets/customAppbar.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
+import 'package:gecwapp/customWidgets/navdrawer.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +23,6 @@ class MainScreen extends StatelessWidget {
     print('------------Main Screen------------------');
     notificationsList = context.watch<NotificationProvider>().notifications;
 
-    // context.read<NotificationProvider>().getNotifications;
     if (notificationsList.isEmpty) {
       context.read<UserProvider>().fetchUserDetails();
       context.read<NotificationProvider>().getNotifications();
@@ -30,9 +30,12 @@ class MainScreen extends StatelessWidget {
     return SafeArea(
       top: true,
       child: Scaffold(
+        drawer: NavDrawer(),
         body: Column(
           children: [
-            CustomAppBar(),
+            CustomAppBar(() {
+              passedopenDrawerFunc(context);
+            }),
             Expanded(
               child: ListView(
                 children: [
@@ -117,5 +120,9 @@ class MainScreen extends StatelessWidget {
   Future<void> openURL(String _url) async {
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+  }
+
+  void passedopenDrawerFunc(BuildContext context) {
+    Scaffold.of(context).openDrawer();
   }
 }

@@ -13,14 +13,17 @@ class UserProvider with ChangeNotifier {
   Future fetchUserDetails() async {
     print(
         "++++++++++++++++++++++++++++++++++++User provider+++++++++++++++++++++++++++");
-    _userId = await FirebaseAuth.instance.currentUser!.uid;
-    final userRef = await FirebaseDatabase.instance.reference().child('users');
-    await userRef.child(_userId).once().then((DataSnapshot snapshot) {
-      if (snapshot.value == null) {
-        final data = snapshot.value as Map<dynamic, dynamic>;
-        _userModel = UserModel.fromJson(data);
-        notifyListeners();
-      }
-    });
+    if (FirebaseAuth.instance.currentUser?.uid != null) {
+      _userId = await FirebaseAuth.instance.currentUser!.uid;
+      final userRef =
+          await FirebaseDatabase.instance.reference().child('users');
+      await userRef.child(_userId).once().then((DataSnapshot snapshot) {
+        if (snapshot.value == null) {
+          final data = snapshot.value as Map<dynamic, dynamic>;
+          _userModel = UserModel.fromJson(data);
+          notifyListeners();
+        }
+      });
+    }
   }
 }

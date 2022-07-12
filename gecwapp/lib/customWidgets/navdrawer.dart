@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/customWidgets/alert_dialog.dart';
+import 'package:gecwapp/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -9,8 +14,8 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'Side menu',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              'GECWAPP',
+              style: TextStyle(color: Colors.black, fontSize: 25),
             ),
             decoration: BoxDecoration(
                 color: Colors.green,
@@ -18,11 +23,11 @@ class NavDrawer extends StatelessWidget {
                     fit: BoxFit.fill,
                     image: AssetImage('assets/images/room1.jpeg'))),
           ),
-          ListTile(
-            leading: Icon(Icons.input),
-            title: Text('Welcome'),
-            onTap: () => {},
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.input),
+          //   title: Text('Welcome'),
+          //   onTap: () => {},
+          // ),
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
@@ -41,7 +46,22 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            // onTap: () => {Navigator.of(context).pop()},
+            onTap: () async {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext buildContext) {
+                    return AlertScreen(
+                        "You can always return using the credentials you signed up with",
+                        "Are you leaving??",
+                        "Logout");
+                  });
+              // SharedPreferences prefs = await SharedPreferences.getInstance();
+              // prefs.setBool(SharedKeys.loginStatus, false);
+              // await FirebaseAuth.instance.signOut().whenComplete(() {
+              //   RestartWidget.restartApp(context);
+              // });
+            },
           ),
         ],
       ),

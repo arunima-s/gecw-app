@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gecwapp/Screens/semesterScreen.dart';
 import 'package:gecwapp/screens/notificationScreen.dart';
 
 class CustomAppBar extends StatelessWidget {
-  // const CustomAppBar({Key? key}) : super(key: key);
-
+  final Function openDrawer;
+  CustomAppBar(this.openDrawer);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,9 +12,15 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(
-            Icons.menu,
-            size: 40,
+          IconButton(
+            onPressed: () {
+              // _key.currentState?.openDrawer();
+              Scaffold.of(context).openDrawer();
+            },
+            icon: Icon(
+              Icons.menu,
+              size: 40,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
