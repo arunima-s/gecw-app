@@ -25,10 +25,49 @@ void main() {
       ChangeNotifierProvider(create: (_) => SharedPrefsProvider()),
       ChangeNotifierProvider(create: (_) => CalendarDataProvider())
     ],
-    child: MyApp(),
+    child: RestartWidget(child: MyApp()),
   ));
   // runApp(MyApp());
 }
+
+////////////
+//////////
+///////////Restasrt widget
+
+class RestartWidget extends StatefulWidget {
+  RestartWidget({this.child});
+
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartWidgetState>().restartApp();
+  }
+
+  @override
+  _RestartWidgetState createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
+    );
+  }
+}
+
+//////////
+/////////
+////End restart widget
 
 class MyApp extends StatefulWidget {
   // const MyApp({Key? key}) : super(key: key);

@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -41,7 +45,15 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            // onTap: () => {Navigator.of(context).pop()},
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.setBool(SharedKeys.loginStatus, false);
+              await FirebaseAuth.instance.signOut().whenComplete(() {
+                RestartWidget.restartApp(context);
+              });
+              // Navigator.of(context).pop();
+            },
           ),
         ],
       ),
