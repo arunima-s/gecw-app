@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Providers/calendardata_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
@@ -91,6 +92,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // GWValues().setHeight(screenHeight);
     return MaterialApp(
       // home: HomeScreen(),
       home: isLoggedIn ? HomeScreen() : LoginScreen(),

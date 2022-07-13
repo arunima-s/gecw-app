@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
       body: Stack(
         children: [

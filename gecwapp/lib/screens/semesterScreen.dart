@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/datasets.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Screens/studyMaterialScreen.dart';
+import 'package:gecwapp/Constants/values.dart';
+import 'package:gecwapp/customWidgets/rounded_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StudyMaterialsScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class StudyMaterialsScreen extends StatefulWidget {
 }
 
 class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
+  final screenSizes = GWValues().getScreenSizes;
   var selectedSemesterString = "S3";
   var semesterNames = ["S1 - S2", "S3", "S4", "S5", "S6", "S7", "S8"];
   var selectedDepartmentString = "EEE";
@@ -24,7 +26,6 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     departmentNames = data.values.toList();
     subjectList =
@@ -38,9 +39,20 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
       content: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Semester"),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                  child: Text(
+                    "Semester",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 20),
@@ -71,7 +83,17 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
             ///////////////////////////////////
             //////////////////////////////////
             /////////////////////////////////
-            Text("Department"),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+                  child: Text(
+                    "Department",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 20),
@@ -101,8 +123,18 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
               ),
             ),
             ////////////////////////////////////
-            ///////////////////////////////////
-            Text("Subjects"),
+            ///////////////////////////////
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+                  child: Text(
+                    "Subjects",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(left: 20),
@@ -131,7 +163,12 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
                 },
               ),
             ),
-            ElevatedButton(onPressed: openDrive, child: Text("Get notes"))
+            // ElevatedButton(onPressed: openDrive, child: Text("Get notes"))
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: RoundedButton('Get Notes', openDrive, screenSizes[1] * 0.4,
+                  screenSizes[0] * 0.06),
+            )
           ],
         ),
       ),

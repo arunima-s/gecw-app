@@ -112,7 +112,8 @@ class DropDownDataset {
       ["Industrial Economics And Foreign Trade - (HUT300)", "", ""],
       ["Comprehensive Course Work - (CST308)", "", ""],
       ["Networking Lab - (CSL332)", "", ""],
-      ["Miniproject - (CSD334)", "", ""]
+      ["Miniproject - (CSD334)", "", ""],
+      ["Elective 1", "", ""],
     ],
     //////////////////////////////////
     /////////////////////////////////////
@@ -181,7 +182,8 @@ class DropDownDataset {
       ["Management For Engineers - (HUT310)", "", ""],
       ["Comrehensive Course Work - (EET308)", "", ""],
       ["Power Systems Lab - (EEL332)", "", ""],
-      ["Power Electronics Lab - (EEL334)", "", ""]
+      ["Power Electronics Lab - (EEL334)", "", ""],
+      ["Elective 1", "", ""],
     ],
     //////////////////////////////////
     /////////////////////////////////////
@@ -279,7 +281,8 @@ class DropDownDataset {
       ["Management For Engineers - (HUT310)", "", ""],
       ["Comprehensive Course Work - (MET308)", "", ""],
       ["Computer Aided Design & Analysis Lab - (MEL332)", "", ""],
-      ["Thermal Engineering Lab-Ii - (MEL334)", "", ""]
+      ["Thermal Engineering Lab-Ii - (MEL334)", "", ""],
+      ["Elective 1", "", ""],
     ],
     "ECS3": [
       ["Partial Differential Equation And Complex Analysis - (MAT201)", "", ""],
@@ -344,7 +347,8 @@ class DropDownDataset {
       ["Management For Engineers - (HUT310)", "", ""],
       ["Comprehensive Course Work - (ECT308)", "", ""],
       ["Communication Lab - (ECL332)", "", ""],
-      ["Miniproject - (ECD334)", "", ""]
+      ["Miniproject - (ECD334)", "", ""],
+      ["Elective 1", "", ""],
     ],
   };
 
