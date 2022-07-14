@@ -6,7 +6,9 @@ import 'package:gecwapp/customWidgets/rounded_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StudyMaterialsScreen extends StatefulWidget {
-  const StudyMaterialsScreen({Key? key}) : super(key: key);
+  // const StudyMaterialsScreen({Key? key}) : super(key: key);
+  final bool isSyllabus;
+  StudyMaterialsScreen(this.isSyllabus);
 
   @override
   State<StudyMaterialsScreen> createState() => _StudyMaterialsScreenState();
@@ -166,7 +168,10 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
             // ElevatedButton(onPressed: openDrive, child: Text("Get notes"))
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: RoundedButton('Get Notes', openDrive, screenSizes[1] * 0.4,
+              child: RoundedButton(
+                  widget.isSyllabus ? 'Get Syllabus' : 'Get Notes',
+                  openDrive,
+                  screenSizes[1] * 0.4,
                   screenSizes[0] * 0.06),
             )
           ],
@@ -187,7 +192,8 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   void openDrive() async {
     final dep = selectedDepartmentString + selectedSemesterString;
     final index = subjectList.indexOf(selectedSubject);
-    final _url = DropDownDataset.subjectList[dep]![index][1];
+    final _url =
+        DropDownDataset.subjectList[dep]![index][widget.isSyllabus ? 1 : 2];
     // "https://stackoverflow.com/questions/68610058/how-to-open-url-in-flutter-app-with-url-launcher";
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);

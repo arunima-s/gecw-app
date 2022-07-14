@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Screens/semesterScreen.dart';
 import 'package:gecwapp/screens/hostelListScreen.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
+import 'package:gecwapp/screens/semesterScreen.dart';
 
 class HomeScreenMenu extends StatefulWidget {
   const HomeScreenMenu({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                 onTap: () {
                   showDialog(
                       context: context,
-                      builder: (context) => StudyMaterialsScreen());
+                      builder: (context) => StudyMaterialsScreen(true));
                 },
                 child: StudyMenuItem("assets/images/notes.png", "Syllabus")),
             GestureDetector(
@@ -58,7 +58,13 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
         ),
         Row(
           children: [
-            StudyMenuItem("assets/images/notes.png", "Notes"),
+            GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => StudyMaterialsScreen(false));
+                },
+                child: StudyMenuItem("assets/images/notes.png", "Notes")),
             GestureDetector(
               child: StudyMenuItem("assets/images/notes.png", "Notes"),
               onTap: () {
