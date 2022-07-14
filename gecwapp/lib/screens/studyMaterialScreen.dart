@@ -51,7 +51,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
               child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
               onTap: () => {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ScholarshipScreen()))
+                    builder: (context) => ScholarShipScreen()))
               },
             ),
           ],
