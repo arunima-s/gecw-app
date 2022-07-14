@@ -10,8 +10,16 @@ class ScholarshipScreen extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Container(
-          child: ListView(
-            children: [ScholarshipItem(dataset.first)],
+          child: ListView.separated(
+            shrinkWrap: true,
+            // physics: ClampingScrollPhysics(),
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(height: 20);
+            },
+            itemCount: dataset.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ScholarshipItem(dataset[index]);
+            },
           ),
         ),
       ),
