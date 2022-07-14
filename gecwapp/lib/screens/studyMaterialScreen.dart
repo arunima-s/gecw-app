@@ -46,7 +46,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                       context: context,
                       builder: (context) => StudyMaterialsScreen());
                 },
-                child: StudyMenuItem("assets/images/notes.png", "Notes")),
+                child: StudyMenuItem("assets/images/notes.png", "Syllabus")),
             GestureDetector(
               child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
               onTap: () => {
