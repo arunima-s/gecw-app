@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/CustomWidgets/navdrawer.dart';
 import 'package:gecwapp/CustomWidgets/tabbarMenu.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
@@ -13,7 +14,11 @@ class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    print('------------------Home Screen-------------------');
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    GWValues().setScreenSizes = [screenHeight, screenWidth];
+    print(
+        '------------------Home Screen-------------------$screenHeight, $screenWidth');
     context.read<SharedPrefsProvider>().fetchSharedPrefs();
     return MaterialApp(
       home: DefaultTabController(

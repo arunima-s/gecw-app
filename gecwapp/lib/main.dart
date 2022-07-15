@@ -1,29 +1,74 @@
 // @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Constants/values.dart';
+import 'package:gecwapp/Providers/calendardata_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/homeScreen.dart';
-import 'package:gecwapp/screens/loginScreen.dart';
+import 'package:gecwapp/screens/LoginScreens/loginScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ChangeNotifierProvider(create: (_) => UserProvider()),
       ChangeNotifierProvider(create: (_) => HostelProvider()),
-      ChangeNotifierProvider(create: (_) => SharedPrefsProvider())
+      ChangeNotifierProvider(create: (_) => SharedPrefsProvider()),
+      ChangeNotifierProvider(create: (_) => CalendarDataProvider())
     ],
-    child: MyApp(),
+    child: RestartWidget(child: MyApp()),
   ));
   // runApp(MyApp());
 }
+
+////////////
+//////////
+///////////Restasrt widget
+
+class RestartWidget extends StatefulWidget {
+  RestartWidget({this.child});
+
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartWidgetState>().restartApp();
+  }
+
+  @override
+  _RestartWidgetState createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
+    );
+  }
+}
+
+//////////
+/////////
+////End restart widget
 
 class MyApp extends StatefulWidget {
   // const MyApp({Key? key}) : super(key: key);
@@ -32,23 +77,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var isLoggedIn = false;
 
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
+    initFirebase();
+
+    // initCM();
     loadPrefs();
-    // initNotifications();
+    initNotifications();
   }
 
   @override
   Widget build(BuildContext context) {
+    // GWValues().setHeight(screenHeight);
     return MaterialApp(
       // home: HomeScreen(),
       home: isLoggedIn ? HomeScreen() : LoginScreen(),
     );
+  }
+
+  ///////
+  /////
+  Future initFirebase() async {
+    await Firebase.initializeApp().whenComplete(() {
+      initCM();
+    });
   }
 
   //
@@ -62,102 +118,47 @@ class _MyAppState extends State<MyApp> {
   }
 
   //
-  //Notifications
-  Future<void> initNotifications() async {
-    final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-
-    // final IOSInitializationSettings initializationSettingsIOS =
-    //     IOSInitializationSettings(
-    //   requestSoundPermission: false,
-    //   requestBadgePermission: false,
-    //   requestAlertPermission: false,
-    //   onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-    // );
-
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            // iOS: initializationSettingsIOS,
-            macOS: null);
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+  ///////////Local Notifications
+  ///
+  void initNotifications() {
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSetttings = new InitializationSettings(android: android, iOS: iOS);
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
   }
 
-  Future selectNotification(String payload) async {
-    //Handle notification tapped logic here
+  Future onSelectNotification(String payload) {
+    debugPrint("payload : $payload");
+    showDialog(
+      context: context,
+      builder: (_) => new AlertDialog(
+        title: new Text('Notification'),
+        content: new Text('$payload'),
+      ),
+    );
   }
 
-  // Future onSelectNotification(String? payload) async {
-  //   // showDialog(
-  //   //   context: context,
-  //   //   builder: (_) {
-  //   //     return new AlertDialog(
-  //   //       title: Text("PayLoad"),
-  //   //       content: Text("Payload : $payload"),
-  //   //     );
-  //   //   },
-  //   // );
-  // }
+  /////////
+  ///////Cloud messaging
+  ///
+  initCM() async {
+    FirebaseMessaging messaging = await FirebaseMessaging.instance;
+    messaging.getToken().then((value) {
+      print("///////////////////////////////////$value/////////////////////");
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      print("message recieved");
+      print(event.notification.body);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print('Message clicked!');
+    });
+  }
+
+  //////////////
+  ///////////
+
 }
-
-// class MyApp extends StatelessWidget {
-//   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-//   @override
-//   Widget build(BuildContext context) {
-//     initNotifications();
-//     return MaterialApp(
-//       home: HomeScreen(),
-//     );
-//   }
-
-//   void initNotifications() {
-//     final AndroidInitializationSettings initializationSettingsAndroid =
-//         AndroidInitializationSettings('app_icon');
-
-//     // final IOSInitializationSettings initializationSettingsIOS =
-//     //     IOSInitializationSettings(
-//     //   requestSoundPermission: false,
-//     //   requestBadgePermission: false,
-//     //   requestAlertPermission: false,
-//     //   onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-//     // );
-
-//     final InitializationSettings initializationSettings =
-//         InitializationSettings(
-//       android: initializationSettingsAndroid,
-//       // iOS: initializationSettingsIOS,
-//       // macOS: null
-//     );
-//     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-//     flutterLocalNotificationsPlugin.initialize(initializationSettings,
-//         onSelectNotification: onSelectNotification);
-//   }
-
-//   Future onSelectNotification(String payload) async {
-//     showDialog(
-//       context: context,
-//       builder: (_) {
-//         return new AlertDialog(
-//           title: Text("PayLoad"),
-//           content: Text("Payload : $payload"),
-//         );
-//       },
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatefulWidget {
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Text("Hello"),
-//     );
-//   }
-// }

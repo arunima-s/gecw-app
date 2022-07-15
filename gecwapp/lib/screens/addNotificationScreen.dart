@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Models/calendar_datamodel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
 import 'package:path/path.dart';
@@ -23,6 +24,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   bool progressEnabled = false;
   TextEditingController tapUrlController = new TextEditingController();
   TextEditingController detailsController = new TextEditingController();
+  TextEditingController nameController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +72,12 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                       },
                       child:
                           Text(DateFormat('yyyy-MM-dd').format(selectedDate))),
+                ),
+                TextField(
+                  controller: nameController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: InputBorder.none, hintText: 'Enter name'),
                 ),
                 TextField(
                   controller: tapUrlController,
@@ -161,16 +170,28 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         .reference()
         .child(FirebaseKeys.notifications); //database reference object
 
+    final calendarRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.calendar);
+
     final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
     final imageUrl = await imgUrl;
     final uid = await FirebaseAuth.instance.currentUser?.uid;
-    final notificationModel = await NotificationModel(
+    final notificationModel = NotificationModel(
         imageUrl,
+        nameController.text,
         tapUrlController.text,
         detailsController.text,
         uid.toString(),
         timeStamp,
         DateFormat('yyyy-MM-dd').format(selectedDate));
+
+    final calendarModel = CalendarDataModel(
+        nameController.text,
+        DateFormat('yyyy-MM-dd hh:mm:ss').format(selectedDate),
+        detailsController.text);
+
+    await calendarRef.child(timeStamp).set(calendarModel.toJson());
     await notificationRef
         .child(timeStamp)
         // .child((widget.notificationCount + 1).toString())
