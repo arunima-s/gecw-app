@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
@@ -14,15 +16,18 @@ class _HostelListScreenState extends State<HostelListScreen> {
   List<HostelListModel> hostelData = [];
   int userAccess = 0;
   List<HostelListModel> _foundItems = [];
+  var screenSizes = [];
+  var ptaSelected = true;
 
   // This list holds the data for the list view
   @override
   initState() {
+    screenSizes = GWValues().getScreenSizes;
     // hostelData = context.watch<HostelProvider>().hostels;
     // userAccess = context.watch<SharedPrefsProvider>().userAccess;
     // context.read<HostelProvider>().fetchUserDetails();
 
-    // _foundItems = dataset;
+    // _foundItems = hostelData;
     // super.initState();
   }
 
@@ -33,6 +38,7 @@ class _HostelListScreenState extends State<HostelListScreen> {
     if (hostelData.isEmpty) {
       context.read<HostelProvider>().fetchUserDetails();
     }
+    _foundItems = hostelData;
 
     return Scaffold(
         body: hostelData.isEmpty
@@ -82,9 +88,107 @@ class _HostelListScreenState extends State<HostelListScreen> {
                                           Color.fromARGB(255, 189, 189, 189)))),
                         )),
                     /////
-                    ////////
-                    ///List Body
+                    //////
+                    ////Hostel fragment
 
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //     color: Colors.grey,
+                        //     blurRadius: 5.0,
+                        //   ),
+                        // ]
+                      ),
+                      width: double.infinity,
+                      height: screenSizes[0] * 0.06,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if (!ptaSelected) {
+                                setState(() {
+                                  ptaSelected = !ptaSelected;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: screenSizes[0] * 0.05,
+                              width: screenSizes[1] * 0.4,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 5.0,
+                                  ),
+                                ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                color: ptaSelected
+                                    ? Colors.white
+                                    : Colors.grey[200],
+                              ),
+                              child: Center(
+                                  child: Text(
+                                "PTA Approved",
+                                style: TextStyle(
+                                    color: ptaSelected
+                                        ? AppColors.primaryColor
+                                        : Colors.grey[400]),
+                              )),
+                            ),
+                          ),
+                          // Container(
+                          //   color: Colors.black,
+                          //   height: screenSizes[0] * 0.04,
+                          //   width: 1,
+                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              if (ptaSelected) {
+                                setState(() {
+                                  ptaSelected = !ptaSelected;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: screenSizes[0] * 0.05,
+                              width: screenSizes[1] * 0.4,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 5.0,
+                                  ),
+                                ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                color: !ptaSelected
+                                    ? Colors.white
+                                    : Colors.grey[200],
+                              ),
+                              child: Center(
+                                  child: Text(
+                                "PTA UnApproved",
+                                style: TextStyle(
+                                    color: !ptaSelected
+                                        ? AppColors.primaryColor
+                                        : Colors.grey[400]),
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    ///List Body
+                    ///
                     Expanded(
                       child: RefreshIndicator(
                         onRefresh:
@@ -97,7 +201,11 @@ class _HostelListScreenState extends State<HostelListScreen> {
                           },
                           itemCount: _foundItems.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return HostelListItem(index);
+                            if (_foundItems[index].isPta == ptaSelected) {
+                              return HostelListItem(index);
+                            } else {
+                              return SizedBox();
+                            }
                           },
                         ),
                       ),
