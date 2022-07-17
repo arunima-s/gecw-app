@@ -6,6 +6,8 @@ import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/calendar_datamodel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
+import 'package:gecwapp/customWidgets/simple_widgets.dart';
+import 'package:gecwapp/screens/LoginScreens/loginScreen.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +28,11 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   TextEditingController tapUrlController = new TextEditingController();
   TextEditingController detailsController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
-  var screenSizes = [];
+  final screenSizes = GWValues().getScreenSizes;
 
   @override
   Widget build(BuildContext context) {
-    screenSizes = GWValues().getScreenSizes;
+    // screenSizes = GWValues().getScreenSizes;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -48,9 +50,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
-                  height: 60,
-                ),
+                GWSpace(0.025, 0),
                 GestureDetector(
                   child: Align(
                     alignment: Alignment.center,
@@ -61,14 +61,14 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                         padding: const EdgeInsets.all(3.0),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          // borderRadius: BorderRadius.all(Radius.circular(20)),
                           color: AppColors.systemWhite,
                         ),
                         child: Center(
                           child: image != null
                               ? Image.file(
                                   image!,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 )
                               : Text("Pick an image"),
                         )),
@@ -76,6 +76,9 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                   onTap: () {
                     pickImage();
                   },
+                ),
+                SizedBox(
+                  height: screenSizes[0] * 0.01,
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -98,25 +101,86 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                       child: Text("Pick event date: " +
                           DateFormat('yyyy-MM-dd').format(selectedDate))),
                 ),
-                TextField(
-                  controller: nameController,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: 'Enter name'),
+                SizedBox(
+                  height: screenSizes[0] * 0.01,
                 ),
-                TextField(
-                  controller: tapUrlController,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: 'Enter tap url'),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: screenSizes[1] * 0.8,
+                    height: screenSizes[0] * 0.08,
+                    child: TextField(
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Enter Event Name",
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: Color.fromARGB(255, 189, 189, 189)))),
+                      controller: nameController,
+                      textAlign: TextAlign.center,
+                      // decoration: InputDecoration(hintText: 'Enter name'),
+                    ),
+                  ),
                 ),
-                TextField(
-                  controller: detailsController,
-                  keyboardType: TextInputType.multiline,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: 'Enter details'),
+                GWSpace(0.025, 0),
+
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: screenSizes[1] * 0.8,
+                    height: screenSizes[0] * 0.08,
+                    child: TextField(
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Enter tap Url",
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: Color.fromARGB(255, 189, 189, 189)))),
+                      controller: tapUrlController,
+                      textAlign: TextAlign.center,
+                      // decoration: InputDecoration(hintText: 'Enter name'),
+                    ),
+                  ),
                 ),
+                GWSpace(0.025, 0),
+                // TextField(
+                //   controller: tapUrlController,
+                //   textAlign: TextAlign.center,
+                //   decoration: InputDecoration(
+                //       border: InputBorder.none, hintText: 'Enter tap url'),
+                // ),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: screenSizes[1] * 0.8,
+                    height: screenSizes[0] * 0.08,
+                    child: TextField(
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                          hintText: "Enter details",
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  width: 1,
+                                  color: Color.fromARGB(255, 189, 189, 189)))),
+                      controller: detailsController,
+                      textAlign: TextAlign.center,
+                      // decoration: InputDecoration(hintText: 'Enter name'),
+                    ),
+                  ),
+                ),
+                // TextField(
+                //   controller: detailsController,
+                //   keyboardType: TextInputType.multiline,
+                //   textAlign: TextAlign.center,
+                //   decoration: InputDecoration(
+                //       border: InputBorder.none, hintText: 'Enter details'),
+                // ),
+                GWSpace(0.03, 0),
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
