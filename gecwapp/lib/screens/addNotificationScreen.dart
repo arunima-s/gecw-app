@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/calendar_datamodel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
@@ -25,9 +26,11 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   TextEditingController tapUrlController = new TextEditingController();
   TextEditingController detailsController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
+  var screenSizes = [];
 
   @override
   Widget build(BuildContext context) {
+    screenSizes = GWValues().getScreenSizes;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -38,8 +41,15 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
               // mainAxisAlignment: MainAxisAlignment.center,
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(25, 30, 0, 0),
+                  child: Text(
+                    "Add Notification",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 SizedBox(
-                  height: 100,
+                  height: 60,
                 ),
                 GestureDetector(
                   child: Align(
@@ -56,7 +66,10 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                         ),
                         child: Center(
                           child: image != null
-                              ? Image.file(image!)
+                              ? Image.file(
+                                  image!,
+                                  fit: BoxFit.cover,
+                                )
                               : Text("Pick an image"),
                         )),
                   ),
@@ -67,11 +80,23 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
+                      style: ButtonStyle(
+                          // padding: MaterialStateProperty.a,
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.primaryColor),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.systemWhite),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      side: BorderSide(
+                                          color: AppColors.primaryColor)))),
                       onPressed: () {
                         _selectDate(context);
                       },
-                      child:
-                          Text(DateFormat('yyyy-MM-dd').format(selectedDate))),
+                      child: Text("Pick event date: " +
+                          DateFormat('yyyy-MM-dd').format(selectedDate))),
                 ),
                 TextField(
                   controller: nameController,
@@ -94,21 +119,37 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: ElevatedButton(
-                      onPressed: (() {
-                        if (!tapUrlController.text.isEmpty &&
-                            !detailsController.text.isEmpty) {
-                          setState(() {
-                            progressEnabled = true;
-                          });
-                          uploadImage(context);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Enter all details"),
-                          ));
-                        }
-                      }),
-                      child: Text("Upload notification")),
+                  child: SizedBox(
+                    height: screenSizes[0] * 0.06,
+                    width: screenSizes[1] * 0.5,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            // padding: MaterialStateProperty.a,
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.systemWhite),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.primaryColor),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    side: BorderSide(
+                                        color: AppColors.primaryColor)))),
+                        onPressed: (() {
+                          if (!tapUrlController.text.isEmpty &&
+                              !detailsController.text.isEmpty) {
+                            setState(() {
+                              progressEnabled = true;
+                            });
+                            uploadImage(context);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Enter all details"),
+                            ));
+                          }
+                        }),
+                        child: Text("Upload notification")),
+                  ),
                 )
               ],
             ),
