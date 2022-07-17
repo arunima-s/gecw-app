@@ -273,7 +273,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   uploadNotification(Future<String> imgUrl, BuildContext context) async {
     final notificationRef = await FirebaseDatabase.instance
         .reference()
-        .child(FirebaseKeys.notifications); //database reference object
+        .child(FirebaseKeys.notifications)
+        .child(FirebaseKeys.unverified); //database reference object
 
     final calendarRef = await FirebaseDatabase.instance
         .reference()

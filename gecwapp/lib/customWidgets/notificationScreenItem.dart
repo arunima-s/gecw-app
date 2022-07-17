@@ -12,11 +12,13 @@ import 'package:provider/provider.dart';
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
   final int index;
-  NotificationScreenItems(this.index);
+  final bool isVerified;
+  NotificationScreenItems(this.index, this.isVerified);
   @override
   Widget build(BuildContext context) {
-    notificationItem =
-        context.watch<NotificationProvider>().notifications[index];
+    notificationItem = isVerified
+        ? context.watch<NotificationProvider>().notifications[index]
+        : context.watch<NotificationProvider>().unVerifiedNotifications[index];
     final userId = context.watch<UserProvider>().uuId;
     return Container(
       // width: 10,
@@ -73,22 +75,32 @@ class NotificationScreenItems extends StatelessWidget {
   deleteNotification(BuildContext context) async {
     //////
     //////Notification Delete
-    final notificationRef = await FirebaseDatabase.instance
-        .reference()
-        .child(FirebaseKeys.notifications);
+    ///
+    DatabaseReference notificationRef;
+    if (isVerified) {
+      context.read<NotificationProvider>().deleteNotification(index);
+      notificationRef = await FirebaseDatabase.instance
+          .reference()
+          .child(FirebaseKeys.notifications)
+          .child(FirebaseKeys.verified);
+      //////
+      //////Calendar Delete
+      context.read<CalendarDataProvider>().deleteNotification(index);
+
+      final calendarRef = await FirebaseDatabase.instance
+          .reference()
+          .child(FirebaseKeys.calendar);
+      await calendarRef.child(notificationItem!.timeStamp).remove();
+    } else {
+      context.read<NotificationProvider>().deleteUnVerifiedNotification(index);
+      await FirebaseDatabase.instance
+          .reference()
+          .child(FirebaseKeys.notifications)
+          .child(FirebaseKeys.unverified);
+    }
+
     final storageRef =
         await FirebaseStorage.instance.refFromURL(notificationItem!.image);
     storageRef.delete();
-    context.read<NotificationProvider>().deleteNotification(index);
-    await notificationRef.child(notificationItem!.timeStamp).remove();
-
-    //////
-    //////Calendar Delete
-    context.read<CalendarDataProvider>().deleteNotification(index);
-
-    final calendarRef = await FirebaseDatabase.instance
-        .reference()
-        .child(FirebaseKeys.calendar);
-    await calendarRef.child(notificationItem!.timeStamp).remove();
   }
 }

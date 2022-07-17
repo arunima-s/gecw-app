@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gecwapp/screens/notificationScreen.dart';
+import 'package:gecwapp/screens/NotificationScreens/notificationScreen.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Function openDrawer;

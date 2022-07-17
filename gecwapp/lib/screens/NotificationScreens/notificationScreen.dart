@@ -5,7 +5,8 @@ import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
-import 'package:gecwapp/screens/addNotificationScreen.dart';
+import 'package:gecwapp/screens/NotificationScreens/addNotificationScreen.dart';
+import 'package:gecwapp/screens/NotificationScreens/verifiy_norifications.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
@@ -34,13 +35,23 @@ class NotificationScreen extends StatelessWidget {
                       fontSize: 25,
                     ),
                   ),
+                  /////////////
+                  ////////////Verify button
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => VerifyNotificationScreen()));
+                      },
+                      icon: Icon(Icons.verified)),
+                  ////////////
+                  ///////////Add Button
                   IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => AddNotificationScreen(
                                 notificationsList.length)));
                       },
-                      icon: Icon(Icons.edit))
+                      icon: Icon(Icons.edit)),
                 ],
               ),
             ),
@@ -66,7 +77,7 @@ class NotificationScreen extends StatelessWidget {
                             itemCount: notificationsList.length,
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
-                                child: NotificationScreenItems(index),
+                                child: NotificationScreenItems(index, true),
                                 onTap: () {
                                   openURL(notificationsList[index].link);
                                 },
