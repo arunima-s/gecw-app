@@ -20,6 +20,7 @@ class NotificationScreen extends StatelessWidget {
 
     notificationsList = context.watch<NotificationProvider>().notifications;
     return Scaffold(
+      backgroundColor: AppColors.grey1,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

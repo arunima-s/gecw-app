@@ -19,16 +19,21 @@ class NotificationProvider with ChangeNotifier {
         "**************************************************************************************************************************************************************************************************************");
     final databaseRef =
         await FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef
-        .child(FirebaseKeys.notifications)
-        .child(FirebaseKeys.verified)
-        .once()
-        .then((DataSnapshot snapshot) {
-      final data = snapshot.value as Map<dynamic, dynamic>;
-      _notifications =
-          data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      notifyListeners();
-    });
+
+    try {
+      await databaseRef
+          .child(FirebaseKeys.notifications)
+          .child(FirebaseKeys.verified)
+          .once()
+          .then((DataSnapshot snapshot) {
+        final data = snapshot.value as Map<dynamic, dynamic>;
+        _notifications =
+            data.values.map((e) => NotificationModel.fromJson(e)).toList();
+        notifyListeners();
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   deleteNotification(int index) {
@@ -44,16 +49,20 @@ class NotificationProvider with ChangeNotifier {
         "**************************************************************************************************************************************************************************************************************");
     final databaseRef =
         await FirebaseDatabase.instance.reference(); //database reference object
-    await databaseRef
-        .child(FirebaseKeys.notifications)
-        .child(FirebaseKeys.unverified)
-        .once()
-        .then((DataSnapshot snapshot) {
-      final data = snapshot.value as Map<dynamic, dynamic>;
-      _unVerifiedNotifications =
-          data.values.map((e) => NotificationModel.fromJson(e)).toList();
-      notifyListeners();
-    });
+    try {
+      await databaseRef
+          .child(FirebaseKeys.notifications)
+          .child(FirebaseKeys.unverified)
+          .once()
+          .then((DataSnapshot snapshot) {
+        final data = snapshot.value as Map<dynamic, dynamic>;
+        _unVerifiedNotifications =
+            data.values.map((e) => NotificationModel.fromJson(e)).toList();
+        notifyListeners();
+      });
+    } catch (e) {
+      print("----------------Get notification Error ----------$e");
+    }
   }
 
   deleteUnVerifiedNotification(int index) {
