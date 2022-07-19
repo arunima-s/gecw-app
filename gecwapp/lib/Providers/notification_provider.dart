@@ -5,11 +5,8 @@ import 'package:gecwapp/Models/notificationModel.dart';
 
 class NotificationProvider with ChangeNotifier {
   List<NotificationModel> _notifications = [];
-  List<NotificationModel> _unVerifiedNotifications = [];
 
   List<NotificationModel> get notifications => _notifications;
-  List<NotificationModel> get unVerifiedNotifications =>
-      _unVerifiedNotifications;
 
 ////////
 //////
@@ -23,7 +20,7 @@ class NotificationProvider with ChangeNotifier {
     try {
       await databaseRef
           .child(FirebaseKeys.notifications)
-          .child(FirebaseKeys.verified)
+          // .child(FirebaseKeys.verified)
           .once()
           .then((DataSnapshot snapshot) {
         final data = snapshot.value as Map<dynamic, dynamic>;
@@ -44,29 +41,29 @@ class NotificationProvider with ChangeNotifier {
   /////
   ///////////Unverified
 
-  Future getUnVerifiedNotifications() async {
-    print(
-        "**************************************************************************************************************************************************************************************************************");
-    final databaseRef =
-        await FirebaseDatabase.instance.reference(); //database reference object
-    try {
-      await databaseRef
-          .child(FirebaseKeys.notifications)
-          .child(FirebaseKeys.unverified)
-          .once()
-          .then((DataSnapshot snapshot) {
-        final data = snapshot.value as Map<dynamic, dynamic>;
-        _unVerifiedNotifications =
-            data.values.map((e) => NotificationModel.fromJson(e)).toList();
-        notifyListeners();
-      });
-    } catch (e) {
-      print("----------------Get notification Error ----------$e");
-    }
-  }
+  // Future getUnVerifiedNotifications() async {
+  //   print(
+  //       "**************************************************************************************************************************************************************************************************************");
+  //   final databaseRef =
+  //       await FirebaseDatabase.instance.reference(); //database reference object
+  //   try {
+  //     await databaseRef
+  //         .child(FirebaseKeys.notifications)
+  //         .child(FirebaseKeys.unverified)
+  //         .once()
+  //         .then((DataSnapshot snapshot) {
+  //       final data = snapshot.value as Map<dynamic, dynamic>;
+  //       _unVerifiedNotifications =
+  //           data.values.map((e) => NotificationModel.fromJson(e)).toList();
+  //       notifyListeners();
+  //     });
+  //   } catch (e) {
+  //     print("----------------Get notification Error ----------$e");
+  //   }
+  // }
 
-  deleteUnVerifiedNotification(int index) {
-    _unVerifiedNotifications.removeAt(index);
-    notifyListeners();
-  }
+  // deleteUnVerifiedNotification(int index) {
+  //   _unVerifiedNotifications.removeAt(index);
+  //   notifyListeners();
+  // }
 }

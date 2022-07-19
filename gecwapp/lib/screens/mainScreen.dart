@@ -88,22 +88,16 @@ class MainScreen extends StatelessWidget {
               // physics: NeverScrollableScrollPhysics(), ///
               itemCount: notificationsList.length,
               itemBuilder: (BuildContext context, int index) {
-                // return HostelListItem(dummyHostelData[index]);
                 return GestureDetector(
-                  // child: Image.network(notificationsList[index].image, fit: BoxFit.cover,),
-                  child: notificationsList.isEmpty
-                      ? Container(
-                          width: 100,
-                          height: 100,
-                          color: Colors.red,
-                        )
+                  child: notificationsList.isEmpty ||
+                          !notificationsList[index].isVerified
+                      ? SizedBox()
                       : ImageBanner(
                           context
                               .watch<NotificationProvider>()
                               .notifications[index]
                               .image,
                           MediaQuery.of(context).size.width * 0.6),
-
                   onTap: () => {
                     openURL(context
                         .watch<NotificationProvider>()

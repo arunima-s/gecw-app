@@ -20,9 +20,8 @@ class NotificationScreenItems extends StatelessWidget {
   final _sWidth = GWValues().getScreenWidth;
   @override
   Widget build(BuildContext context) {
-    notificationItem = isVerified
-        ? context.watch<NotificationProvider>().notifications[index]
-        : context.watch<NotificationProvider>().unVerifiedNotifications[index];
+    notificationItem =
+        context.watch<NotificationProvider>().notifications[index];
     final userId = context.watch<UserProvider>().uuId;
     return Container(
       // width: 10,
@@ -99,7 +98,7 @@ class NotificationScreenItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "IEEE",
+                    notificationItem!.user,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text("Evenet Date")
@@ -158,8 +157,7 @@ class NotificationScreenItems extends StatelessWidget {
       context.read<NotificationProvider>().deleteNotification(index);
       notificationRef = await FirebaseDatabase.instance
           .reference()
-          .child(FirebaseKeys.notifications)
-          .child(FirebaseKeys.verified);
+          .child(FirebaseKeys.notifications);
       await notificationRef.child(notificationItem!.timeStamp).remove();
       context.read<CalendarDataProvider>().deleteNotification(index);
 
@@ -180,39 +178,46 @@ class NotificationScreenItems extends StatelessWidget {
       } catch (e) {
         print("---------Storage deletion error---------$e");
       }
-    } else {
-      context.read<NotificationProvider>().deleteUnVerifiedNotification(index);
-      notificationRef = await FirebaseDatabase.instance
-          .reference()
-          .child(FirebaseKeys.notifications)
-          .child(FirebaseKeys.unverified);
-      await notificationRef.child(notificationItem!.timeStamp).remove();
     }
+    //  else {
+    //   context.read<NotificationProvider>().deleteUnVerifiedNotification(index);
+    //   notificationRef = await FirebaseDatabase.instance
+    //       .reference()
+    //       .child(FirebaseKeys.notifications)
+    //       .child(FirebaseKeys.unverified);
+    //   await notificationRef.child(notificationItem!.timeStamp).remove();
+    // }
   }
 
   /////////////
   //////////
   //////////Approve notification
   Future approveNotifcation(BuildContext context) async {
-    final unVerifiedRef = await FirebaseDatabase.instance
+    final notificationRef = await FirebaseDatabase.instance
         .reference()
-        .child(FirebaseKeys.notifications)
-        .child(FirebaseKeys.unverified);
+        .child(FirebaseKeys.notifications);
+    // .child(FirebaseKeys.unverified);
 
-    final verifiedRef = await FirebaseDatabase.instance
-        .reference()
-        .child(FirebaseKeys.notifications)
-        .child(FirebaseKeys.verified);
+    // final verifiedRef = await FirebaseDatabase.instance
+    //     .reference()
+    //     .child(FirebaseKeys.notifications)
+    //     .child(FirebaseKeys.verified);
 
-    verifiedRef
-        .child(notificationItem!.timeStamp)
-        .set(notificationItem?.toJson());
+    final notItem = NotificationModel(
+        notificationItem!.image,
+        true,
+        notificationItem!.link,
+        notificationItem!.details,
+        notificationItem!.userId,
+        notificationItem!.timeStamp,
+        notificationItem!.eventDate,
+        notificationItem!.user);
+    notificationRef.child(notificationItem!.timeStamp).set(notItem.toJson());
 
     // unVerifiedRef.child(notificationItem!.timeStamp).once().then((DataSnapshot snapshot) {
     //   final data = snapshot.value;
     //   final timeStamp = data['time'];
     //   verifiedRef.child(timeStamp).set(data);
     // });
-    deleteNotification(context);
   }
 }

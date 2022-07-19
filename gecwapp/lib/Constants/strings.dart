@@ -22,4 +22,7 @@ class FirebaseKeys {
   static const hostels = "hostels";
   static const users = "users";
   static const calendar = "calendar";
+  static const clubs = "clubs";
 }
+
+enum UserAccess { user, admin, superUser }

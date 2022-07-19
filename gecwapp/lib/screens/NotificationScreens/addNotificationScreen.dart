@@ -5,14 +5,16 @@ import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/calendar_datamodel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Models/userModel.dart';
+import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
-import 'package:gecwapp/screens/LoginScreens/loginScreen.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddNotificationScreen extends StatefulWidget {
   final int notificationCount;
@@ -29,9 +31,14 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   TextEditingController detailsController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
   final screenSizes = GWValues().getScreenSizes;
+  UserModel? userData;
 
   @override
   Widget build(BuildContext context) {
+    print("8888888888888888888");
+    userData = context.watch<UserProvider>().userModel;
+    // clubNames = clubs!.map((e) => e.keys.first).toList();
+    // print(clubs?.first);
     // screenSizes = GWValues().getScreenSizes;
     return Scaffold(
       body: SafeArea(
@@ -107,21 +114,38 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
-                    width: screenSizes[1] * 0.8,
+                    width: screenSizes[1] * 0.3,
                     height: screenSizes[0] * 0.08,
-                    child: TextField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                          hintText: "Enter Event Name",
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
-                                  width: 1,
-                                  color: Color.fromARGB(255, 189, 189, 189)))),
-                      controller: nameController,
-                      textAlign: TextAlign.center,
-                      // decoration: InputDecoration(hintText: 'Enter name'),
-                    ),
+                    // child: TextField(
+                    //   textInputAction: TextInputAction.next,
+                    //   decoration: InputDecoration(
+                    //       hintText: "Enter Event Name",
+                    //       enabledBorder: OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(10.0),
+                    //           borderSide: BorderSide(
+                    //               width: 1,
+                    //               color: Color.fromARGB(255, 189, 189, 189)))),
+                    //   controller: nameController,
+                    //   textAlign: TextAlign.center,
+                    //   // decoration: InputDecoration(hintText: 'Enter name'),
+                    // ),
+
+                    // child: DropdownButton(
+                    //   value: selectedClub,
+                    //   icon: const Icon(Icons.keyboard_arrow_down),
+                    //   items: clubNames.map((items) {
+                    //     return DropdownMenuItem(
+                    //       value: items,
+                    //       child: Text(items),
+                    //     );
+                    //   }).toList(),
+                    //   onChanged: (newValue) {
+                    //     setState(() {
+                    //       selectedClub = newValue.toString();
+                    //       // setSubject();
+                    //     });
+                    //   },
+                    // ),
                   ),
                 ),
                 GWSpace(0.025, 0),
@@ -273,8 +297,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   uploadNotification(Future<String> imgUrl, BuildContext context) async {
     final notificationRef = await FirebaseDatabase.instance
         .reference()
-        .child(FirebaseKeys.notifications)
-        .child(FirebaseKeys.unverified); //database reference object
+        .child(FirebaseKeys.notifications);
+    // .child(FirebaseKeys.unverified); //database reference object
 
     final calendarRef = await FirebaseDatabase.instance
         .reference()
@@ -285,12 +309,13 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
     final uid = await FirebaseAuth.instance.currentUser?.uid;
     final notificationModel = NotificationModel(
         imageUrl,
-        nameController.text,
+        false,
         tapUrlController.text,
         detailsController.text,
         uid.toString(),
         timeStamp,
-        DateFormat('yyyy-MM-dd').format(selectedDate));
+        DateFormat('yyyy-MM-dd').format(selectedDate),
+        userData!.club!);
 
     final calendarModel = CalendarDataModel(
         nameController.text,
@@ -315,4 +340,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
       ));
     });
   }
+
+  ///////////
+  //////////
 }

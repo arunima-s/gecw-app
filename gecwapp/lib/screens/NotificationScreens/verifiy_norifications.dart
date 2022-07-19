@@ -7,13 +7,15 @@ import 'package:provider/provider.dart';
 
 class VerifyNotificationScreen extends StatelessWidget {
   List<NotificationModel> notificationsList = [];
+  var refreshed = true;
 
   @override
   Widget build(BuildContext context) {
-    notificationsList =
-        context.watch<NotificationProvider>().unVerifiedNotifications;
-    if (notificationsList.isEmpty) {
-      context.read<NotificationProvider>().getUnVerifiedNotifications();
+    notificationsList = context.watch<NotificationProvider>().notifications;
+    final uhuhuhu = notificationsList.isEmpty && refreshed;
+    if (refreshed) {
+      context.read<NotificationProvider>().getNotifications();
+      refreshed = false;
     }
 
     return Scaffold(
@@ -28,9 +30,8 @@ class VerifyNotificationScreen extends StatelessWidget {
           Container(
             child: Expanded(
               child: RefreshIndicator(
-                onRefresh: context
-                    .read<NotificationProvider>()
-                    .getUnVerifiedNotifications,
+                onRefresh:
+                    context.read<NotificationProvider>().getNotifications,
                 child: ListView.separated(
                   shrinkWrap: true,
                   // physics: ClampingScrollPhysics(),
@@ -39,15 +40,14 @@ class VerifyNotificationScreen extends StatelessWidget {
                   },
                   itemCount: notificationsList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      child: NotificationScreenItems(index, false),
-                      onTap: () {
-                        //////////////
-                        //////////////
-                        ///
-                        print("Tapped");
-                      },
-                    );
+                    return (!notificationsList[index].isVerified)
+                        ? GestureDetector(
+                            child: NotificationScreenItems(index, false),
+                            onTap: () {
+                              print("Tapped");
+                            },
+                          )
+                        : SizedBox();
                   },
                 ),
               ),
