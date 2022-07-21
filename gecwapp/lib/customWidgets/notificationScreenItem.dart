@@ -129,11 +129,6 @@ class NotificationScreenItems extends StatelessWidget {
                     ? Center(child: Icon(Icons.menu))
                     : SizedBox(),
                 itemBuilder: (context) {
-                  // return List.generate(5, (index) {
-                  //   return PopupMenuItem(
-                  //     child: Text('button no $index'),
-                  //   );
-                  // });
                   if (userData?.access == 2) {
                     return [
                       PopupMenuItem(value: 1, child: Text("Delete")),
@@ -176,7 +171,7 @@ class NotificationScreenItems extends StatelessWidget {
         .reference()
         .child(FirebaseKeys.notifications);
     await notificationRef.child(notificationItem!.timeStamp).remove();
-    context.read<CalendarDataProvider>().deleteNotification(index);
+    // context.read<CalendarDataProvider>().deleteNotification(index);
 
     //////
     //////Calendar Delete
@@ -195,15 +190,6 @@ class NotificationScreenItems extends StatelessWidget {
     } catch (e) {
       print("---------Storage deletion error---------$e");
     }
-
-    //  else {
-    //   context.read<NotificationProvider>().deleteUnVerifiedNotification(index);
-    //   notificationRef = await FirebaseDatabase.instance
-    //       .reference()
-    //       .child(FirebaseKeys.notifications)
-    //       .child(FirebaseKeys.unverified);
-    //   await notificationRef.child(notificationItem!.timeStamp).remove();
-    // }
   }
 
   /////////////
@@ -213,12 +199,6 @@ class NotificationScreenItems extends StatelessWidget {
     final notificationRef = await FirebaseDatabase.instance
         .reference()
         .child(FirebaseKeys.notifications);
-    // .child(FirebaseKeys.unverified);
-
-    // final verifiedRef = await FirebaseDatabase.instance
-    //     .reference()
-    //     .child(FirebaseKeys.notifications)
-    //     .child(FirebaseKeys.verified);
 
     final notItem = NotificationModel(
         notificationItem!.image,
@@ -230,12 +210,7 @@ class NotificationScreenItems extends StatelessWidget {
         notificationItem!.eventDate,
         notificationItem!.user);
     notificationRef.child(notificationItem!.timeStamp).set(notItem.toJson());
-
-    // unVerifiedRef.child(notificationItem!.timeStamp).once().then((DataSnapshot snapshot) {
-    //   final data = snapshot.value;
-    //   final timeStamp = data['time'];
-    //   verifiedRef.child(timeStamp).set(data);
-    // });
+    context.read<NotificationProvider>().getNotifications();
   }
 
   ///////////
