@@ -290,7 +290,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         uploadNotification(_firebaseStorage.getDownloadURL(), context);
       });
     } on FirebaseException catch (e) {
-      print("Upload failed: $e");
+      print("///////////////////Upload failed: $e");
     }
   }
 

@@ -50,7 +50,7 @@ class MainScreen extends StatelessWidget {
                   Container(
                       // Horizontal list view
                       padding: EdgeInsets.only(top: 10, left: 10),
-                      height: screenHeight * 0.35,
+                      height: screenHeight * 0.25,
                       // width: screenSizes[1] *,
                       child: _getRowList(context)),
                   Padding(
