@@ -1,10 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Models/hostelListModel.dart';
-import 'package:gecwapp/Managers/hostelAPIManager.dart';
-
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
@@ -18,10 +14,14 @@ class MainScreen extends StatelessWidget {
   ScrollController _scrollController = ScrollController();
   var hostelData = [];
   List<NotificationModel> notificationsList = [];
+  double screenHeight = 0, screenWidth = 0;
+
   @override
   Widget build(BuildContext context) {
     print('------------Main Screen------------------');
     notificationsList = context.watch<NotificationProvider>().notifications;
+    screenHeight = context.watch<GWValuesProvider>().height;
+    screenWidth = context.watch<GWValuesProvider>().width;
 
     if (notificationsList.isEmpty) {
       context.read<UserProvider>().fetchUserDetails();
@@ -50,7 +50,8 @@ class MainScreen extends StatelessWidget {
                   Container(
                       // Horizontal list view
                       padding: EdgeInsets.only(top: 10, left: 10),
-                      height: MediaQuery.of(context).size.height * 0.25,
+                      height: screenHeight * 0.4,
+                      // width: screenSizes[1] *,
                       child: _getRowList(context)),
                   Padding(
                     padding: const EdgeInsets.only(top: 30, left: 10),
@@ -76,16 +77,11 @@ class MainScreen extends StatelessWidget {
 
   Widget _getRowList(BuildContext context) {
     return Container(
-      // child: Expanded(
       child: notificationsList.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              // separatorBuilder: (BuildContext context, int index) {
-              //   return SizedBox(height: 20);
-              // },
-              // physics: NeverScrollableScrollPhysics(), ///
               itemCount: notificationsList.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
@@ -97,7 +93,8 @@ class MainScreen extends StatelessWidget {
                               .watch<NotificationProvider>()
                               .notifications[index]
                               .image,
-                          MediaQuery.of(context).size.width * 0.6),
+                          screenHeight * 0.6,
+                          screenWidth * 0.25),
                   onTap: () => {
                     openURL(context
                         .watch<NotificationProvider>()
@@ -107,7 +104,6 @@ class MainScreen extends StatelessWidget {
                 );
               },
             ),
-      // ),
     );
   }
 

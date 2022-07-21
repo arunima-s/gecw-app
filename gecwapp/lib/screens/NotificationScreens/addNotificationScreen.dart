@@ -6,6 +6,7 @@ import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/calendar_datamodel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Models/userModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
@@ -30,16 +31,15 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
   TextEditingController tapUrlController = new TextEditingController();
   TextEditingController detailsController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
-  final screenSizes = GWValues().getScreenSizes;
   UserModel? userData;
+  double screenHeight = 0, screenWidth = 0;
 
   @override
   Widget build(BuildContext context) {
     print("8888888888888888888");
     userData = context.watch<UserProvider>().userModel;
-    // clubNames = clubs!.map((e) => e.keys.first).toList();
-    // print(clubs?.first);
-    // screenSizes = GWValues().getScreenSizes;
+    screenHeight = context.watch<GWValuesProvider>().height;
+    screenWidth = context.watch<GWValuesProvider>().width;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -57,7 +57,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
-                GWSpace(0.025, 0),
+                GWSpace(screenHeight * 0.025, 0),
                 GestureDetector(
                   child: Align(
                     alignment: Alignment.center,
@@ -85,7 +85,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                   },
                 ),
                 SizedBox(
-                  height: screenSizes[0] * 0.01,
+                  height: screenHeight * 0.01,
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -109,13 +109,13 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                           DateFormat('yyyy-MM-dd').format(selectedDate))),
                 ),
                 SizedBox(
-                  height: screenSizes[0] * 0.01,
+                  height: screenHeight * 0.01,
                 ),
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
-                    width: screenSizes[1] * 0.3,
-                    height: screenSizes[0] * 0.08,
+                    width: screenWidth * 0.3,
+                    height: screenHeight * 0.08,
                     // child: TextField(
                     //   textInputAction: TextInputAction.next,
                     //   decoration: InputDecoration(
@@ -148,13 +148,13 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                     // ),
                   ),
                 ),
-                GWSpace(0.025, 0),
+                GWSpace(screenHeight * 0.025, 0),
 
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
-                    width: screenSizes[1] * 0.8,
-                    height: screenSizes[0] * 0.08,
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.08,
                     child: TextField(
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
@@ -170,7 +170,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                     ),
                   ),
                 ),
-                GWSpace(0.025, 0),
+                GWSpace(screenHeight * 0.025, 0),
                 // TextField(
                 //   controller: tapUrlController,
                 //   textAlign: TextAlign.center,
@@ -180,8 +180,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
-                    width: screenSizes[1] * 0.8,
-                    height: screenSizes[0] * 0.08,
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.08,
                     child: TextField(
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
@@ -204,12 +204,12 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 //   decoration: InputDecoration(
                 //       border: InputBorder.none, hintText: 'Enter details'),
                 // ),
-                GWSpace(0.03, 0),
+                GWSpace(screenHeight * 0.03, 0),
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
-                    height: screenSizes[0] * 0.06,
-                    width: screenSizes[1] * 0.5,
+                    height: screenHeight * 0.06,
+                    width: screenWidth * 0.5,
                     child: ElevatedButton(
                         style: ButtonStyle(
                             // padding: MaterialStateProperty.a,

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/datasets.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StudyMaterialsScreen extends StatefulWidget {
@@ -15,7 +17,6 @@ class StudyMaterialsScreen extends StatefulWidget {
 }
 
 class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
-  final screenSizes = GWValues().getScreenSizes;
   var selectedSemesterString = "S3";
   var semesterNames = ["S1 - S2", "S3", "S4", "S5", "S6", "S7", "S8"];
   var selectedDepartmentString = "EEE";
@@ -23,6 +24,7 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   var selectedSubject = "";
   List<String> subjectList = [];
   // = ["EEE", "EC", "MECH", "CS"];
+  double screenHeight = 0, screenWidth = 0;
 
   var data = {1: "EEE", 2: "EC", 3: "MECH", 4: "CS"};
 
@@ -37,6 +39,8 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = context.watch<GWValuesProvider>().height;
+    screenWidth = context.watch<GWValuesProvider>().width;
     return AlertDialog(
       content: Container(
         child: Column(
@@ -171,8 +175,8 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
               child: RoundedButton(
                   widget.isSyllabus ? 'Get Syllabus' : 'Get Notes',
                   openDrive,
-                  screenSizes[1] * 0.4,
-                  screenSizes[0] * 0.06),
+                  screenWidth * 0.4,
+                  screenHeight * 0.06),
             )
           ],
         ),

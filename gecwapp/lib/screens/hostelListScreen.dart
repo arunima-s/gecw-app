@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/customWidgets/hostelListItem.dart';
@@ -16,25 +17,14 @@ class _HostelListScreenState extends State<HostelListScreen> {
   List<HostelListModel> hostelData = [];
   int userAccess = 0;
   List<HostelListModel> _foundItems = [];
-  var screenSizes = [];
   var ptaSelected = true;
-
-  // This list holds the data for the list view
-  @override
-  initState() {
-    screenSizes = GWValues().getScreenSizes;
-    // hostelData = context.watch<HostelProvider>().hostels;
-    // userAccess = context.watch<SharedPrefsProvider>().userAccess;
-    // context.read<HostelProvider>().fetchUserDetails();
-
-    // _foundItems = hostelData;
-    // super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     hostelData = context.watch<HostelProvider>().hostels;
     int userAccess = context.watch<SharedPrefsProvider>().userAccess;
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     if (hostelData.isEmpty) {
       context.read<HostelProvider>().fetchUserDetails();
     }
@@ -102,7 +92,7 @@ class _HostelListScreenState extends State<HostelListScreen> {
                         // ]
                       ),
                       width: double.infinity,
-                      height: screenSizes[0] * 0.06,
+                      height: screenHeight * 0.06,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -115,8 +105,8 @@ class _HostelListScreenState extends State<HostelListScreen> {
                               }
                             },
                             child: Container(
-                              height: screenSizes[0] * 0.05,
-                              width: screenSizes[1] * 0.4,
+                              height: screenHeight * 0.05,
+                              width: screenWidth * 0.4,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -154,8 +144,8 @@ class _HostelListScreenState extends State<HostelListScreen> {
                               }
                             },
                             child: Container(
-                              height: screenSizes[0] * 0.05,
-                              width: screenSizes[1] * 0.4,
+                              height: screenHeight * 0.05,
+                              width: screenWidth * 0.4,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -241,98 +231,3 @@ class _HostelListScreenState extends State<HostelListScreen> {
     ));
   }
 }
-
-
-
-
-
-// class HostelListScreen extends StatelessWidget {
-//   var hostelData = [];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     hostelData = context.watch<HostelProvider>().hostels;
-//     int userAccess = context.watch<SharedPrefsProvider>().userAccess;
-//     if (hostelData.isEmpty) {
-//       context.read<HostelProvider>().fetchUserDetails();
-//     }
-
-//     return Scaffold(
-//         body: hostelData.isEmpty
-//             ? Center(child: CircularProgressIndicator())
-//             : SafeArea(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Text(
-//                             "Hostels",
-//                             style: TextStyle(
-//                                 fontSize: 25, fontWeight: FontWeight.bold),
-//                           ),
-//                           userAccess == 2
-//                               ? IconButton(
-//                                   onPressed: () {
-//                                     editHostel(context);
-//                                   },
-//                                   icon: Icon(Icons.edit))
-//                               : SizedBox()
-//                         ],
-//                       ),
-//                     ),
-//                     //////////
-//                     ////////
-//                     ///////////Search bar
-
-//                     Padding(
-//                         padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-//                         child: TextField(
-//                           // onChanged: (value) => _runFilter(value),
-//                           textAlign: TextAlign.left,
-//                           // controller: _controller,
-//                           decoration: InputDecoration(
-//                               suffixIcon: Icon(Icons.search),
-//                               hintText: "Search",
-//                               enabledBorder: OutlineInputBorder(
-//                                   borderRadius: BorderRadius.circular(25.0),
-//                                   borderSide: BorderSide(
-//                                       width: 1,
-//                                       color:
-//                                           Color.fromARGB(255, 189, 189, 189)))),
-//                         )),
-//                     /////
-//                     ////////
-//                     ///List Body
-
-//                     Expanded(
-//                       child: RefreshIndicator(
-//                         onRefresh:
-//                             context.read<HostelProvider>().fetchUserDetails,
-//                         child: ListView.separated(
-//                           shrinkWrap: true,
-//                           // physics: ClampingScrollPhysics(),
-//                           separatorBuilder: (BuildContext context, int index) {
-//                             return SizedBox(height: 20);
-//                           },
-//                           itemCount: hostelData.length,
-//                           itemBuilder: (BuildContext context, int index) {
-//                             return HostelListItem(index);
-//                           },
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ));
-//   }
-
-//   editHostel(BuildContext context) {
-//     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//       content: Text("Swantham aayi cheyy myre"),
-//     ));
-//   }
-// }

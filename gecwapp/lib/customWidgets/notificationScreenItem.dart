@@ -6,6 +6,7 @@ import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Providers/calendardata_provider.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
@@ -17,12 +18,12 @@ class NotificationScreenItems extends StatelessWidget {
   final int index;
   final bool isVerified;
   NotificationScreenItems(this.index, this.isVerified);
-  final _sHeight = GWValues().getScreenHeight;
-  final _sWidth = GWValues().getScreenWidth;
   UserModel? userData;
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     userData = context.watch<UserProvider>().userModel;
     notificationItem =
         context.watch<NotificationProvider>().notifications[index];
@@ -110,8 +111,8 @@ class NotificationScreenItems extends StatelessWidget {
               ),
             ),
             (userId == notificationItem?.userId)
-                ? GWSpace(0, 0.4)
-                : GWSpace(0, 0.47),
+                ? GWSpace(0, screenWidth * 0.4)
+                : GWSpace(0, screenWidth * 0.47),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: PopupMenuButton(
@@ -152,8 +153,8 @@ class NotificationScreenItems extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ImageBanner(notificationItem!.image,
-                MediaQuery.of(context).size.width * 0.9),
+            ImageBanner(
+                notificationItem!.image, screenHeight * 0.3, screenWidth * 0.9),
           ],
         ),
         Padding(

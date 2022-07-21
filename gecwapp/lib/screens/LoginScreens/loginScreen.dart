@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    GWValues().setScreenSizes = [screenHeight, screenWidth];
+    // GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
       body: Stack(
         children: [

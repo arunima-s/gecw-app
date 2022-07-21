@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
@@ -11,6 +12,8 @@ class VerifyNotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     notificationsList = context.watch<NotificationProvider>().notifications;
     final uhuhuhu = notificationsList.isEmpty && refreshed;
     if (refreshed) {
@@ -26,7 +29,7 @@ class VerifyNotificationScreen extends StatelessWidget {
             "Verify Notifications",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          GWSpace(0.1, 0),
+          GWSpace(screenHeight * 0.1, 0),
           Container(
             child: Expanded(
               child: RefreshIndicator(

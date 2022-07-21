@@ -31,7 +31,9 @@ class HostelListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ImageBanner(
-              hostelListModel.images.first, MediaQuery.of(context).size.width),
+              hostelListModel.images.first,
+              MediaQuery.of(context).size.width,
+              MediaQuery.of(context).size.width * 0.6),
           Container(
             // color: Colors.yellow,
             // margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
