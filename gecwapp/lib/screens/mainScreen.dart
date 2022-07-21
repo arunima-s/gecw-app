@@ -50,7 +50,7 @@ class MainScreen extends StatelessWidget {
                   Container(
                       // Horizontal list view
                       padding: EdgeInsets.only(top: 10, left: 10),
-                      height: screenHeight * 0.4,
+                      height: screenHeight * 0.35,
                       // width: screenSizes[1] *,
                       child: _getRowList(context)),
                   Padding(
@@ -93,8 +93,8 @@ class MainScreen extends StatelessWidget {
                               .watch<NotificationProvider>()
                               .notifications[index]
                               .image,
-                          screenHeight * 0.6,
-                          screenWidth * 0.25),
+                          screenHeight * 0.3,
+                          screenWidth * 0.8),
                   onTap: () => {
                     openURL(context
                         .watch<NotificationProvider>()

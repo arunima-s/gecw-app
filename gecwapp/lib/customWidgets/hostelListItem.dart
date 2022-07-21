@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Screens/hostelDetailsScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
@@ -13,6 +14,8 @@ class HostelListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hostelListModel = context.watch<HostelProvider>().hostels[index];
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     return Container(
       margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
       // width: MediaQuery.of(context).size.width * 0.8,
@@ -30,10 +33,8 @@ class HostelListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImageBanner(
-              hostelListModel.images.first,
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.width * 0.6),
+          ImageBanner(hostelListModel.images.first, screenHeight * 0.35,
+              screenWidth * 0.95),
           Container(
             // color: Colors.yellow,
             // margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
