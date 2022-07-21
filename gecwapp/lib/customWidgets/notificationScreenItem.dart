@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
+import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Providers/calendardata_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
@@ -18,8 +19,11 @@ class NotificationScreenItems extends StatelessWidget {
   NotificationScreenItems(this.index, this.isVerified);
   final _sHeight = GWValues().getScreenHeight;
   final _sWidth = GWValues().getScreenWidth;
+  UserModel? userData;
+
   @override
   Widget build(BuildContext context) {
+    userData = context.watch<UserProvider>().userModel;
     notificationItem =
         context.watch<NotificationProvider>().notifications[index];
     final userId = context.watch<UserProvider>().uuId;
@@ -105,32 +109,44 @@ class NotificationScreenItems extends StatelessWidget {
                 ],
               ),
             ),
-            GWSpace(0, 0.47),
+            (userId == notificationItem?.userId)
+                ? GWSpace(0, 0.4)
+                : GWSpace(0, 0.47),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: PopupMenuButton(
                 onSelected: (value) {
                   if (value == 1) {
+                    deleteNotification(context);
+                    print("Delete");
+                  } else {
                     approveNotifcation(context);
                     print("Approve");
-                  } else {
-                    print("Delete");
                   }
                 },
-                child: Center(child: Icon(Icons.menu)),
+                child: (userId == notificationItem?.userId)
+                    ? Center(child: Icon(Icons.menu))
+                    : SizedBox(),
                 itemBuilder: (context) {
                   // return List.generate(5, (index) {
                   //   return PopupMenuItem(
                   //     child: Text('button no $index'),
                   //   );
                   // });
-                  return [
-                    PopupMenuItem(value: 1, child: Text("Approve")),
-                    PopupMenuItem(value: 2, child: Text("Delete"))
-                  ];
+                  if (userData?.access == 2) {
+                    return [
+                      PopupMenuItem(value: 1, child: Text("Delete")),
+                      PopupMenuItem(value: 2, child: Text("Approve"))
+                    ];
+                  } else {
+                    return [PopupMenuItem(value: 1, child: Text("Delete"))];
+                  }
                 },
               ),
-            )
+            ),
+            IconButton(
+                onPressed: null,
+                icon: Icon(Icons.notifications_active_outlined))
           ],
         ),
         Row(
@@ -153,32 +169,32 @@ class NotificationScreenItems extends StatelessWidget {
     //////Notification Delete
     ///
     DatabaseReference notificationRef;
-    if (isVerified) {
-      context.read<NotificationProvider>().deleteNotification(index);
-      notificationRef = await FirebaseDatabase.instance
-          .reference()
-          .child(FirebaseKeys.notifications);
-      await notificationRef.child(notificationItem!.timeStamp).remove();
-      context.read<CalendarDataProvider>().deleteNotification(index);
 
-      //////
-      //////Calendar Delete
+    context.read<NotificationProvider>().deleteNotification(index);
+    notificationRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.notifications);
+    await notificationRef.child(notificationItem!.timeStamp).remove();
+    context.read<CalendarDataProvider>().deleteNotification(index);
 
-      final calendarRef = await FirebaseDatabase.instance
-          .reference()
-          .child(FirebaseKeys.calendar);
-      await calendarRef.child(notificationItem!.timeStamp).remove();
+    //////
+    //////Calendar Delete
 
-      //////
-      /////Delete image
-      try {
-        final storageRef =
-            await FirebaseStorage.instance.refFromURL(notificationItem!.image);
-        storageRef.delete();
-      } catch (e) {
-        print("---------Storage deletion error---------$e");
-      }
+    final calendarRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.calendar);
+    await calendarRef.child(notificationItem!.timeStamp).remove();
+
+    //////
+    /////Delete image
+    try {
+      final storageRef =
+          await FirebaseStorage.instance.refFromURL(notificationItem!.image);
+      storageRef.delete();
+    } catch (e) {
+      print("---------Storage deletion error---------$e");
     }
+
     //  else {
     //   context.read<NotificationProvider>().deleteUnVerifiedNotification(index);
     //   notificationRef = await FirebaseDatabase.instance
@@ -220,4 +236,9 @@ class NotificationScreenItems extends StatelessWidget {
     //   verifiedRef.child(timeStamp).set(data);
     // });
   }
+
+  ///////////
+  //////////
+  //////Toggle notification alert
+  void toggleNotificationAlert() {}
 }
