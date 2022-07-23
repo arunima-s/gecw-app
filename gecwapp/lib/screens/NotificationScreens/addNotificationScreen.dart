@@ -300,9 +300,9 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         .child(FirebaseKeys.notifications);
     // .child(FirebaseKeys.unverified); //database reference object
 
-    final calendarRef = await FirebaseDatabase.instance
-        .reference()
-        .child(FirebaseKeys.calendar);
+    // final calendarRef = await FirebaseDatabase.instance
+    //     .reference()
+    //     .child(FirebaseKeys.calendar);
 
     final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
     final imageUrl = await imgUrl;
@@ -317,12 +317,12 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         DateFormat('yyyy-MM-dd').format(selectedDate),
         userData!.club!);
 
-    final calendarModel = CalendarDataModel(
-        nameController.text,
-        DateFormat('yyyy-MM-dd hh:mm:ss').format(selectedDate),
-        detailsController.text);
+    // final calendarModel = CalendarDataModel(
+    //     nameController.text,
+    //     DateFormat('yyyy-MM-dd hh:mm:ss').format(selectedDate),
+    // detailsController.text);
 
-    await calendarRef.child(timeStamp).set(calendarModel.toJson());
+    // await calendarRef.child(timeStamp).set(calendarModel.toJson());
     await notificationRef
         .child(timeStamp)
         // .child((widget.notificationCount + 1).toString())

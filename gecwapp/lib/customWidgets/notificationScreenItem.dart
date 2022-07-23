@@ -1,17 +1,20 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Constants/values.dart';
+import 'package:gecwapp/Models/calendar_datamodel.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Models/userModel.dart';
-import 'package:gecwapp/Providers/calendardata_provider.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
@@ -19,6 +22,8 @@ class NotificationScreenItems extends StatelessWidget {
   final bool isVerified;
   NotificationScreenItems(this.index, this.isVerified);
   UserModel? userData;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      new FlutterLocalNotificationsPlugin();
 
   @override
   Widget build(BuildContext context) {
@@ -210,8 +215,64 @@ class NotificationScreenItems extends StatelessWidget {
         notificationItem!.eventDate,
         notificationItem!.user);
     notificationRef.child(notificationItem!.timeStamp).set(notItem.toJson());
+    setCalendarEvent();
+    // scheduleNotifications();
     context.read<NotificationProvider>().getNotifications();
   }
+
+  Future setCalendarEvent() async {
+    final calendarRef = await FirebaseDatabase.instance
+        .reference()
+        .child(FirebaseKeys.calendar);
+
+    final calendarModel = CalendarDataModel(notificationItem!.user,
+        notificationItem!.eventDate, notificationItem!.details);
+
+    await calendarRef
+        .child(notificationItem!.timeStamp)
+        .set(calendarModel.toJson())
+        .whenComplete(() {
+      scheduleNotifications(calendarModel);
+    });
+  }
+
+  Future<void> scheduleNotifications(CalendarDataModel calendar) async {
+    DateTime tempDate = new DateFormat("yyyy-MM-dd").parse(calendar.date);
+    print(tempDate);
+    // DateTime(int year, [int month = 1, int day = 1,
+    // int hour = 0, int minute = 0, int second = 0,
+    // int millisecond = 0, int microsecond = 0])
+    final time = tempDate.subtract(Duration(days: 1));
+    final notificationTime = new DateTime(time.year, time.month, time.day, 16,
+        36, time.second, time.millisecond, time.microsecond);
+    String date = DateFormat("yyyy-MM-dd hh:mm:ss").format(notificationTime);
+
+    tz.initializeTimeZones(); //  <----
+    var android = new AndroidNotificationDetails('channel id', 'channel NAME',
+        priority: Priority.high, importance: Importance.max);
+    var iOS = new IOSNotificationDetails();
+    var platform = new NotificationDetails(android: android, iOS: iOS);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        0,
+        "Notification Title",
+        "This is the Notification Body!",
+        // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
+        tz.TZDateTime.from(notificationTime, tz.local),
+        platform,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  //   Future setLocalNotification() async {
+  //   var android = new AndroidNotificationDetails('channel id', 'channel NAME',
+  //       priority: Priority.high, importance: Importance.max);
+  //   var iOS = new IOSNotificationDetails();
+  //   var platform = new NotificationDetails(android: android, iOS: iOS);
+  //   await flutterLocalNotificationsPlugin.show(
+  //       0, 'New Video is out', 'Flutter Local Notification', platform,
+  //       payload: 'Nitish Kumar Singh is part time Youtuber');
+  // }
 
   ///////////
   //////////

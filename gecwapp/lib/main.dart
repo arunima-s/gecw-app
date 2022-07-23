@@ -104,9 +104,13 @@ class _MyAppState extends State<MyApp> {
   ///////
   /////
   Future initFirebase() async {
-    await Firebase.initializeApp().whenComplete(() {
-      initCM();
-    });
+    try {
+      await Firebase.initializeApp().whenComplete(() {
+        initCM();
+      });
+    } catch (e) {
+      print("!!!!!!!!!!!!!!!!$e!!!!!!!!!!!!!!!");
+    }
   }
 
   //
@@ -140,6 +144,7 @@ class _MyAppState extends State<MyApp> {
         content: new Text('$payload'),
       ),
     );
+    print("88888888888888888888Notification tapperd");
   }
 
   /////////
