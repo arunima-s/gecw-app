@@ -4,12 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/userModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
+import 'package:gecwapp/customWidgets/Alerts/alert_dialog.dart';
+import 'package:gecwapp/customWidgets/Alerts/loading-alert.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
+import 'package:gecwapp/main.dart';
 import 'package:gecwapp/screens/LoginScreens/forgot_password_screen.dart';
 import 'package:gecwapp/screens/homeScreen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    context.read<GWValuesProvider>().setScreenSize(screenHeight, screenWidth);
     // GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
@@ -192,6 +198,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                       side: BorderSide(
                                           color: AppColors.primaryColor)))),
                           onPressed: () {
+                            showDialog(
+                                // barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext buildContext) {
+                                  return WillPopScope(
+                                      onWillPop: () => Future.value(false),
+                                      child:
+                                          LoadingAlert("Loggin In.........."));
+                                  //
+                                  //
+                                });
                             signInWithGoogle(context);
                           },
                           child: Row(
@@ -252,67 +269,67 @@ class _LoginScreenState extends State<LoginScreen> {
 ///////////////
 ///////////////
 ///////////////////Email password auth
-  Future loginButtonTapped(BuildContext context) async {
-    setState(() {
-      isLoggingIn = true;
-    });
-    final email = _emailController.text;
-    final password = _passwordController.text;
+  // Future loginButtonTapped(BuildContext context) async {
+  //   setState(() {
+  //     isLoggingIn = true;
+  //   });
+  //   final email = _emailController.text;
+  //   final password = _passwordController.text;
 
-    // if (await FirebaseAuth.instance.currentUser != null) {
-    // signed in
+  //   // if (await FirebaseAuth.instance.currentUser != null) {
+  //   // signed in
 
-    try {
-      final UserCredential user = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      // final User? user = FirebaseAuth.instance.currentUser;
-      if (user.user != null) {
-        createUser(user.user!, context);
-      }
-    } on Exception catch (exception) {
-      if (exception is FirebaseAuthException) {
-        if (exception.code == 'wrong-password') {
-          Messages.displayMessage(context, "wrong password entered");
-        } else if (exception.code == 'user-not-found') {
-          Messages.displayMessage(context, "Sign Up First");
-        }
-      }
-    }
-  }
+  //   try {
+  //     final UserCredential user = await FirebaseAuth.instance
+  //         .signInWithEmailAndPassword(email: email, password: password);
+  //     // final User? user = FirebaseAuth.instance.currentUser;
+  //     if (user.user != null) {
+  //       createUser(user.user!, context);
+  //     }
+  //   } on Exception catch (exception) {
+  //     if (exception is FirebaseAuthException) {
+  //       if (exception.code == 'wrong-password') {
+  //         Messages.displayMessage(context, "wrong password entered");
+  //       } else if (exception.code == 'user-not-found') {
+  //         Messages.displayMessage(context, "Sign Up First");
+  //       }
+  //     }
+  //   }
+  // }
 
-  Future signupButtonTapped(BuildContext context) async {
-    setState(() {
-      isLoggingIn = true;
-    });
-    final email = _emailController.text;
-    final password = _passwordController.text;
+  // Future signupButtonTapped(BuildContext context) async {
+  //   setState(() {
+  //     isLoggingIn = true;
+  //   });
+  //   final email = _emailController.text;
+  //   final password = _passwordController.text;
 
-    try {
-      final UserCredential user = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      createUser(user.user!, context);
-    } on Exception catch (exception) {
-      if (exception is FirebaseAuthException) {
-        if (exception.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("ALready logged in"),
-          ));
+  //   try {
+  //     final UserCredential user = await FirebaseAuth.instance
+  //         .createUserWithEmailAndPassword(email: email, password: password);
+  //     createUser(user.user!, context);
+  //   } on Exception catch (exception) {
+  //     if (exception is FirebaseAuthException) {
+  //       if (exception.code == 'email-already-in-use') {
+  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //           content: Text("ALready logged in"),
+  //         ));
 
-          /// `foo@bar.com` has alread been registered.
-        }
-      }
-    } catch (signUpError) {
-      //     /// `foo@bar.com` has alread been registered.
-    }
-  }
+  //         /// `foo@bar.com` has alread been registered.
+  //       }
+  //     }
+  //   } catch (signUpError) {
+  //     //     /// `foo@bar.com` has alread been registered.
+  //   }
+  // }
 
-  Future forgotPassword() async {
-    await FirebaseAuth.instance
-        .sendPasswordResetEmail(email: "clal4252@gmail.com");
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Mail send"),
-    ));
-  }
+  // Future forgotPassword() async {
+  //   await FirebaseAuth.instance
+  //       .sendPasswordResetEmail(email: "clal4252@gmail.com");
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     content: Text("Mail send"),
+  //   ));
+  // }
 
   ///////////////
 ///////////////
@@ -354,8 +371,9 @@ class _LoginScreenState extends State<LoginScreen> {
             .child(currentUser.uid)
             .set(userModel.toJson());
       }
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => HomeScreen()));
+      RestartWidget.restartApp(context);
+      // Navigator.of(context)
+      //     .push(MaterialPageRoute(builder: (context) => HomeScreen()));
     });
   }
 }

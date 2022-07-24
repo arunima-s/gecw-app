@@ -13,9 +13,10 @@ class LoaderTransparent extends StatelessWidget {
     final screenHeight = context.watch<GWValuesProvider>().height;
     final screenWidth = context.watch<GWValuesProvider>().width;
     return Container(
-        height: screenHeight,
-        width: screenWidth,
-        color: Colors.transparent,
+        height: screenWidth * 0.6,
+        width: screenWidth * 0.6,
+        // color: Colors.transparent,
+        color: Colors.red,
         child: Center(
             child: SizedBox(
                 height: 60.0,
