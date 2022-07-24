@@ -100,6 +100,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // GWValues().setHeight(screenHeight);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // home: HomeScreen(),
       home: isLoggedIn ? HomeScreen() : LoginScreen(),
     );
