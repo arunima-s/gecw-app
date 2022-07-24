@@ -33,8 +33,21 @@ class _LoginScreenState extends State<LoginScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     // GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
+          Positioned(
+            top: screenHeight * 0.65,
+            right: -(screenWidth * 0.5),
+            // alignment: Alignment.bottomCenter,
+            child: Container(
+              width: screenWidth * 2,
+              height: screenWidth * 2,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromARGB(255, 255, 255, 255)),
+            ),
+          ),
           Container(
             width: double.infinity,
             child: SingleChildScrollView(
@@ -50,69 +63,69 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   width: loginAnimation!.value,
                     // ),
                     Image.asset(
-                      'assets/images/loginScreenImage.jpg',
+                      'assets/images/applogo.jpg',
                       // width: screenWidth * 0.3,
                       width: screenWidth * 0.7,
                     ),
                     SizedBox(
                       height: screenHeight * 0.05,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: screenWidth * 0.06,
-                        ),
-                        Text(
-                          isLoginScreen ? "Sign in" : "Sign up",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     SizedBox(
+                    //       width: screenWidth * 0.06,
+                    //     ),
+                    //     Text(
+                    //       isLoginScreen ? "Sign in" : "Sign up",
+                    //       style: TextStyle(
+                    //           fontSize: 30, fontWeight: FontWeight.bold),
+                    //     ),
+                    //   ],
+                    // ),
                     // Text("Login using your mail id"),
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    SizedBox(
-                      height: screenHeight * 0.08,
-                      width: screenWidth * 0.9,
-                      child: CustomTextField("Email Id", _emailController,
-                          Icon(Icons.alternate_email_rounded), false),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.08,
-                      width: screenWidth * 0.9,
-                      child: CustomTextField("Password", _passwordController,
-                          Icon(Icons.lock), true),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          child: Text(
-                            "Forgot password",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                          // onTap: forgotPassword,
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ForgotPasswordScreen()));
-                          },
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.05,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.05,
-                    ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.08,
+                    //   width: screenWidth * 0.9,
+                    //   child: CustomTextField("Email Id", _emailController,
+                    //       Icon(Icons.alternate_email_rounded), false),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.08,
+                    //   width: screenWidth * 0.9,
+                    //   child: CustomTextField("Password", _passwordController,
+                    //       Icon(Icons.lock), true),
+                    // ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.02,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     InkWell(
+                    //       child: Text(
+                    //         "Forgot password",
+                    //         style: TextStyle(color: Colors.blue),
+                    //       ),
+                    //       // onTap: forgotPassword,
+                    //       onTap: () {
+                    //         Navigator.of(context).push(MaterialPageRoute(
+                    //             builder: (context) => ForgotPasswordScreen()));
+                    //       },
+                    //     ),
+                    //     SizedBox(
+                    //       width: screenWidth * 0.05,
+                    //     )
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.05,
+                    // ),
                     // ElevatedButton(
                     //     onPressed: () {
                     //       final emailText = _emailController.text;
@@ -131,40 +144,40 @@ class _LoginScreenState extends State<LoginScreen> {
                     //     child: Text(isLoginScreen ? "SIGN IN" : "SIGN UP")),
 
                     //////
-                    RoundedButton(isLoginScreen ? "SIGN IN" : "SIGN UP", (() {
-                      final emailText = _emailController.text;
+                    // RoundedButton(isLoginScreen ? "SIGN IN" : "SIGN UP", (() {
+                    //   final emailText = _emailController.text;
 
-                      final isEmail = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(emailText);
+                    //   final isEmail = RegExp(
+                    //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    //       .hasMatch(emailText);
 
-                      (isEmail && _passwordController.text.isNotEmpty)
-                          ? (isLoginScreen
-                              ? loginButtonTapped(context)
-                              : signupButtonTapped(context))
-                          : (ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(
-                              content: Text("Enter valid credentials"),
-                            )));
-                    }), screenWidth * 0.8, screenHeight * 0.06),
+                    //   (isEmail && _passwordController.text.isNotEmpty)
+                    //       ? (isLoginScreen
+                    //           ? loginButtonTapped(context)
+                    //           : signupButtonTapped(context))
+                    //       : (ScaffoldMessenger.of(context)
+                    //           .showSnackBar(SnackBar(
+                    //           content: Text("Enter valid credentials"),
+                    //         )));
+                    // }), screenWidth * 0.8, screenHeight * 0.06),
 
                     SizedBox(
                       height: screenHeight * 0.01,
                     ),
 
-                    Text(
-                      "OR",
-                      style: TextStyle(color: Colors.grey),
-                    ),
+                    // Text(
+                    //   "OR",
+                    //   style: TextStyle(color: Colors.grey),
+                    // ),
 
                     SizedBox(
-                      height: screenHeight * 0.01,
+                      height: screenHeight * 0.001,
                     ),
                     ////
                     // Login Button
                     SizedBox(
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.06,
+                      width: screenWidth * 0.6,
+                      height: screenHeight * 0.075,
                       child: ElevatedButton(
                           style: ButtonStyle(
                               // padding: MaterialStateProperty.a,
@@ -175,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                      borderRadius: BorderRadius.circular(30.0),
                                       side: BorderSide(
                                           color: AppColors.primaryColor)))),
                           onPressed: () {
@@ -194,27 +207,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: screenHeight * 0.05,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Does'nt have an account?  "),
-                        InkWell(
-                          child: Text(
-                            isLoginScreen ? "Register" : "Login",
-                            style: TextStyle(
-                                color: AppColors.primaryColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          onTap: () {
-                            setState(() {
-                              isLoginScreen = isLoginScreen
-                                  ? !isLoginScreen
-                                  : !isLoginScreen;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text("Does'nt have an account?  "),
+                    //     InkWell(
+                    //       child: Text(
+                    //         isLoginScreen ? "Register" : "Login",
+                    //         style: TextStyle(
+                    //             color: AppColors.primaryColor,
+                    //             fontWeight: FontWeight.bold),
+                    //       ),
+                    //       onTap: () {
+                    //         setState(() {
+                    //           isLoginScreen = isLoginScreen
+                    //               ? !isLoginScreen
+                    //               : !isLoginScreen;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ],
+                    // ),
                     // ElevatedButton(
                     //   child: Text(isLoginScreen
                     //       ? "Account illenkl signup"
@@ -230,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
             ),
           ),
-          isLoggingIn ? LoaderTransparent() : Container()
+          isLoggingIn ? LoaderTransparent() : Container(),
         ],
       ),
     );
