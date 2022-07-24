@@ -1,4 +1,4 @@
-package com.example.gecwapp
+package com.inceptra.haiku
 
 import io.flutter.embedding.android.FlutterActivity
 

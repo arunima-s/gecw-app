@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:6893811570:android:359bb8ab9a8a0f23a98feb",
         "android_client_info": {
-          "package_name": "com.example.gecwapp"
+          "package_name": "com.inceptra.haiku"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "6893811570-lgnn33ktebmmj1570jto041mu9kmaoon.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.gecwapp",
+            "package_name": "com.inceptra.haiku",
             "certificate_hash": "e54b4909969bdf6a8c427c74af862f4f086dd387"
           }
         },
