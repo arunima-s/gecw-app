@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
@@ -40,8 +39,13 @@ class _HostelListScreenState extends State<HostelListScreen> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(Icons.arrow_back_ios_new)),
                           Text(
                             "Hostels",
                             style: TextStyle(

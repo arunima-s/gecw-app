@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/screens/hostelListScreen.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 import 'package:gecwapp/screens/semesterScreen.dart';
+
+import 'HostelScreens/hostelListScreen.dart';
 
 class HomeScreenMenu extends StatefulWidget {
   const HomeScreenMenu({Key? key}) : super(key: key);
