@@ -1,25 +1,28 @@
 class NotificationModel {
-  final String image, name, link, details, userId, timeStamp, eventDate;
+  final String image, link, details, userId, timeStamp, eventDate, user;
+  final bool isVerified;
 
-  NotificationModel(this.image, this.name, this.link, this.details, this.userId,
-      this.timeStamp, this.eventDate);
+  NotificationModel(this.image, this.isVerified, this.link, this.details,
+      this.userId, this.timeStamp, this.eventDate, this.user);
 
   NotificationModel.fromJson(Map<dynamic, dynamic> json)
       : image = json['image'] as String,
-        name = json['name'] as String,
+        isVerified = json['verified'] as bool,
         link = json['link'] as String,
         details = json['details'] as String,
         userId = json['uuid'] as String,
         timeStamp = json['time'] as String,
-        eventDate = json['eventDate'] as String;
+        eventDate = json['eventDate'] as String,
+        user = json['club'] as String;
 
   Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
         'image': image,
-        'name': name,
+        'verified': isVerified,
         'link': link,
         'details': details,
         'uuid': userId,
         'time': timeStamp,
-        'eventDate': eventDate
+        'eventDate': eventDate,
+        'club': user
       };
 }

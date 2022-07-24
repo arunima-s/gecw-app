@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoaderTransparent extends StatelessWidget {
 // double height;
@@ -8,11 +10,11 @@ class LoaderTransparent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     return Container(
-        height: height,
-        width: width,
+        height: screenHeight,
+        width: screenWidth,
         color: Colors.transparent,
         child: Center(
             child: SizedBox(

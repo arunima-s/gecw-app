@@ -66,7 +66,14 @@ class HostelDetailsScreen extends StatelessWidget {
                     ),
                     height: MediaQuery.of(context).size.height * 0.67,
                     // height: double.infinity,
-                    child: Text('sdhbfgds'),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: screenHeight * 0.34,
+                        ),
+                        Text("")
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -128,10 +135,6 @@ class HostelDetailsScreen extends StatelessWidget {
                               Icon(Icons.bed))
                         ],
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                      //   child: Text('Warden: ${_hostelListModel.phoneNum}'),
-                      // )
                       SizedBox(
                         height: 50,
                       ),
@@ -161,7 +164,7 @@ class HostelDetailsScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Icon(Icons.location_on_outlined),
+                                    Icon(Icons.directions),
                                     SizedBox(
                                       width: 10,
                                     ),
@@ -249,30 +252,6 @@ class HostelDetailsScreen extends StatelessWidget {
                                 ],
                               )),
                         ),
-                        // SizedBox(
-                        //   width: MediaQuery.of(context).size.width * .70,
-                        //   height: MediaQuery.of(context).size.width * .15,
-                        //   child: ElevatedButton(
-                        //       style: ButtonStyle(
-                        //           foregroundColor: MaterialStateProperty.all<Color>(
-                        //               AppColors.systemWhite),
-                        //           backgroundColor: MaterialStateProperty.all<Color>(
-                        //               AppColors.primaryColor),
-                        //           shape: MaterialStateProperty.all<
-                        //                   RoundedRectangleBorder>(
-                        //               RoundedRectangleBorder(
-                        //                   borderRadius: BorderRadius.circular(12.0),
-                        //                   side: BorderSide(
-                        //                       color: AppColors.primaryColor)))),
-                        //       onPressed: _onLocationTapped,
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           Icon(Icons.directions_outlined),
-                        //           Text("Location"),
-                        //         ],
-                        //       )),
-                        // )
                       ],
                     ),
                   ],
@@ -289,10 +268,6 @@ class HostelDetailsScreen extends StatelessWidget {
               child: Container(
                 width: 40,
                 height: 40,
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.all(Radius.circular(25)),
-                //   // color: AppColors.systemWhite,
-                // ),
                 child: IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: Navigator.of(context).pop),
@@ -310,9 +285,6 @@ class HostelDetailsScreen extends StatelessWidget {
   }
 
   void _onCallButtonTapped() async {
-    // var url = _hostelListModel.phoneNum;
-    // if (await canLaunch(url)) {
-    // await launch(url);
     await URLLauncher.launch('tel:+${_hostelListModel!.phoneNum.toString()}');
     // } else {
     //   throw 'Could not launch $url';

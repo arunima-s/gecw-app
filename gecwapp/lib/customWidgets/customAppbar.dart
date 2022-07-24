@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gecwapp/screens/notificationScreen.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
+import 'package:gecwapp/screens/NotificationScreens/notificationScreen.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Function openDrawer;
   CustomAppBar(this.openDrawer);
   @override
   Widget build(BuildContext context) {
+    final screenHeight = context.watch<GWValuesProvider>().height;
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: screenHeight * 0.1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

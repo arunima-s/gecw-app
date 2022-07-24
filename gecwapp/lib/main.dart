@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
+import 'package:gecwapp/Managers/cloud-message-manager.dart';
 import 'package:gecwapp/Providers/calendardata_provider.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
@@ -24,7 +26,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => UserProvider()),
       ChangeNotifierProvider(create: (_) => HostelProvider()),
       ChangeNotifierProvider(create: (_) => SharedPrefsProvider()),
-      ChangeNotifierProvider(create: (_) => CalendarDataProvider())
+      ChangeNotifierProvider(create: (_) => CalendarDataProvider()),
+      ChangeNotifierProvider(create: (_) => GWValuesProvider())
     ],
     child: RestartWidget(child: MyApp()),
   ));
@@ -79,6 +82,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   var isLoggedIn = false;
+  String notificationTitle = 'No Title';
+  String notificationBody = 'No Body';
+  String notificationData = 'No Data';
 
   @override
   void initState() {
@@ -102,9 +108,13 @@ class _MyAppState extends State<MyApp> {
   ///////
   /////
   Future initFirebase() async {
-    await Firebase.initializeApp().whenComplete(() {
-      initCM();
-    });
+    try {
+      await Firebase.initializeApp().whenComplete(() {
+        initCM();
+      });
+    } catch (e) {
+      print("!!!!!!!!!!!!!!!!$e!!!!!!!!!!!!!!!");
+    }
   }
 
   //
@@ -138,27 +148,34 @@ class _MyAppState extends State<MyApp> {
         content: new Text('$payload'),
       ),
     );
+    print("88888888888888888888Notification tapperd");
   }
 
   /////////
   ///////Cloud messaging
-  ///
-  initCM() async {
-    FirebaseMessaging messaging = await FirebaseMessaging.instance;
-    messaging.getToken().then((value) {
-      print("///////////////////////////////////$value/////////////////////");
-    });
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      print("message recieved");
-      print(event.notification.body);
-    });
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print('Message clicked!');
-    });
+  Future<void> _messageHandler(RemoteMessage message) async {
+    print('background message ${message.notification.body}');
   }
+
+  ///
+  ///
+  ///
+
+  initCM() async {
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+
+    firebaseMessaging.streamCtlr.stream.listen(_changeData);
+    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+    await FirebaseMessaging.instance.subscribeToTopic('weather');
+  }
+
+  _changeData(String msg) => setState(() => notificationData = msg);
+  _changeBody(String msg) => setState(() => notificationBody = msg);
+  _changeTitle(String msg) => setState(() => notificationTitle = msg);
+}
 
   //////////////
   ///////////
 
-}

@@ -24,6 +24,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
       physics: ClampingScrollPhysics(),
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
                 onTap: () => {
@@ -35,6 +36,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
                 // onTap: () => {
@@ -57,6 +59,7 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
                 onTap: () {

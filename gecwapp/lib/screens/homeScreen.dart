@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/CustomWidgets/navdrawer.dart';
 import 'package:gecwapp/CustomWidgets/tabbarMenu.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Screens/busTimings.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
@@ -16,9 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    GWValues().setScreenSizes = [screenHeight, screenWidth];
-    print(
-        '------------------Home Screen-------------------$screenHeight, $screenWidth');
+    context.read<GWValuesProvider>().setScreenSize(screenHeight, screenWidth);
     context.read<SharedPrefsProvider>().fetchSharedPrefs();
     return MaterialApp(
       home: DefaultTabController(
@@ -41,15 +40,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-// class HomePage extends StatelessWidget {
-//   // const HomePage({ Key? key }) : super(key: key);
-// // 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Column(),      
-//     );
-//   }
-// }

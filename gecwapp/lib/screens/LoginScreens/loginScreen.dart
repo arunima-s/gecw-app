@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    GWValues().setScreenSizes = [screenHeight, screenWidth];
+    // GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
       body: Stack(
         children: [
@@ -275,8 +275,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final password = _passwordController.text;
 
     try {
-      await FirebaseAuth.instance
+      final UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      createUser(user.user!, context);
     } on Exception catch (exception) {
       if (exception is FirebaseAuthException) {
         if (exception.code == 'email-already-in-use') {
@@ -333,17 +334,15 @@ class _LoginScreenState extends State<LoginScreen> {
         .child(currentUser.uid)
         .once()
         .then((DataSnapshot snapshot) {
-      // if (snapshot.value == null) {
-      final userModel = UserModel(currentUser.email!, 2, false);
-      databaseRef
-          .child(FirebaseKeys.users)
-          .child(currentUser.uid)
-          .set(userModel.toJson())
-          .whenComplete(() {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => HomeScreen()));
-      });
-      // }
+      if (snapshot.value == null) {
+        final userModel = UserModel(currentUser.email!, 0, false, "");
+        databaseRef
+            .child(FirebaseKeys.users)
+            .child(currentUser.uid)
+            .set(userModel.toJson());
+      }
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HomeScreen()));
     });
   }
 }
