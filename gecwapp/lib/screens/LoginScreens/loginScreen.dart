@@ -40,229 +40,305 @@ class _LoginScreenState extends State<LoginScreen> {
     // GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Stack(
-        children: [
-          Positioned(
-            top: screenHeight * 0.65,
-            right: -(screenWidth * 0.5),
-            // alignment: Alignment.bottomCenter,
-            child: Container(
-              width: screenWidth * 2,
-              height: screenWidth * 2,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 255, 255, 255)),
-            ),
-          ),
+      body:
+          // Stack(
+          //   children: [
+          // Positioned(
+          //   top: screenHeight * 0.65,
+          //   right: -(screenWidth * 0.5),
+          //   // alignment: Alignment.bottomCenter,
+          //   child: Container(
+          //     width: screenWidth * 2,
+          //     height: screenWidth * 2,
+          //     decoration: BoxDecoration(
+          //         shape: BoxShape.circle,
+          //         color: Color.fromARGB(255, 255, 255, 255)),
+          //   ),
+          // ),
           Container(
-            width: double.infinity,
-            child: SingleChildScrollView(
-              child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: screenHeight * 0.1,
-                    ),
-
-                    // SizedBox(
-                    //   width: loginAnimation!.value,
-                    // ),
-                    Image.asset(
-                      'assets/images/applogo.jpg',
-                      // width: screenWidth * 0.3,
-                      width: screenWidth * 0.7,
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.05,
-                    ),
-                    // Row(
-                    //   children: [
-                    //     SizedBox(
-                    //       width: screenWidth * 0.06,
-                    //     ),
-                    //     Text(
-                    //       isLoginScreen ? "Sign in" : "Sign up",
-                    //       style: TextStyle(
-                    //           fontSize: 30, fontWeight: FontWeight.bold),
-                    //     ),
-                    //   ],
-                    // ),
-                    // Text("Login using your mail id"),
-                    SizedBox(
-                      height: screenHeight * 0.02,
-                    ),
-                    // SizedBox(
-                    //   height: screenHeight * 0.08,
-                    //   width: screenWidth * 0.9,
-                    //   child: CustomTextField("Email Id", _emailController,
-                    //       Icon(Icons.alternate_email_rounded), false),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // SizedBox(
-                    //   height: screenHeight * 0.08,
-                    //   width: screenWidth * 0.9,
-                    //   child: CustomTextField("Password", _passwordController,
-                    //       Icon(Icons.lock), true),
-                    // ),
-                    // SizedBox(
-                    //   height: screenHeight * 0.02,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     InkWell(
-                    //       child: Text(
-                    //         "Forgot password",
-                    //         style: TextStyle(color: Colors.blue),
-                    //       ),
-                    //       // onTap: forgotPassword,
-                    //       onTap: () {
-                    //         Navigator.of(context).push(MaterialPageRoute(
-                    //             builder: (context) => ForgotPasswordScreen()));
-                    //       },
-                    //     ),
-                    //     SizedBox(
-                    //       width: screenWidth * 0.05,
-                    //     )
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: screenHeight * 0.05,
-                    // ),
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       final emailText = _emailController.text;
-                    //       final isEmail = RegExp(
-                    //               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    //           .hasMatch(emailText);
-
-                    //       (isEmail && _passwordController.text.isNotEmpty)
-                    //           ? (isLoginScreen
-                    //               ? loginButtonTapped(context)
-                    //               : signupButtonTapped(context))
-                    //           : (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //               content: Text("Enter valid credentials"),
-                    //             )));
-                    //     },
-                    //     child: Text(isLoginScreen ? "SIGN IN" : "SIGN UP")),
-
-                    //////
-                    // RoundedButton(isLoginScreen ? "SIGN IN" : "SIGN UP", (() {
-                    //   final emailText = _emailController.text;
-
-                    //   final isEmail = RegExp(
-                    //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    //       .hasMatch(emailText);
-
-                    //   (isEmail && _passwordController.text.isNotEmpty)
-                    //       ? (isLoginScreen
-                    //           ? loginButtonTapped(context)
-                    //           : signupButtonTapped(context))
-                    //       : (ScaffoldMessenger.of(context)
-                    //           .showSnackBar(SnackBar(
-                    //           content: Text("Enter valid credentials"),
-                    //         )));
-                    // }), screenWidth * 0.8, screenHeight * 0.06),
-
-                    SizedBox(
-                      height: screenHeight * 0.01,
-                    ),
-
-                    // Text(
-                    //   "OR",
-                    //   style: TextStyle(color: Colors.grey),
-                    // ),
-
-                    SizedBox(
-                      height: screenHeight * 0.001,
-                    ),
-                    ////
-                    // Login Button
-                    SizedBox(
-                      width: screenWidth * 0.6,
-                      height: screenHeight * 0.075,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              // padding: MaterialStateProperty.a,
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  AppColors.primaryColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      side: BorderSide(
-                                          color: AppColors.primaryColor)))),
-                          onPressed: () {
-                            showDialog(
-                                // barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext buildContext) {
-                                  return WillPopScope(
-                                      onWillPop: () => Future.value(false),
-                                      child:
-                                          LoadingAlert("Loggin In.........."));
-                                  //
-                                  //
-                                });
-                            signInWithGoogle(context);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/images/google24.png'),
-                              Text(isLoginScreen
-                                  ? "Sign In using Google"
-                                  : "Sign Up using Google")
-                            ],
-                          )),
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.05,
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text("Does'nt have an account?  "),
-                    //     InkWell(
-                    //       child: Text(
-                    //         isLoginScreen ? "Register" : "Login",
-                    //         style: TextStyle(
-                    //             color: AppColors.primaryColor,
-                    //             fontWeight: FontWeight.bold),
-                    //       ),
-                    //       onTap: () {
-                    //         setState(() {
-                    //           isLoginScreen = isLoginScreen
-                    //               ? !isLoginScreen
-                    //               : !isLoginScreen;
-                    //         });
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
-                    // ElevatedButton(
-                    //   child: Text(isLoginScreen
-                    //       ? "Account illenkl signup"
-                    //       : "Account ondenkl Sign In"),
-                    //   onPressed: () {
-                    //     setState(() {
-                    //       isLoginScreen =
-                    //           isLoginScreen ? !isLoginScreen : !isLoginScreen;
-                    //     });
-                    //   },
-                    // ),
-                    //
-                  ]),
+        decoration: BoxDecoration(
+            // image: DecorationImage(
+            //   image: AssetImage("assets/images/background.png"),
+            //   fit: BoxFit.fill,
+            // ),
             ),
-          ),
-          isLoggingIn ? LoaderTransparent() : Container(),
-        ],
+        width: double.infinity,
+        height: double.infinity,
+        // child: SingleChildScrollView(
+        //   child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // children: [
+        //   SizedBox(
+        //     height: screenHeight * 0.08,
+        //   ),
+
+        // SizedBox(
+        //   width: loginAnimation!.value,
+        // ),
+        // Image.asset(
+        //   'assets/images/applogo.jpg',
+        //   // width: screenWidth * 0.3,
+        //   width: screenWidth * 0.7,
+        // ),
+        // SizedBox(
+        //   height: screenHeight * 0.12,
+        // ),
+        // Row(
+        //   children: [
+        //     SizedBox(
+        //       width: screenWidth * 0.06,
+        //     ),
+        //     Text(
+        //       isLoginScreen ? "Sign in" : "Sign up",
+        //       style: TextStyle(
+        //           fontSize: 30, fontWeight: FontWeight.bold),
+        //     ),
+        //   ],
+        // ),
+        // Text("Login using your mail id"),
+        // SizedBox(
+        //   height: screenHeight * 0.02,
+        // ),
+        // SizedBox(
+        //   height: screenHeight * 0.08,
+        //   width: screenWidth * 0.9,
+        //   child: CustomTextField("Email Id", _emailController,
+        //       Icon(Icons.alternate_email_rounded), false),
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
+        // SizedBox(
+        //   height: screenHeight * 0.08,
+        //   width: screenWidth * 0.9,
+        //   child: CustomTextField("Password", _passwordController,
+        //       Icon(Icons.lock), true),
+        // ),
+        // SizedBox(
+        //   height: screenHeight * 0.02,
+        // ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //     InkWell(
+        //       child: Text(
+        //         "Forgot password",
+        //         style: TextStyle(color: Colors.blue),
+        //       ),
+        //       // onTap: forgotPassword,
+        //       onTap: () {
+        //         Navigator.of(context).push(MaterialPageRoute(
+        //             builder: (context) => ForgotPasswordScreen()));
+        //       },
+        //     ),
+        //     SizedBox(
+        //       width: screenWidth * 0.05,
+        //     )
+        //   ],
+        // ),
+        // SizedBox(
+        //   height: screenHeight * 0.05,
+        // ),
+        // ElevatedButton(
+        //     onPressed: () {
+        //       final emailText = _emailController.text;
+        //       final isEmail = RegExp(
+        //               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        //           .hasMatch(emailText);
+
+        //       (isEmail && _passwordController.text.isNotEmpty)
+        //           ? (isLoginScreen
+        //               ? loginButtonTapped(context)
+        //               : signupButtonTapped(context))
+        //           : (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //               content: Text("Enter valid credentials"),
+        //             )));
+        //     },
+        //     child: Text(isLoginScreen ? "SIGN IN" : "SIGN UP")),
+
+        //////
+        // RoundedButton(isLoginScreen ? "SIGN IN" : "SIGN UP", (() {
+        //   final emailText = _emailController.text;
+
+        //   final isEmail = RegExp(
+        //           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        //       .hasMatch(emailText);
+
+        //   (isEmail && _passwordController.text.isNotEmpty)
+        //       ? (isLoginScreen
+        //           ? loginButtonTapped(context)
+        //           : signupButtonTapped(context))
+        //       : (ScaffoldMessenger.of(context)
+        //           .showSnackBar(SnackBar(
+        //           content: Text("Enter valid credentials"),
+        //         )));
+        // }), screenWidth * 0.8, screenHeight * 0.06),
+
+        // Text(
+        //   "OR",
+        //   style: TextStyle(color: Colors.grey),
+        // ),
+
+        ////
+        // Login Button
+        // SizedBox(
+        //   width: screenWidth * 0.6,
+        //   height: screenHeight * 0.075,
+        //   child: ElevatedButton(
+        //       style: ButtonStyle(
+        //           // padding: MaterialStateProperty.a,
+        //           foregroundColor: MaterialStateProperty.all<Color>(
+        //               AppColors.primaryColor),
+        //           backgroundColor:
+        //               MaterialStateProperty.all<Color>(Colors.white),
+        //           shape:
+        //               MaterialStateProperty.all<RoundedRectangleBorder>(
+        //                   RoundedRectangleBorder(
+        //                       borderRadius: BorderRadius.circular(30.0),
+        //                       side: BorderSide(
+        //                           color: AppColors.primaryColor)))),
+        //       onPressed: () {
+        //         showDialog(
+        //             // barrierDismissible: false,
+        //             context: context,
+        //             builder: (BuildContext buildContext) {
+        //               return WillPopScope(
+        //                   onWillPop: () => Future.value(false),
+        //                   child: LoadingAlert("Loggin In.........."));
+        //               //
+        //               //
+        //             });
+        //         signInWithGoogle(context);
+        //       },
+        //       child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           Image.asset('assets/images/google24.png'),
+        //           Text(isLoginScreen
+        //               ? "Sign In using Google"
+        //               : "Sign Up using Google")
+        //         ],
+        //       )),
+        // ),
+        // SizedBox(
+        //   height: screenHeight * 0.05,
+        // ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text("Does'nt have an account?  "),
+        //     InkWell(
+        //       child: Text(
+        //         isLoginScreen ? "Register" : "Login",
+        //         style: TextStyle(
+        //             color: AppColors.primaryColor,
+        //             fontWeight: FontWeight.bold),
+        //       ),
+        //       onTap: () {
+        //         setState(() {
+        //           isLoginScreen = isLoginScreen
+        //               ? !isLoginScreen
+        //               : !isLoginScreen;
+        //         });
+        //       },
+        //     ),
+        //   ],
+        // ),
+        // ElevatedButton(
+        //   child: Text(isLoginScreen
+        //       ? "Account illenkl signup"
+        //       : "Account ondenkl Sign In"),
+        //   onPressed: () {
+        //     setState(() {
+        //       isLoginScreen =
+        //           isLoginScreen ? !isLoginScreen : !isLoginScreen;
+        //     });
+        //   },
+        // ),
+        //
+        // ]),
+
+        child: Stack(
+          children: [
+            Positioned(
+              right: 0,
+              left: 0,
+              child: Image.asset(
+                'assets/images/applogo.jpg',
+                // width: screenWidth * 0.3,
+                width: screenWidth * 0.7,
+              ),
+            ),
+
+            ///
+            //////WHite circle
+            Positioned(
+              top: screenHeight * 0.8,
+              left: -(screenWidth * 0.1),
+              // right: 0,
+              child: Container(
+                  width: screenWidth * 1.2,
+                  height: screenWidth,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      // borderRadius: BorderRadius.all(Radius.circular(50))
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.elliptical(150, 150),
+                          topRight: Radius.elliptical(150, 150)))),
+            ),
+            ////////
+            ///////Button login
+            Positioned(
+              // right: 0,
+              left: screenWidth * 0.2,
+              top: screenHeight * 0.75,
+              child: SizedBox(
+                width: screenWidth * 0.6,
+                height: screenHeight * 0.075,
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        // padding: MaterialStateProperty.a,
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.primaryColor),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    side: BorderSide(
+                                        color: AppColors.primaryColor)))),
+                    onPressed: () {
+                      showDialog(
+                          // barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext buildContext) {
+                            return WillPopScope(
+                                onWillPop: () => Future.value(false),
+                                child: LoadingAlert("Loggin In.........."));
+                            //
+                            //
+                          });
+                      signInWithGoogle(context);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/google24.png'),
+                        Text(isLoginScreen
+                            ? "Sign In using Google"
+                            : "Sign Up using Google")
+                      ],
+                    )),
+              ),
+            ),
+          ],
+        ),
       ),
+      // isLoggingIn ? LoaderTransparent() : Container(),
+      // ],
+      // ),
     );
   }
 
