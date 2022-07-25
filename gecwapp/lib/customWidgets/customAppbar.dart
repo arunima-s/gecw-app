@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/screens/NotificationScreens/notificationScreen.dart';
@@ -8,7 +9,8 @@ class CustomAppBar extends StatelessWidget {
   CustomAppBar(this.openDrawer);
   @override
   Widget build(BuildContext context) {
-    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       height: screenHeight * 0.1,
@@ -27,9 +29,13 @@ class CustomAppBar extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Text(
+            // child: Text(
+            //   "WELCOME",
+            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+            // ),
+            child: AutoSizeText(
               "WELCOME",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
           ),
           Spacer(),
@@ -38,7 +44,10 @@ class CustomAppBar extends StatelessWidget {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => NotificationScreen()));
               },
-              icon: Icon(Icons.notifications))
+              icon: Icon(
+                Icons.notifications,
+                size: 30,
+              ))
         ],
       ),
     );

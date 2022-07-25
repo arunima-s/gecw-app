@@ -39,28 +39,28 @@ class MainScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: Text(
-                      "Notifications",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  //   child: Text(
+                  //     "Notifications",
+                  //     style:
+                  //         TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                  //   ),
+                  // ),
                   Container(
                       // Horizontal list view
                       padding: EdgeInsets.only(top: 10, left: 10),
-                      height: screenHeight * 0.25,
+                      height: screenWidth * 0.5,
                       // width: screenSizes[1] *,
                       child: _getRowList(context)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 10),
-                    child: Text(
-                      "Hostels",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 30, left: 10),
+                  //   child: Text(
+                  //     "Hostels",
+                  //     style:
+                  //         TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  //   ),
+                  // ),
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: HomeScreenMenu(),
