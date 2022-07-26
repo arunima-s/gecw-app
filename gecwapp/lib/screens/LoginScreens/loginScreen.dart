@@ -433,6 +433,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(SharedKeys.loginStatus, true);
     prefs.setInt(SharedKeys.userAccess, 2);
+    prefs.setString(SharedKeys.userName, currentUser.displayName.toString());
     final databaseRef =
         FirebaseDatabase.instance.reference(); //database reference object
     await databaseRef
