@@ -13,6 +13,7 @@ class AppColors {
 class SharedKeys {
   static const userAccess = "userAccess";
   static const loginStatus = "isLoggedIn";
+  static const userName = "userName";
 }
 
 class FirebaseKeys {

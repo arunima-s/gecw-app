@@ -1,12 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
+import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/customWidgets/customAppbar.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/navdrawer.dart';
+import 'package:gecwapp/customWidgets/simple_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,56 +26,83 @@ class MainScreen extends StatelessWidget {
     notificationsList = context.watch<NotificationProvider>().notifications;
     screenHeight = context.watch<GWValuesProvider>().height;
     screenWidth = context.watch<GWValuesProvider>().width;
+    final userName = context.watch<SharedPrefsProvider>().userName;
 
     if (notificationsList.isEmpty) {
       context.read<UserProvider>().fetchUserDetails();
       context.read<NotificationProvider>().getNotifications();
     }
-    return SafeArea(
-      top: true,
-      child: Scaffold(
-        drawer: NavDrawer(),
-        body: Column(
-          children: [
-            CustomAppBar(() {
-              passedopenDrawerFunc(context);
-            }),
-            Expanded(
-              child: ListView(
+    return Scaffold(
+      backgroundColor: AppColors.primaryColor,
+      drawer: NavDrawer(),
+      body: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            top: screenHeight * 0.3,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: AppColors.systemWhite,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              height: screenHeight * 0.7,
+              width: screenWidth * 0.9,
+            ),
+          ),
+          Column(
+            children: [
+              CustomAppBar(() {
+                passedopenDrawerFunc(context);
+              }),
+              Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: Text(
-                      "Notifications",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                    ),
+                  GWSpace(0, screenWidth * 0.2),
+                  AutoSizeText(
+                    userName,
+                    style:
+                        TextStyle(color: AppColors.systemWhite, fontSize: 25),
                   ),
-                  Container(
-                      // Horizontal list view
-                      padding: EdgeInsets.only(top: 10, left: 10),
-                      height: screenHeight * 0.25,
-                      // width: screenSizes[1] *,
-                      child: _getRowList(context)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 10),
-                    child: Text(
-                      "Hostels",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: HomeScreenMenu(),
-                  )
                 ],
               ),
-            ),
-          ],
-        ),
-        // ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    //   child: Text(
+                    //     "Notifications",
+                    //     style:
+                    //         TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    //   ),
+                    // ),
+                    Container(
+                        // Horizontal list view
+                        padding: EdgeInsets.only(top: 10),
+                        height: screenWidth * 0.5,
+                        // width: screenSizes[1] *,
+                        child: _getRowList(context)),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 30, left: 10),
+                    //   child: Text(
+                    //     "Hostels",
+                    //     style:
+                    //         TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                    //   ),
+                    // ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      child: HomeScreenMenu(),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
+      // ),
     );
   }
 
@@ -88,13 +119,16 @@ class MainScreen extends StatelessWidget {
                   child: notificationsList.isEmpty ||
                           !notificationsList[index].isVerified
                       ? SizedBox()
-                      : ImageBanner(
-                          context
-                              .watch<NotificationProvider>()
-                              .notifications[index]
-                              .image,
-                          screenHeight * 0.3,
-                          screenWidth * 0.8),
+                      : Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: ImageBanner(
+                              context
+                                  .watch<NotificationProvider>()
+                                  .notifications[index]
+                                  .image,
+                              screenHeight * 0.3,
+                              screenWidth * 0.8),
+                        ),
                   onTap: () => {
                     openURL(context
                         .watch<NotificationProvider>()
