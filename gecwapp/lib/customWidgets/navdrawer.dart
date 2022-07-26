@@ -16,14 +16,14 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'GECWAPP',
+              'HAIKU',
               style: TextStyle(color: Colors.black, fontSize: 25),
             ),
             decoration: BoxDecoration(
                 color: Colors.green,
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('assets/images/room1.jpeg'))),
+                    image: AssetImage('assets/images/graphic.png'))),
           ),
           // ListTile(
           //   leading: Icon(Icons.input),
