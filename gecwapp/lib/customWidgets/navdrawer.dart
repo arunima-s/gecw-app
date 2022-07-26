@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/customWidgets/alert_dialog.dart';
+import 'package:gecwapp/customWidgets/Alerts/loading-alert.dart';
 import 'package:gecwapp/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Alerts/alert_dialog.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -14,14 +16,14 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'GECWAPP',
+              'HAIKU',
               style: TextStyle(color: Colors.black, fontSize: 25),
             ),
             decoration: BoxDecoration(
                 color: Colors.green,
                 image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage('assets/images/room1.jpeg'))),
+                    image: AssetImage('assets/images/graphic.png'))),
           ),
           // ListTile(
           //   leading: Icon(Icons.input),
@@ -49,10 +51,11 @@ class NavDrawer extends StatelessWidget {
             // onTap: () => {Navigator.of(context).pop()},
             onTap: () async {
               showDialog(
+                  barrierDismissible: false,
                   context: context,
                   builder: (BuildContext buildContext) {
                     return AlertScreen(
-                        "You can always return using the credentials you signed up with",
+                        "You can always return using your google account",
                         "Are you leaving??",
                         "Logout");
                   });

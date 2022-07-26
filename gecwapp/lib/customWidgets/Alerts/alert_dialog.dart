@@ -20,6 +20,7 @@ class AlertScreen extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Color.fromARGB(255, 249, 249, 249),
       content: Container(
+        height: screenHeight * 0.3,
         decoration:
             BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Column(
@@ -50,7 +51,7 @@ class AlertScreen extends StatelessWidget {
                 children: [
                   RoundedButton("Cancel", (() {
                     Navigator.pop(context);
-                  }), screenWidth * 0.4, screenHeight * 0.06),
+                  }), screenWidth * 0.25, screenHeight * 0.06),
                   RoundedButton(buttonTitle, () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
@@ -58,7 +59,7 @@ class AlertScreen extends StatelessWidget {
                     await FirebaseAuth.instance.signOut().whenComplete(() {
                       RestartWidget.restartApp(context);
                     });
-                  }, screenWidth * 0.4, screenHeight * 0.06)
+                  }, screenWidth * 0.25, screenHeight * 0.06)
                 ],
               ),
             )
