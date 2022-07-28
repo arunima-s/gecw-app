@@ -11,6 +11,7 @@ import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
+import 'package:gecwapp/screens/NotificationScreens/notification-detail-screen.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -33,135 +34,142 @@ class NotificationScreenItems extends StatelessWidget {
     notificationItem =
         context.watch<NotificationProvider>().notifications[index];
     final userId = context.watch<UserProvider>().uuId;
-    return Container(
-      // width: 10,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: AppColors.systemWhite,
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.grey3,
-                offset: Offset(2.0, 2.0),
-                spreadRadius: 3.0,
-                blurRadius: 2.0)
-          ]),
-      // margin: EdgeInsets.only(top: 10),
-      margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-      // child: Row(
-      //   // mainAxisAlignment: MainAxisAlignment.,
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-      //     ImageBanner(
-      //         notificationItem!.image, MediaQuery.of(context).size.width * 0.5),
-      //     Container(
-      //       // color: Colors.red,
-      //       width: MediaQuery.of(context).size.width * 0.3,
-      //       margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-      //       child: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Text(notificationItem!.eventDate),
-      //           Text(notificationItem!.name),
-      //           Text(
-      //             notificationItem!.details,
-      //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     userId == notificationItem!.userId
-      //         ? Expanded(
-      //             child: IconButton(
-      //               // iconSize: 0.1,
-      //               onPressed: () {
-      //                 deleteNotification(context);
-      //               },
-      //               icon: Icon(Icons.delete),
-      //             ),
-      //           )
-      //         : SizedBox(),
-      //   ],
-      // ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.green,
-                radius: 15,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => NotificationDetailsScreen(index)));
+      },
+      child: Container(
+        // width: 10,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: AppColors.systemWhite,
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.grey3,
+                  offset: Offset(2.0, 2.0),
+                  spreadRadius: 3.0,
+                  blurRadius: 2.0)
+            ]),
+        // margin: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+        // child: Row(
+        //   // mainAxisAlignment: MainAxisAlignment.,
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     ImageBanner(
+        //         notificationItem!.image, MediaQuery.of(context).size.width * 0.5),
+        //     Container(
+        //       // color: Colors.red,
+        //       width: MediaQuery.of(context).size.width * 0.3,
+        //       margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+        //       child: Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Text(notificationItem!.eventDate),
+        //           Text(notificationItem!.name),
+        //           Text(
+        //             notificationItem!.details,
+        //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     userId == notificationItem!.userId
+        //         ? Expanded(
+        //             child: IconButton(
+        //               // iconSize: 0.1,
+        //               onPressed: () {
+        //                 deleteNotification(context);
+        //               },
+        //               icon: Icon(Icons.delete),
+        //             ),
+        //           )
+        //         : SizedBox(),
+        //   ],
+        // ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 14,
+                  backgroundColor: Colors.green,
+                  radius: 15,
                   child: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(notificationItem!.image), //NetworkImage
-                    radius: 12,
+                    backgroundColor: Colors.black,
+                    radius: 14,
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(notificationItem!.image), //NetworkImage
+                      radius: 12,
+                    ), //CircleAvatar
                   ), //CircleAvatar
-                ), //CircleAvatar
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    notificationItem!.user,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text("Evenet Date")
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      notificationItem!.user,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Text("Evenet Date")
+                  ],
+                ),
               ),
-            ),
-            (userId == notificationItem?.userId)
-                ? GWSpace(0, screenWidth * 0.4)
-                : GWSpace(0, screenWidth * 0.47),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PopupMenuButton(
-                onSelected: (value) {
-                  if (value == 1) {
-                    deleteNotification(context);
-                    print("Delete");
-                  } else {
-                    approveNotifcation(context);
-                    print("Approve");
-                  }
-                },
-                child: (userId == notificationItem?.userId)
-                    ? Center(child: Icon(Icons.menu))
-                    : SizedBox(),
-                itemBuilder: (context) {
-                  if (userData?.access == 2) {
-                    return [
-                      PopupMenuItem(value: 1, child: Text("Delete")),
-                      PopupMenuItem(value: 2, child: Text("Approve"))
-                    ];
-                  } else {
-                    return [PopupMenuItem(value: 1, child: Text("Delete"))];
-                  }
-                },
+              (userId == notificationItem?.userId)
+                  ? GWSpace(0, screenWidth * 0.4)
+                  : GWSpace(0, screenWidth * 0.47),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: PopupMenuButton(
+                  onSelected: (value) {
+                    if (value == 1) {
+                      deleteNotification(context);
+                      print("Delete");
+                    } else {
+                      approveNotifcation(context);
+                      print("Approve");
+                    }
+                  },
+                  child: (userId == notificationItem?.userId)
+                      ? Center(child: Icon(Icons.menu))
+                      : SizedBox(),
+                  itemBuilder: (context) {
+                    if (userData?.access == 2) {
+                      return [
+                        PopupMenuItem(value: 1, child: Text("Delete")),
+                        PopupMenuItem(value: 2, child: Text("Approve"))
+                      ];
+                    } else {
+                      return [PopupMenuItem(value: 1, child: Text("Delete"))];
+                    }
+                  },
+                ),
               ),
-            ),
-            IconButton(
-                onPressed: null,
-                icon: Icon(Icons.notifications_active_outlined))
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ImageBanner(
-                notificationItem!.image, screenHeight * 0.3, screenWidth * 0.9),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(notificationItem!.details),
-        )
-      ]),
+              IconButton(
+                  onPressed: null,
+                  icon: Icon(Icons.notifications_active_outlined))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ImageBanner(notificationItem!.image, screenHeight * 0.3,
+                  screenWidth * 0.9),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(notificationItem!.details),
+          )
+        ]),
+      ),
     );
   }
 
