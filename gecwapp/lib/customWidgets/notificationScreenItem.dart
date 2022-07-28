@@ -19,6 +19,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
+  final isVerificationScreem = true;
   final int index;
   final bool isVerified;
   NotificationScreenItems(this.index, this.isVerified);
@@ -89,38 +90,32 @@ class NotificationScreenItems extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: screenWidth * 0.2,
+                width: screenWidth * 0.6,
               ),
-              (userId == notificationItem?.userId)
-                  ? GWSpace(0, screenWidth * 0.4)
-                  : GWSpace(0, screenWidth * 0.47),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: PopupMenuButton(
-                  onSelected: (value) {
-                    if (value == 1) {
-                      deleteNotification(context);
-                      print("Delete");
-                    }
-                    // else {
-                    //   approveNotifcation(context);
-                    //   print("Approve");
-                    // }
-                  },
-                  child: (userId == notificationItem?.userId)
-                      ? Center(child: Icon(Icons.menu))
-                      : SizedBox(),
-                  itemBuilder: (context) {
-                    if (userData?.access == 2) {
-                      return [
-                        PopupMenuItem(value: 1, child: Text("Delete")),
-                        // PopupMenuItem(value: 2, child: Text("Approve"))
-                      ];
-                    } else {
-                      return [PopupMenuItem(value: 1, child: Text("Delete"))];
-                    }
-                  },
-                ),
+              // SizedBox(
+              PopupMenuButton(
+                onSelected: (value) {
+                  if (value == 1) {
+                    deleteNotification(context);
+                    print("Delete");
+                  } else {
+                    approveNotifcation(context);
+                    print("Approve");
+                  }
+                },
+                child: (userData!.access != 0)
+                    ? Center(child: Icon(Icons.menu))
+                    : SizedBox(),
+                itemBuilder: (context) {
+                  if (userData?.access == 2) {
+                    return [
+                      PopupMenuItem(value: 1, child: Text("Delete")),
+                      PopupMenuItem(value: 2, child: Text("Approve"))
+                    ];
+                  } else {
+                    return [PopupMenuItem(value: 1, child: Text("Delete"))];
+                  }
+                },
               ),
               // IconButton(
               //     onPressed: null,
