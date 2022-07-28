@@ -52,64 +52,30 @@ class NotificationScreenItems extends StatelessWidget {
                   blurRadius: 2.0)
             ]),
         // margin: EdgeInsets.only(top: 10),
-        margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-        // child: Row(
-        //   // mainAxisAlignment: MainAxisAlignment.,
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     ImageBanner(
-        //         notificationItem!.image, MediaQuery.of(context).size.width * 0.5),
-        //     Container(
-        //       // color: Colors.red,
-        //       width: MediaQuery.of(context).size.width * 0.3,
-        //       margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(notificationItem!.eventDate),
-        //           Text(notificationItem!.name),
-        //           Text(
-        //             notificationItem!.details,
-        //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     userId == notificationItem!.userId
-        //         ? Expanded(
-        //             child: IconButton(
-        //               // iconSize: 0.1,
-        //               onPressed: () {
-        //                 deleteNotification(context);
-        //               },
-        //               icon: Icon(Icons.delete),
-        //             ),
-        //           )
-        //         : SizedBox(),
-        //   ],
-        // ),
+        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(8, 0, 4, 0),
                 child: CircleAvatar(
                   backgroundColor: Colors.green,
-                  radius: 15,
+                  radius: 12,
                   child: CircleAvatar(
                     backgroundColor: Colors.black,
-                    radius: 14,
+                    radius: 11,
                     child: CircleAvatar(
                       backgroundImage:
                           NetworkImage(notificationItem!.image), //NetworkImage
-                      radius: 12,
+                      radius: 10,
                     ), //CircleAvatar
                   ), //CircleAvatar
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 1),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -118,9 +84,12 @@ class NotificationScreenItems extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    Text("Evenet Date")
+                    // Text("Evenet Date")
                   ],
                 ),
+              ),
+              SizedBox(
+                width: screenWidth * 0.2,
               ),
               (userId == notificationItem?.userId)
                   ? GWSpace(0, screenWidth * 0.4)
@@ -132,10 +101,11 @@ class NotificationScreenItems extends StatelessWidget {
                     if (value == 1) {
                       deleteNotification(context);
                       print("Delete");
-                    } else {
-                      approveNotifcation(context);
-                      print("Approve");
                     }
+                    // else {
+                    //   approveNotifcation(context);
+                    //   print("Approve");
+                    // }
                   },
                   child: (userId == notificationItem?.userId)
                       ? Center(child: Icon(Icons.menu))
@@ -144,7 +114,7 @@ class NotificationScreenItems extends StatelessWidget {
                     if (userData?.access == 2) {
                       return [
                         PopupMenuItem(value: 1, child: Text("Delete")),
-                        PopupMenuItem(value: 2, child: Text("Approve"))
+                        // PopupMenuItem(value: 2, child: Text("Approve"))
                       ];
                     } else {
                       return [PopupMenuItem(value: 1, child: Text("Delete"))];
@@ -152,22 +122,23 @@ class NotificationScreenItems extends StatelessWidget {
                   },
                 ),
               ),
-              IconButton(
-                  onPressed: null,
-                  icon: Icon(Icons.notifications_active_outlined))
+              // IconButton(
+              //     onPressed: null,
+              //     icon: Icon(Icons.notifications_active_outlined))
+              SizedBox(
+                height: screenHeight * 0.055,
+              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ImageBanner(notificationItem!.image, screenHeight * 0.3,
-                  screenWidth * 0.9),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(notificationItem!.details),
+          ImageBanner(
+              notificationItem!.image, screenHeight * 0.3, screenWidth * 0.9),
+          SizedBox(
+            height: screenHeight * 0.01,
           )
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Text(notificationItem!.details),
+          // )
         ]),
       ),
     );

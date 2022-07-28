@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Models/userModel.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/notificationScreenItem.dart';
@@ -16,6 +18,8 @@ class NotificationScreen extends StatelessWidget {
   UserModel? userData;
   @override
   Widget build(BuildContext context) {
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     print(
         '---------------------------------------Notification Screen--------------------------------------------------');
     userData = context.watch<UserProvider>().userModel;
@@ -29,13 +33,24 @@ class NotificationScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  /////
+                  //////Back Button
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.arrow_back_ios)),
+                  AutoSizeText(
                     "Notifications",
                     style: TextStyle(
-                      fontSize: 25,
-                    ),
+                        fontFamily: 'Nunito',
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    width: screenWidth * 0.25,
                   ),
                   /////////////
                   ////////////Verify button
