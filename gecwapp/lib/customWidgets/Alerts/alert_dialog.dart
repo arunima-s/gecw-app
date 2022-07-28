@@ -20,7 +20,8 @@ class AlertScreen extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Color.fromARGB(255, 249, 249, 249),
       content: Container(
-        height: screenHeight * 0.3,
+        // height: screenHeight * 0.3,
+        width: screenWidth * 0.9,
         decoration:
             BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Column(
