@@ -59,7 +59,7 @@ class HostelListItem extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        hostelListModel.warden,
+                        "${hostelListModel.distance} kms from college",
                         style: TextStyle(fontSize: 10),
                       ),
                     ],
