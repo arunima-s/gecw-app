@@ -11,6 +11,7 @@ import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
+import 'package:gecwapp/screens/NotificationScreens/notification-detail-screen.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -18,6 +19,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationScreenItems extends StatelessWidget {
   NotificationModel? notificationItem;
+  final isVerificationScreem = true;
   final int index;
   final bool isVerified;
   NotificationScreenItems(this.index, this.isVerified);
@@ -33,94 +35,65 @@ class NotificationScreenItems extends StatelessWidget {
     notificationItem =
         context.watch<NotificationProvider>().notifications[index];
     final userId = context.watch<UserProvider>().uuId;
-    return Container(
-      // width: 10,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: AppColors.systemWhite,
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.grey3,
-                offset: Offset(2.0, 2.0),
-                spreadRadius: 3.0,
-                blurRadius: 2.0)
-          ]),
-      // margin: EdgeInsets.only(top: 10),
-      margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-      // child: Row(
-      //   // mainAxisAlignment: MainAxisAlignment.,
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-      //     ImageBanner(
-      //         notificationItem!.image, MediaQuery.of(context).size.width * 0.5),
-      //     Container(
-      //       // color: Colors.red,
-      //       width: MediaQuery.of(context).size.width * 0.3,
-      //       margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-      //       child: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Text(notificationItem!.eventDate),
-      //           Text(notificationItem!.name),
-      //           Text(
-      //             notificationItem!.details,
-      //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //     userId == notificationItem!.userId
-      //         ? Expanded(
-      //             child: IconButton(
-      //               // iconSize: 0.1,
-      //               onPressed: () {
-      //                 deleteNotification(context);
-      //               },
-      //               icon: Icon(Icons.delete),
-      //             ),
-      //           )
-      //         : SizedBox(),
-      //   ],
-      // ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.green,
-                radius: 15,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => NotificationDetailsScreen(index)));
+      },
+      child: Container(
+        // width: 10,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: AppColors.systemWhite,
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.grey3,
+                  offset: Offset(2.0, 2.0),
+                  spreadRadius: 3.0,
+                  blurRadius: 2.0)
+            ]),
+        // margin: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 4, 0),
                 child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 14,
+                  backgroundColor: Colors.green,
+                  radius: 12,
                   child: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(notificationItem!.image), //NetworkImage
-                    radius: 12,
+                    backgroundColor: Colors.black,
+                    radius: 11,
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(notificationItem!.image), //NetworkImage
+                      radius: 10,
+                    ), //CircleAvatar
                   ), //CircleAvatar
-                ), //CircleAvatar
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    notificationItem!.user,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Text("Evenet Date")
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 1),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      notificationItem!.user,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    // Text("Evenet Date")
+                  ],
+                ),
               ),
-            ),
-            (userId == notificationItem?.userId)
-                ? GWSpace(0, screenWidth * 0.4)
-                : GWSpace(0, screenWidth * 0.47),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PopupMenuButton(
+              SizedBox(
+                width: screenWidth * 0.6,
+              ),
+              // SizedBox(
+              PopupMenuButton(
                 onSelected: (value) {
                   if (value == 1) {
                     deleteNotification(context);
@@ -130,7 +103,7 @@ class NotificationScreenItems extends StatelessWidget {
                     print("Approve");
                   }
                 },
-                child: (userId == notificationItem?.userId)
+                child: (userData!.access != 0)
                     ? Center(child: Icon(Icons.menu))
                     : SizedBox(),
                 itemBuilder: (context) {
@@ -144,24 +117,25 @@ class NotificationScreenItems extends StatelessWidget {
                   }
                 },
               ),
-            ),
-            IconButton(
-                onPressed: null,
-                icon: Icon(Icons.notifications_active_outlined))
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ImageBanner(
-                notificationItem!.image, screenHeight * 0.3, screenWidth * 0.9),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(notificationItem!.details),
-        )
-      ]),
+              // IconButton(
+              //     onPressed: null,
+              //     icon: Icon(Icons.notifications_active_outlined))
+              SizedBox(
+                height: screenHeight * 0.055,
+              )
+            ],
+          ),
+          ImageBanner(
+              notificationItem!.image, screenHeight * 0.3, screenWidth * 0.9),
+          SizedBox(
+            height: screenHeight * 0.01,
+          )
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Text(notificationItem!.details),
+          // )
+        ]),
+      ),
     );
   }
 

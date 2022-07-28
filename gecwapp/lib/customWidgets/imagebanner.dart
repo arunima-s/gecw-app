@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageBanner extends StatelessWidget {
@@ -9,11 +10,17 @@ class ImageBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 5.0),
+      // margin: EdgeInsets.only(right: 5.0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(20)),
-        child: Image.network(
-          _assetPath,
+        // child: Image.network(
+        //   _assetPath,
+        //   width: imageWidth,
+        //   height: imageHeight,
+        //   fit: BoxFit.fill,
+        // )
+        child: CachedNetworkImage(
+          imageUrl: _assetPath,
           width: imageWidth,
           height: imageHeight,
           fit: BoxFit.fill,

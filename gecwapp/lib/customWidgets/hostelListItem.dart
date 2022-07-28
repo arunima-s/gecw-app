@@ -3,8 +3,8 @@ import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
-import 'package:gecwapp/Screens/hostelDetailsScreen.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
+import 'package:gecwapp/screens/HostelScreens/hostelDetailsScreen.dart';
 import 'package:provider/provider.dart';
 
 class HostelListItem extends StatelessWidget {
@@ -17,7 +17,7 @@ class HostelListItem extends StatelessWidget {
     final screenHeight = context.watch<GWValuesProvider>().height;
     final screenWidth = context.watch<GWValuesProvider>().width;
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+      margin: EdgeInsets.fromLTRB(20, 5, 20, 0),
       // width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -46,13 +46,20 @@ class HostelListItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        hostelListModel.warden,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Text(
+                            hostelListModel.name,
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          hostelListModel.isBoys
+                              ? Icon(Icons.male)
+                              : Icon(Icons.female)
+                        ],
                       ),
                       Text(
-                        hostelListModel.name,
+                        "${hostelListModel.distance} kms from college",
                         style: TextStyle(fontSize: 10),
                       ),
                     ],

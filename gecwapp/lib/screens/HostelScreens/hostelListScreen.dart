@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
@@ -18,6 +17,7 @@ class _HostelListScreenState extends State<HostelListScreen> {
   int userAccess = 0;
   List<HostelListModel> _foundItems = [];
   var ptaSelected = true;
+  var firstLoad = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,13 @@ class _HostelListScreenState extends State<HostelListScreen> {
     final screenWidth = context.watch<GWValuesProvider>().width;
     if (hostelData.isEmpty) {
       context.read<HostelProvider>().fetchUserDetails();
+      _foundItems = hostelData;
     }
-    _foundItems = hostelData;
+
+    if (!firstLoad) {
+      _foundItems = hostelData;
+      // firstLoad = true;
+    }
 
     return Scaffold(
         body: hostelData.isEmpty
@@ -40,8 +45,13 @@ class _HostelListScreenState extends State<HostelListScreen> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(Icons.arrow_back_ios_new)),
                           Text(
                             "Hostels",
                             style: TextStyle(
@@ -62,21 +72,39 @@ class _HostelListScreenState extends State<HostelListScreen> {
                     ///////////Search bar
 
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
-                        child: TextField(
-                          onChanged: (value) => _runFilter(value),
-                          textAlign: TextAlign.left,
-                          // controller: _controller,
-                          decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.search),
-                              hintText: "Search",
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color:
-                                          Color.fromARGB(255, 189, 189, 189)))),
-                        )),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 15),
+                      // child: TextField(
+                      //   onChanged: (value) => _runFilter(value),
+                      //   textAlign: TextAlign.left,
+                      //   // controller: _controller,
+                      //   decoration: InputDecoration(
+                      //       suffixIcon: Icon(Icons.search),
+                      //       hintText: "Search",
+                      //       enabledBorder: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(25.0),
+                      //           borderSide: BorderSide(
+                      //               width: 1,
+                      //               color:
+                      //                   Color.fromARGB(255, 189, 189, 189)))),
+                      // )
+                      child: TextField(
+                        onChanged: (value) {
+                          firstLoad = true;
+                          _runFilter(value);
+                        },
+                        textAlign: TextAlign.left,
+                        // controller: _controller,
+                        decoration: InputDecoration(
+                            suffixIcon: Icon(Icons.search),
+                            hintText: "Search",
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                    width: 1,
+                                    color:
+                                        Color.fromARGB(255, 189, 189, 189)))),
+                      ),
+                    ),
                     /////
                     //////
                     ////Hostel fragment
@@ -203,6 +231,13 @@ class _HostelListScreenState extends State<HostelListScreen> {
                   ],
                 ),
               ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // _foundItems = hostelData;
+    super.initState();
   }
 
   // This function is called whenever the text field changes

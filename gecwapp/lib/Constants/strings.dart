@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const primaryColor = Color.fromRGBO(0, 85, 255, 1);
+  static const primaryColor = Color.fromRGBO(16, 121, 169, 1);
   static const systemWhite = Color.fromRGBO(253, 253, 253, 1);
   static const systemBlack = Color.fromRGBO(0, 0, 0, 1);
   static const grey1 = Color.fromRGBO(236, 236, 234, 1);
@@ -13,6 +13,7 @@ class AppColors {
 class SharedKeys {
   static const userAccess = "userAccess";
   static const loginStatus = "isLoggedIn";
+  static const userName = "userName";
 }
 
 class FirebaseKeys {

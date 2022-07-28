@@ -4,6 +4,7 @@ import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/CustomWidgets/imagebanner.dart';
 import 'package:gecwapp/Models/hostelListModel.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
+import 'package:gecwapp/customWidgets/simple_widgets.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart' as URLLauncher;
@@ -266,11 +267,23 @@ class HostelDetailsScreen extends StatelessWidget {
               left: 15.0,
               top: 15.0,
               child: Container(
-                width: 40,
-                height: 40,
-                child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: Navigator.of(context).pop),
+                width: screenWidth * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // IconButton(
+                    //     icon: Icon(Icons.arrow_back_ios_new),
+                    //     onPressed: Navigator.of(context).pop),
+                    GWRoundedIcon(Navigator.of(context).pop,
+                        Icon(Icons.arrow_back_ios_new)),
+                    GWRoundedIcon(
+                        Navigator.of(context).pop,
+                        Icon(
+                          Icons.share,
+                          color: Colors.black,
+                        ))
+                  ],
+                ),
               ),
             )
           ],

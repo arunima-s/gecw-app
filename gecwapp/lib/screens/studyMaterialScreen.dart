@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
-import 'package:gecwapp/screens/hostelListScreen.dart';
+import 'package:gecwapp/customWidgets/simple_widgets.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 import 'package:gecwapp/screens/semesterScreen.dart';
+
+import 'HostelScreens/hostelListScreen.dart';
 
 class HomeScreenMenu extends StatefulWidget {
   const HomeScreenMenu({Key? key}) : super(key: key);
@@ -31,8 +33,8 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => HostelListScreen()))
                     },
-                child: StudyMenuItem("assets/images/notes.png", "Hostels")),
-            StudyMenuItem("assets/images/notes.png", "Book Bicycle"),
+                child: StudyMenuItem("assets/images/hostel.png", "Hostels")),
+            StudyMenuItem("assets/images/bicycle.png", "Book Bicycle"),
           ],
         ),
         Row(
@@ -48,9 +50,10 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                       context: context,
                       builder: (context) => StudyMaterialsScreen(true));
                 },
-                child: StudyMenuItem("assets/images/notes.png", "Syllabus")),
+                child: StudyMenuItem("assets/images/syllabus.png", "Syllabus")),
             GestureDetector(
-              child: StudyMenuItem("assets/images/notes.png", "Scholarships"),
+              child: StudyMenuItem(
+                  "assets/images/scholarship.png", "Scholarships"),
               onTap: () => {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ScholarShipScreen()))
@@ -119,6 +122,8 @@ class StudyMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
       height: MediaQuery.of(context).size.width * 0.4,
@@ -138,9 +143,10 @@ class StudyMenuItem extends StatelessWidget {
         children: [
           Image.asset(
             _assetPath,
-            height: MediaQuery.of(context).size.width * 0.2,
-            width: MediaQuery.of(context).size.width * 0.2,
+            height: MediaQuery.of(context).size.width * 0.25,
+            width: MediaQuery.of(context).size.width * 0.25,
           ),
+          GWSpace(screenHeight * 0.01, 0),
           Text(text)
         ],
       ),
