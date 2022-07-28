@@ -27,10 +27,12 @@ class _HostelListScreenState extends State<HostelListScreen> {
     final screenWidth = context.watch<GWValuesProvider>().width;
     if (hostelData.isEmpty) {
       context.read<HostelProvider>().fetchUserDetails();
+      _foundItems = hostelData;
     }
+
     if (!firstLoad) {
       _foundItems = hostelData;
-      firstLoad = true;
+      // firstLoad = true;
     }
 
     return Scaffold(
@@ -86,7 +88,10 @@ class _HostelListScreenState extends State<HostelListScreen> {
                       //                   Color.fromARGB(255, 189, 189, 189)))),
                       // )
                       child: TextField(
-                        onChanged: (value) => _runFilter(value),
+                        onChanged: (value) {
+                          firstLoad = true;
+                          _runFilter(value);
+                        },
                         textAlign: TextAlign.left,
                         // controller: _controller,
                         decoration: InputDecoration(
