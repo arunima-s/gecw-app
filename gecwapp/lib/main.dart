@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/Managers/cloud-message-manager.dart';
+import 'package:gecwapp/Providers/bicycle-provider.dart';
 import 'package:gecwapp/Providers/calendardata_provider.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/hostels_provider.dart';
@@ -27,7 +28,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => HostelProvider()),
       ChangeNotifierProvider(create: (_) => SharedPrefsProvider()),
       ChangeNotifierProvider(create: (_) => CalendarDataProvider()),
-      ChangeNotifierProvider(create: (_) => GWValuesProvider())
+      ChangeNotifierProvider(create: (_) => GWValuesProvider()),
+      ChangeNotifierProvider(create: (_) => BicycleProvider()),
     ],
     child: RestartWidget(child: MyApp()),
   ));

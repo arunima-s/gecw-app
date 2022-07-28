@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
+import 'package:gecwapp/screens/Bicycleclub%20Screens/bicycle-screen.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 import 'package:gecwapp/screens/semesterScreen.dart';
 
@@ -34,7 +35,13 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                           builder: (context) => HostelListScreen()))
                     },
                 child: StudyMenuItem("assets/images/hostel.png", "Hostels")),
-            StudyMenuItem("assets/images/bicycle.png", "Book Bicycle"),
+            GestureDetector(
+                onTap: () => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BicycleScreen()))
+                    },
+                child:
+                    StudyMenuItem("assets/images/bicycle.png", "Book Bicycle")),
           ],
         ),
         Row(
