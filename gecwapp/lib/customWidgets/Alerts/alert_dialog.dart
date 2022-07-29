@@ -9,9 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AlertScreen extends StatelessWidget {
   // const AlertScreen({Key? key}) : super(key: key);
+  final VoidCallback cancelFn, okFn;
   var isAdmin;
   final String alertMessage, alertTitle, buttonTitle;
-  AlertScreen(this.alertMessage, this.alertTitle, this.buttonTitle);
+  AlertScreen(this.alertMessage, this.alertTitle, this.buttonTitle, this.okFn,
+      this.cancelFn);
 
   @override
   Widget build(BuildContext context) {
@@ -50,17 +52,27 @@ class AlertScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  RoundedButton("Cancel", (() {
-                    Navigator.pop(context);
-                  }), screenWidth * 0.25, screenHeight * 0.06),
-                  RoundedButton(buttonTitle, () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setBool(SharedKeys.loginStatus, false);
-                    await FirebaseAuth.instance.signOut().whenComplete(() {
-                      RestartWidget.restartApp(context);
-                    });
-                  }, screenWidth * 0.25, screenHeight * 0.06)
+                  RoundedButton(
+                      "Cancel",
+                      //  (() {
+                      //   Navigator.pop(context);
+                      // }),
+                      cancelFn,
+                      screenWidth * 0.25,
+                      screenHeight * 0.06),
+                  RoundedButton(
+                      buttonTitle,
+                      // () async {
+                      //   SharedPreferences prefs =
+                      //       await SharedPreferences.getInstance();
+                      //   prefs.setBool(SharedKeys.loginStatus, false);
+                      //   await FirebaseAuth.instance.signOut().whenComplete(() {
+                      //     RestartWidget.restartApp(context);
+                      //   });
+                      // },
+                      okFn,
+                      screenWidth * 0.25,
+                      screenHeight * 0.06)
                 ],
               ),
             )
