@@ -7,6 +7,7 @@ import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/busTimings.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
+import 'package:gecwapp/screens/Tools/tools-screen.dart';
 import 'package:gecwapp/screens/mainScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
             // WebScraperApp(),
             BusTiming(),
             CalendarScreen(),
-            HomeScreenMenu()
+            ToolSScreen()
           ]),
         ),
       ),

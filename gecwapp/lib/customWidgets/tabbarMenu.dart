@@ -37,13 +37,13 @@ class TabBarMenu extends StatelessWidget {
             icon: Icon(Icons.bus_alert),
           ),
           Tab(
-            text: "Verenthelm",
-            icon: Icon(Icons.person),
+            text: "Calendar",
+            icon: Icon(Icons.calendar_month),
           ),
           Tab(
-              text: "Study Materials",
+              text: "Tools",
               icon: Icon(
-                Icons.menu_book,
+                Icons.person_outline_rounded,
               ))
         ],
       ),
