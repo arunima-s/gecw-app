@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Screens/HostelScreens/hostelListScreen.dart';
+import 'package:gecwapp/customWidgets/Alerts/sgpa-dialog.dart';
 import 'package:gecwapp/screens/Tools/bunk-manager-screen.dart';
 import 'package:gecwapp/screens/Tools/cgpa-calculator.dart';
+import 'package:gecwapp/screens/Tools/sgpa-calculator.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 import 'package:gecwapp/screens/semesterScreen.dart';
 import 'package:gecwapp/screens/studyMaterialScreen.dart';
@@ -47,10 +49,10 @@ class ToolSScreen extends StatelessWidget {
                       "assets/images/syllabus.png", "CGPA Calculator")),
               GestureDetector(
                 child: StudyMenuItem(
-                    "assets/images/scholarship.png", "Scholarships"),
+                    "assets/images/scholarship.png", "SGPA Calculator"),
                 onTap: () => {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ScholarShipScreen()))
+                  showDialog(
+                      context: context, builder: (context) => SGPADialog())
                 },
               ),
             ],
