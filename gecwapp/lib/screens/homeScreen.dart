@@ -4,6 +4,7 @@ import 'package:gecwapp/CustomWidgets/navdrawer.dart';
 import 'package:gecwapp/CustomWidgets/tabbarMenu.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
+import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/busTimings.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
 import 'package:gecwapp/screens/mainScreen.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     context.read<GWValuesProvider>().setScreenSize(screenHeight, screenWidth);
     context.read<SharedPrefsProvider>().fetchSharedPrefs();
+    context.read<UserProvider>().fetchVersionCode();
     return MaterialApp(
       home: DefaultTabController(
         length: 4,

@@ -57,7 +57,16 @@ class NavDrawer extends StatelessWidget {
                     return AlertScreen(
                         "You can always return using your google account",
                         "Are you leaving??",
-                        "Logout");
+                        "Logout", () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool(SharedKeys.loginStatus, false);
+                      await FirebaseAuth.instance.signOut().whenComplete(() {
+                        RestartWidget.restartApp(context);
+                      });
+                    }, () {
+                      Navigator.pop(context);
+                    });
                   });
               // SharedPreferences prefs = await SharedPreferences.getInstance();
               // prefs.setBool(SharedKeys.loginStatus, false);

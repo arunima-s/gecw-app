@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/notificationModel.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
@@ -7,10 +9,12 @@ import 'package:gecwapp/Providers/notification_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
 import 'package:gecwapp/Screens/studyMaterialScreen.dart';
+import 'package:gecwapp/customWidgets/Alerts/alert_dialog.dart';
 import 'package:gecwapp/customWidgets/customAppbar.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/navdrawer.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,6 +31,8 @@ class MainScreen extends StatelessWidget {
     screenHeight = context.watch<GWValuesProvider>().height;
     screenWidth = context.watch<GWValuesProvider>().width;
     final userName = context.watch<SharedPrefsProvider>().userName;
+    final versionCode = context.watch<UserProvider>().versionCode;
+    checkForUpdates(context, versionCode);
 
     if (notificationsList.isEmpty) {
       context.read<UserProvider>().fetchUserDetails();
@@ -139,6 +145,34 @@ class MainScreen extends StatelessWidget {
               },
             ),
     );
+  }
+
+  /////
+  /////Check version
+  Future checkForUpdates(BuildContext context, int remoteCode) async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    // String version = packageInfo.version;
+    String code = packageInfo.buildNumber;
+    if (int.parse(code) < remoteCode) {
+      showDialog(
+          // barrierDismissible: false,
+          context: context,
+          builder: (BuildContext buildContext) {
+            return WillPopScope(
+                onWillPop: () => Future.value(false),
+                child: AlertScreen(
+                    "You have to update to use all the functionalities",
+                    "App OutDated",
+                    "Update", () {
+                  openURL(
+                      "https://play.google.com/store/apps/details?id=com.inceptra.haiku");
+                }, () {
+                  SystemNavigator.pop();
+                }));
+            //
+            //
+          });
+    }
   }
 
   Future<void> openURL(String _url) async {

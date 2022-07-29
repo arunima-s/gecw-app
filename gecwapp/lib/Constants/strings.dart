@@ -17,6 +17,7 @@ class SharedKeys {
 }
 
 class FirebaseKeys {
+  static const updates = "updates";
   static const verified = "verified";
   static const unverified = "unverified";
   static const notifications = "notifications";
