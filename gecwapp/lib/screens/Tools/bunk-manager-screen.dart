@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
@@ -26,102 +27,141 @@ class _MyWidgetState extends State<BunkManagerScreen> {
       backgroundColor: AppColors.grey1,
       body: SafeArea(
         child: Container(
-          width: screenWidth * 0.9,
-          // height: screenHeight * 0.4,
-          decoration: BoxDecoration(
-              color: AppColors.systemWhite,
-              borderRadius: BorderRadius.all(Radius.circular(25))),
+          width: screenWidth,
           child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.arrow_back_ios)),
+                  AutoSizeText(
+                    "Bunk Manager",
+                    style: TextStyle(fontSize: 20),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: screenHeight * 0.05,
+              ),
+              Container(
+                width: screenWidth * 0.92,
+                decoration: BoxDecoration(
+                    color: AppColors.systemWhite,
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Total Classes"),
-                      // RoundedButton(
-                      //     "-", () {}, screenWidth * 0.1, screenHeight * 0.05),
-                      SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          textAlignVertical: TextAlignVertical.center,
-                          controller: totalClassController,
-                          decoration: InputDecoration(
-                              // suffixIcon: Icon(Icons.search),
-                              // hintText: "Search",
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color:
-                                          Color.fromARGB(255, 189, 189, 189)))),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total Classes"),
+                            // RoundedButton(
+                            //     "-", () {}, screenWidth * 0.1, screenHeight * 0.05),
+                            SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                // textAlignVertical: TextAlignVertical.center,
+                                controller: totalClassController,
+                                decoration: InputDecoration(
+                                    // suffixIcon: Icon(Icons.search),
+                                    // hintText: "Search",
+                                    // enabledBorder: OutlineInputBorder(
+                                    // borderRadius:
+                                    //     BorderRadius.circular(5.0),
+                                    //     borderSide: BorderSide(
+                                    //         width: 1,
+                                    //         color: Color.fromARGB(
+                                    //             255, 189, 189, 189)))
+                                    ),
+                              ),
+                            ),
+                            // RoundedButton(
+                            //     "+", () {}, screenWidth * 0.1, screenHeight * 0.05),
+                          ],
                         ),
                       ),
-                      // RoundedButton(
-                      //     "+", () {}, screenWidth * 0.1, screenHeight * 0.05),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Attended Classes"),
-                      // RoundedButton(
-                      //     "-", () {}, screenWidth * 0.1, screenHeight * 0.05),
-                      SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          textAlignVertical: TextAlignVertical.center,
-                          controller: attendController,
-                          decoration: InputDecoration(
-                              // suffixIcon: Icon(Icons.search),
-                              // hintText: "Search",
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color:
-                                          Color.fromARGB(255, 189, 189, 189)))),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 25, 15, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Attended Classes"),
+                            // RoundedButton(
+                            //     "-", () {}, screenWidth * 0.1, screenHeight * 0.05),
+                            SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                // textAlignVertical: TextAlignVertical.center,
+                                controller: attendController,
+                                decoration: InputDecoration(
+                                    // suffixIcon: Icon(Icons.search),
+                                    // hintText: "Search",
+                                    // enabledBorder: OutlineInputBorder(
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(5.0),
+                                    //     borderSide: BorderSide(
+                                    //         width: 1,
+                                    //         color: Color.fromARGB(
+                                    //             255, 189, 189, 189)))
+                                    ),
+                              ),
+                            ),
+                            // RoundedButton(
+                            //     "+", () {}, screenWidth * 0.1, screenHeight * 0.05),
+                          ],
                         ),
                       ),
-                      // RoundedButton(
-                      //     "+", () {}, screenWidth * 0.1, screenHeight * 0.05),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15, bottom: 30),
-                  child: Text(
-                    "        Your current attendece is $attend%         ",
-                    style: TextStyle(
-                        backgroundColor: Colors.yellow, color: Colors.red),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, bottom: 30),
-                  child: Text(
-                    "        Classes you should attend are $needed         ",
-                    style: TextStyle(
-                        backgroundColor: Colors.yellow, color: Colors.red),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: RoundedButton("Calculate", () {
-                    calculate();
-                  }, screenWidth * 0.6, screenHeight * 0.07),
-                )
-              ]),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 30),
+                        child: Text(
+                          "$attend",
+                          style: TextStyle(
+                              backgroundColor: Colors.yellow,
+                              color: Colors.red),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 30),
+                        child: Text(
+                          "$needed",
+                          style: TextStyle(
+                              backgroundColor: Colors.yellow,
+                              color: Colors.red),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: RoundedButton("Calculate", () {
+                          // if (totalClassController.text.isNotEmpty &&
+                          //     attendController.text.isEmpty) {
+                          calculate();
+                          // } else {
+                          //   Messages.displayMessage(context, "Enter values");
+                          // }
+                        }, screenWidth * 0.6, screenHeight * 0.07),
+                      )
+                    ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -137,10 +177,11 @@ class _MyWidgetState extends State<BunkManagerScreen> {
       final _totalClass = double.parse(totalClassController.text.toString());
       final _attandClass = double.parse(attendController.text.toString());
       setState(() {
-        attend = (100 - (((_totalClass - _attandClass) / _totalClass) * 100))
-            .toString();
+        attend =
+            "   Your current attendence is: ${(100 - (((_totalClass - _attandClass) / _totalClass) * 100)).toString()}%     ";
 
-        needed = (((.75 * _totalClass) - _attandClass) / 0.25).toString();
+        needed =
+            "   Classes you need to attend are: ${(((.75 * _totalClass) - _attandClass) / 0.25).toString()}       ";
       });
     }
   }
