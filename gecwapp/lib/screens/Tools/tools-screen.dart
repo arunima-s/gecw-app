@@ -19,6 +19,18 @@ class ToolSScreen extends StatelessWidget {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 15, left: 15),
+            child: Row(
+              children: [
+                Text(
+                  "Tools",
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

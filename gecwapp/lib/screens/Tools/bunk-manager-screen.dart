@@ -67,31 +67,52 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Total Classes"),
-                            // RoundedButton(
-                            //     "-", () {}, screenWidth * 0.1, screenHeight * 0.05),
-                            SizedBox(
-                              height: 40,
-                              width: 40,
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                // textAlignVertical: TextAlignVertical.center,
-                                controller: totalClassController,
-                                decoration: InputDecoration(
-                                    // suffixIcon: Icon(Icons.search),
-                                    // hintText: "Search",
-                                    // enabledBorder: OutlineInputBorder(
-                                    // borderRadius:
-                                    //     BorderRadius.circular(5.0),
-                                    //     borderSide: BorderSide(
-                                    //         width: 1,
-                                    //         color: Color.fromARGB(
-                                    //             255, 189, 189, 189)))
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // SizedBox(
+                                  //   width: screenWidth * 0.31,
+                                  // ),
+                                  RoundedButton("-", () {
+                                    setState(() {
+                                      if (totalClassController
+                                          .text.isNotEmpty) {
+                                        totalClassController.text = (int.parse(
+                                                    totalClassController.text) -
+                                                1)
+                                            .toString();
+                                      }
+                                    });
+                                  }, screenWidth * 0.1, screenHeight * 0.05),
+                                  SizedBox(
+                                    width: screenWidth * 0.02,
+                                  ),
+                                  SizedBox(
+                                    height: 40,
+                                    width: 40,
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      controller: totalClassController,
+                                      decoration: InputDecoration(),
                                     ),
-                              ),
-                            ),
-                            // RoundedButton(
-                            //     "+", () {}, screenWidth * 0.1, screenHeight * 0.05),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.02,
+                                  ),
+                                  RoundedButton("+", () {
+                                    setState(() {
+                                      if (totalClassController
+                                          .text.isNotEmpty) {
+                                        totalClassController.text = (int.parse(
+                                                    totalClassController.text) +
+                                                1)
+                                            .toString();
+                                      }
+                                    });
+                                  }, screenWidth * 0.1, screenHeight * 0.05),
+                                ])
                           ],
                         ),
                       ),
@@ -101,31 +122,50 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Attended Classes"),
-                            // RoundedButton(
-                            //     "-", () {}, screenWidth * 0.1, screenHeight * 0.05),
-                            SizedBox(
-                              height: 40,
-                              width: 40,
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                // textAlignVertical: TextAlignVertical.center,
-                                controller: attendController,
-                                decoration: InputDecoration(
-                                    // suffixIcon: Icon(Icons.search),
-                                    // hintText: "Search",
-                                    // enabledBorder: OutlineInputBorder(
-                                    //     borderRadius:
-                                    //         BorderRadius.circular(5.0),
-                                    //     borderSide: BorderSide(
-                                    //         width: 1,
-                                    //         color: Color.fromARGB(
-                                    //             255, 189, 189, 189)))
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // SizedBox(
+                                  //   width: screenWidth * 0.31,
+                                  // ),
+                                  RoundedButton("-", () {
+                                    setState(() {
+                                      if (attendController.text.isNotEmpty) {
+                                        attendController.text =
+                                            (int.parse(attendController.text) -
+                                                    1)
+                                                .toString();
+                                      }
+                                    });
+                                  }, screenWidth * 0.1, screenHeight * 0.05),
+                                  SizedBox(
+                                    width: screenWidth * 0.02,
+                                  ),
+                                  SizedBox(
+                                    height: 40,
+                                    width: 40,
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      controller: attendController,
+                                      decoration: InputDecoration(),
                                     ),
-                              ),
-                            ),
-                            // RoundedButton(
-                            //     "+", () {}, screenWidth * 0.1, screenHeight * 0.05),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth * 0.02,
+                                  ),
+                                  RoundedButton("+", () {
+                                    setState(() {
+                                      if (attendController.text.isNotEmpty) {
+                                        attendController.text =
+                                            (int.parse(attendController.text) +
+                                                    1)
+                                                .toString();
+                                      }
+                                    });
+                                  }, screenWidth * 0.1, screenHeight * 0.05),
+                                ])
                           ],
                         ),
                       ),
@@ -167,6 +207,10 @@ class _MyWidgetState extends State<BunkManagerScreen> {
     );
   }
 
+  void toogleValue() {
+    setState(() {});
+  }
+
   void calculate() {
     final totalClass = totalClassController.text.toString();
     final attandClass = attendController.text.toString();
@@ -178,7 +222,7 @@ class _MyWidgetState extends State<BunkManagerScreen> {
       final _attandClass = double.parse(attendController.text.toString());
       setState(() {
         attend =
-            "   Your current attendence is: ${(100 - (((_totalClass - _attandClass) / _totalClass) * 100)).toString()}%     ";
+            "   Your current attendence is: ${double.parse((100 - (((_totalClass - _attandClass) / _totalClass) * 100)).toStringAsFixed(2)).toString()}%     ";
 
         needed =
             "   Classes you need to attend are: ${(((.75 * _totalClass) - _attandClass) / 0.25).toString()}       ";
