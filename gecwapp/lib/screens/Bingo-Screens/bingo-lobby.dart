@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Models/roomModel.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
+import 'package:gecwapp/screens/Bingo-Screens/bingo-alert.dart';
 import 'package:gecwapp/screens/Bingo-Screens/bingo-main.dart';
 
 class BingoLobby extends StatelessWidget {
@@ -18,7 +19,13 @@ class BingoLobby extends StatelessWidget {
           RoundedButton("CREATE", () {
             createRoom(context, "uhuhuh");
           }, 200, 50),
-          RoundedButton("JOIN", () {}, 200, 50)
+          RoundedButton("JOIN", () {
+            showDialog(
+                context: context,
+                builder: (BuildContext buildContext) {
+                  return BingoAlert();
+                });
+          }, 200, 50)
         ]),
       ),
     );

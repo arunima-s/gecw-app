@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/screens/Bingo-Screens/bingo-main.dart';
 import 'package:provider/provider.dart';
 
-class AlertScreen extends StatelessWidget {
+class BingoAlert extends StatelessWidget {
   // const AlertScreen({Key? key}) : super(key: key);
   var isAdmin;
-  final String hintString, buttonTitle, name;
-  final bool hasLabel;
-  AlertScreen(this.hintString, this.buttonTitle, this.hasLabel, this.name);
+  // final String hintString, buttonTitle, name;
+  // final bool hasLabel;
+  // BingoAlert(this.hintString, this.buttonTitle, this.hasLabel, this.name);
   TextEditingController roomIdController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    if (!name.isEmpty) {
-      // context.read<UserProvider>().setUserName(name);
-    }
+    // if (!name.isEmpty) {
+    //   // context.read<UserProvider>().setUserName(name);
+    // }
     // isAdmin = context.watch<UserProvider>().isAdmin;
     // userName = context.watch<UserProvider>().userName;
     return AlertDialog(
@@ -28,21 +28,18 @@ class AlertScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            hasLabel
-                ? TextField(
-                    // keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    controller: roomIdController,
-                    decoration: InputDecoration(
-                        hintText: hintString,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        fillColor: Colors.white,
-                        filled: true),
-                  )
-                : SizedBox(),
-            //Button
+            TextField(
+              // keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              controller: roomIdController,
+              decoration: InputDecoration(
+                  hintText: 'Room Id',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  fillColor: Colors.white,
+                  filled: true),
+            ),
             Padding(
               padding: EdgeInsets.only(top: 30),
               child: ElevatedButton(
@@ -75,7 +72,7 @@ class AlertScreen extends StatelessWidget {
                     // createTransactions(widget.expense, widget.income);
                   },
                   child: Text(
-                    buttonTitle,
+                    "Join Room",
                     style: TextStyle(color: Colors.white),
                   )),
             )
