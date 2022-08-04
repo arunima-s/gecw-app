@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Screens/HostelScreens/hostelListScreen.dart';
 import 'package:gecwapp/customWidgets/Alerts/sgpa-dialog.dart';
-import 'package:gecwapp/screens/Tools/bingo-main.dart';
+import 'package:gecwapp/screens/Bingo-Screens/bingo-lobby.dart';
 import 'package:gecwapp/screens/Tools/bunk-manager-screen.dart';
 import 'package:gecwapp/screens/Tools/cgpa-calculator.dart';
 import 'package:gecwapp/screens/Tools/sgpa-calculator.dart';
@@ -33,7 +33,7 @@ class ToolSScreen extends StatelessWidget {
               GestureDetector(
                   onTap: () => {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BingoMain()))
+                            builder: (context) => BingoLobby()))
                       },
                   child: StudyMenuItem(
                       "assets/images/bicycle.png", "Book Bicycle")),
