@@ -67,7 +67,7 @@ class BingoAlert extends StatelessWidget {
                     //                   true, AlertType.join, name);
                     //             })
                     // :
-                    //  joinRoomTapped(context, name);
+                    joinRoomTapped(context);
 
                     // createTransactions(widget.expense, widget.income);
                   },
@@ -87,19 +87,25 @@ class BingoAlert extends StatelessWidget {
     // context.read<UserProvider>().setUserName(roomIdController.text);
   }
 
-  // joinRoomTapped(BuildContext context, String name) {
-  //   print('111111111111111111111join taped111111111111111');
-  //   final roomRef = FirebaseDatabase.instance.ref().child(FirebaseKeys.rooms);
-  //   final roomId = roomIdController.text;
-  //   // final roomModel = RoomModel(roomId, 'dummy', {1: 'njan'}, false);
-  //   roomRef.child(roomId).child('players').child(name).set('')
-  //       // .set({'hello': 'world'}).whenComplete(() {
-  //       // .set({'nee': 'spy'})
-  //       .whenComplete(() {
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //         builder: (context) => BingoMain()));
-  //   });
-  // }
+  joinRoomTapped(BuildContext context) {
+    print('111111111111111111111join taped111111111111111');
+    final roomId = roomIdController.text;
+    final roomRef =
+        FirebaseDatabase.instance.reference().child('rooms').child(roomId);
+
+    // final roomModel = RoomModel(roomId, 'dummy', {1: 'njan'}, false);
+    roomRef.once().then((DataSnapshot snapshot) {
+      if (snapshot.value != null) {
+        roomRef.child('players').update({'1': 'secs'})
+            // .set({'hello': 'world'}).whenComplete(() {
+            // .set({'nee': 'spy'})
+            .whenComplete(() {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => BingoMain()));
+        });
+      }
+    });
+  }
 
   String generateRandomString(int len) {
     var r = Random();

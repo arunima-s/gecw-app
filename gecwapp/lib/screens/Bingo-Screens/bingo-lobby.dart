@@ -36,7 +36,7 @@ class BingoLobby extends StatelessWidget {
 
     final roomRef = await FirebaseDatabase.instance.reference().child('rooms');
     final roomId = generateRandomString(5);
-    final roomModel = RoomModel(roomId, {name: ''}, false);
+    final roomModel = RoomModel(roomId, [name], false);
     roomRef
         .child(roomId)
         // .set({'hello': 'world'}).whenComplete(() {
