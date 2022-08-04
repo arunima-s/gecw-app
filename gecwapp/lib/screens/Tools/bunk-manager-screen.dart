@@ -82,6 +82,8 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                                                     totalClassController.text) -
                                                 1)
                                             .toString();
+                                      } else {
+                                        totalClassController.text = "0";
                                       }
                                     });
                                   }, screenWidth * 0.1, screenHeight * 0.05),
@@ -109,6 +111,8 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                                                     totalClassController.text) +
                                                 1)
                                             .toString();
+                                      } else {
+                                        totalClassController.text = "1";
                                       }
                                     });
                                   }, screenWidth * 0.1, screenHeight * 0.05),
@@ -136,6 +140,8 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                                             (int.parse(attendController.text) -
                                                     1)
                                                 .toString();
+                                      } else {
+                                        attendController.text = "0";
                                       }
                                     });
                                   }, screenWidth * 0.1, screenHeight * 0.05),
@@ -162,6 +168,8 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                                             (int.parse(attendController.text) +
                                                     1)
                                                 .toString();
+                                      } else {
+                                        attendController.text = "1";
                                       }
                                     });
                                   }, screenWidth * 0.1, screenHeight * 0.05),
@@ -190,12 +198,12 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: RoundedButton("Calculate", () {
-                          // if (totalClassController.text.isNotEmpty &&
-                          //     attendController.text.isEmpty) {
-                          calculate();
-                          // } else {
-                          //   Messages.displayMessage(context, "Enter values");
-                          // }
+                          if (totalClassController.text.isNotEmpty &&
+                              attendController.text.isNotEmpty) {
+                            calculate();
+                          } else {
+                            Messages.displayMessage(context, "Enter values");
+                          }
                         }, screenWidth * 0.6, screenHeight * 0.07),
                       )
                     ]),
@@ -207,16 +215,17 @@ class _MyWidgetState extends State<BunkManagerScreen> {
     );
   }
 
-  void toogleValue() {
-    setState(() {});
-  }
-
   void calculate() {
     final totalClass = totalClassController.text.toString();
     final attandClass = attendController.text.toString();
+    final totalClassInt = int.parse(totalClass);
+    final attendClassInt = int.parse(attandClass);
 
-    if (totalClass.isEmpty || attandClass.isEmpty) {
-      Messages.displayMessage(context, "Empty");
+    // if (totalClass.isEmpty || attandClass.isEmpty) {
+    //   Messages.displayMessage(context, "Enter valid values");
+    // } else
+    if (attendClassInt > totalClassInt) {
+      Messages.displayMessage(context, "Enter valid values");
     } else {
       final _totalClass = double.parse(totalClassController.text.toString());
       final _attandClass = double.parse(attendController.text.toString());
