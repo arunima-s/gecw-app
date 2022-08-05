@@ -123,6 +123,7 @@ class _BingoMainState extends State<BingoMain> {
     //     }
     // }
 
+    //Horizontal
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
         if (matrix[i][j] == 1) {
@@ -141,6 +142,7 @@ class _BingoMainState extends State<BingoMain> {
       }
     }
 
+    //Vertical
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
         if (matrix[i][j] == 1) {
@@ -169,6 +171,21 @@ class _BingoMainState extends State<BingoMain> {
         }
       }
     }
+
+    //Diagonal
+    for (var i = 0; i < 5; i++) {
+      for (var j = 0; j < 5; j++) {
+        if (matrix[i][j] == 1) {
+          count++;
+          i++;
+          if (count == 5) {
+            count = 0;
+            bingo++;
+          }
+        }
+      }
+    }
+
     if (bingo == 5) {
       Messages.displayMessage(context, "BINGO");
     }
