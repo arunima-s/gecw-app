@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/values.dart';
 import 'package:gecwapp/CustomWidgets/navdrawer.dart';
 import 'package:gecwapp/CustomWidgets/tabbarMenu.dart';
+import 'package:gecwapp/Providers/custom-ads-provider.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/Providers/users_provider.dart';
@@ -22,20 +23,22 @@ class HomeScreen extends StatelessWidget {
     context.read<GWValuesProvider>().setScreenSize(screenHeight, screenWidth);
     context.read<SharedPrefsProvider>().fetchSharedPrefs();
     context.read<UserProvider>().fetchVersionCode();
+    context.read<AdsProvider>().getNotifications();
     return MaterialApp(
       home: DefaultTabController(
-        length: 4,
+        length: 3,
         child: Scaffold(
           drawer: NavDrawer(),
           // appBar: CustomAppBar(),
           bottomNavigationBar: TabBarMenu(),
 
           body: TabBarView(children: [
-            MainScreen(),
             // HostelList(),
             // WebScraperApp(),
-            BusTiming(),
+            // BusTiming(),
             CalendarScreen(),
+            MainScreen(),
+
             ToolSScreen()
           ]),
         ),

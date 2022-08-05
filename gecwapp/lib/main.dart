@@ -18,6 +18,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import 'Providers/custom-ads-provider.dart';
+
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
@@ -27,7 +29,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => HostelProvider()),
       ChangeNotifierProvider(create: (_) => SharedPrefsProvider()),
       ChangeNotifierProvider(create: (_) => CalendarDataProvider()),
-      ChangeNotifierProvider(create: (_) => GWValuesProvider())
+      ChangeNotifierProvider(create: (_) => GWValuesProvider()),
+      ChangeNotifierProvider(create: (_) => AdsProvider())
     ],
     child: RestartWidget(child: MyApp()),
   ));
