@@ -43,7 +43,7 @@ class BingoLobby extends StatelessWidget {
         .set(roomModel.toJson())
         .whenComplete(() {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => BingoMain()));
+          .push(MaterialPageRoute(builder: (context) => BingoMain(roomId)));
     });
   }
 
