@@ -2,6 +2,90 @@ import 'package:flutter/material.dart';
 
 class DropDownDataset {
   static const subjectList = {
+    "S1 - S2": [
+      [
+        "Basic Civil & Mechanical - (EST 120)",
+        "https://drive.google.com/file/d/1yatIg6BiQ1FTBeyC52uzTp8lcTU_Yz2D/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1vei0MZo-6UffMzY-1IXvdIhbNxI1Ka2i?usp=sharing",
+      ],
+      [
+        "Basics of Electrical & Electronics - (EST 130)",
+        "https://drive.google.com/file/d/1yA6cfOwryLgO8ujvYc3X5p8SEi912G11/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1IvgYkNuTJ_655C9PwCbcH6F3fcFswFb-?usp=sharing"
+      ],
+      [
+        "Civil & Mechanical Workshop - (ESL 120)",
+        "https://drive.google.com/file/d/1BDByIhL3tSjByYYMBbEFCbpQJTBsDbgP/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1uo0Mm4DBWZks-_CXP9fKrahQ2kCbLXkG?usp=sharing"
+      ],
+      [
+        "C Programming - (EST 102)",
+        "https://drive.google.com/file/d/1AJj_Zmg_CuUDzF_8r0KjdFkOfRG4gTCo/view?usp=sharing",
+        "https://drive.google.com/drive/folders/14mhRA_6kBV9AXvNNwVMfuC4KxMed1NW2?usp=sharing"
+      ],
+      [
+        'Electrical & Electronics Workshop - (ESL 130)',
+        "https://drive.google.com/file/d/1TUYEjkXuermKRJnQ0Outza_W4WF6trro/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1pP8X9epx6gDDq_OEMK68xlwxKnis0YgE?usp=sharing"
+      ],
+      [
+        "Engineering Graphics - (EST 110)",
+        "https://drive.google.com/file/d/1Y3Xr5SqRyj55RB4JTcufHwn6IqD7wKlt/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1DG7o1BBwNVsF0iySpHlJVwMfKR-7-BC1?usp=sharing"
+      ],
+      [
+        "Engineering Mechanics - (EST 100)",
+        "https://drive.google.com/file/d/1SqQZNRRKDNDmP1PRFfUgTNL-Vophbc1w/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1wrBRmizrMYMnDfR4v5t9inSk2UpLg0HW?usp=sharing"
+      ],
+      [
+        'Engineering Chemistry - (CYT 100)',
+        "https://drive.google.com/file/d/1FXV8ciMPq57P3g26JDFyFhkcEF9K-ZVv/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1L85QOddxAEx58N8vEkstqOlGPlKQDdIm?usp=sharing"
+      ],
+      [
+        "Engineering Chemistry Lab - (CYL 120)",
+        "https://drive.google.com/file/d/1zmatwiBy8tjI0C7v_1RjgKWlhQyU135c/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1W-vbs7S_5Pb02pLj1yOih6aDNvBwVbqs?usp=sharing"
+      ],
+      [
+        'Engineering Physics A - (PHT 100)',
+        "https://drive.google.com/file/d/1PELVh2hI0SkQc2Ty5yPwYIKuAzGJ8gBu/view?usp=sharing",
+        "https://drive.google.com/drive/folders/11suwjbljowL97iafeuvCplPGFISP7gGH?usp=sharing",
+      ],
+      [
+        'Engineering Physics B - (PHT 110)',
+        "https://drive.google.com/file/d/1MlGuGjCkViGd2gTrLZV2jV5SDrAgl5om/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1v_orzaHPgEoID-A_Hkl8UAVn4cnggJLH?usp=sharing"
+      ],
+      [
+        'Engineering Physics Lab - (PHL 120)',
+        "https://drive.google.com/file/d/1t4hc7dEJ1mr4hbBMoOGATtvPMg1pp45z/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1D2bBbJB27QwNz4crxgp6fDQUYFv-dJAf?usp=sharing"
+      ],
+      [
+        'Linear Algebra - (MAT 101)',
+        "https://drive.google.com/file/d/17u2CVaI0jfyfXLrKtAzTK9fISGBck9j4/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1mqw2EnvJ8pLfArrANsvrZdB-8MbzVK00?usp=sharing",
+        4
+      ],
+      [
+        'Vector Calculus - (MAT 102)',
+        "https://drive.google.com/file/d/1lMoUnb4fuhmK87Un3w4nGPK7wAyjQgrj/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1cvENliZOfBv4h5c1S0C6JWhweeg9sg_g?usp=sharing",
+        4
+      ],
+      [
+        'Life Skills - (HUT 101)',
+        "https://drive.google.com/file/d/1NQDaE-YWGtNESW_gw0GSldBNH6Fohioo/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1zVdYRsIgzFmKmCMoqVHlTR9wVkBHFnUP?usp=sharing"
+      ],
+      [
+        'Professional Communication - (HUT 102)',
+        "https://drive.google.com/file/d/14erKQazOrxVl4pkKUEO3HBEzSmifAaUK/view?usp=sharing",
+        "https://drive.google.com/drive/folders/1Qikx7-kkilC4vMNqVRyPg4VTY8e9mSCI?usp=sharing"
+      ]
+    ],
     "CSS3": [
       [
         "Discrete Mathematical Structures - (MAT203)",

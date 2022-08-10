@@ -52,7 +52,7 @@ class ToolSScreen extends StatelessWidget {
                     "assets/images/scholarship.png", "SGPA Calculator"),
                 onTap: () => {
                   showDialog(
-                      context: context, builder: (context) => SGPADialog())
+                      context: context, builder: (context) => SGPACalculator())
                 },
               ),
             ],

@@ -19,7 +19,7 @@ class _SGPADialogState extends State<SGPADialog> {
   var selectedDepartmentString = "EEE";
   List<String> departmentNames = [];
   var selectedSubject = "";
-  List<String> subjectList = [];
+  List<dynamic> subjectList = [];
   var data = {1: "EEE", 2: "EC", 3: "MECH", 4: "CS"};
 
   @override
@@ -138,7 +138,7 @@ class _SGPADialogState extends State<SGPADialog> {
   void openSGPAScreen() {
     final dep = selectedDepartmentString + selectedSemesterString;
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SGPACalculator(dep)));
+        .push(MaterialPageRoute(builder: (context) => SGPACalculator()));
   }
 
   void setSubject() {

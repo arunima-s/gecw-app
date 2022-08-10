@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<!-- Google Tag Manager -->
+
+
+<div post-bodyxx="&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;div dir=&quot;ltr&quot; style=&quot;text-align: left;&quot; trbidi=&quot;on&quot;&gt;
+&lt;head&gt;
+
+&lt;script&gt;
+//www.ktuassist.in
+// to find which grade it is and return the corresponding number
+function finding(abc) {
+  var pq;
+  switch (abc) {
+    case &#39;OS&#39;:
+      pq = 10;
+      break;
+    case &#39;A+&#39;:
+      pq = 9;
+      break;
+    case &#39;A&#39;:
+      pq = 8.5;
+      break;
+    case &#39;B+&#39;:
+      pq = 8;
+      break;
+    case &#39;B&#39;:
+      pq = 7;
+      break;
+    case &#39;C&#39;:
+      pq = 6;
+      break;
+    case &#39;P&#39;:
+      pq = 5;
+      break;
+    case &#39;F&#39;:
+      pq = 0;
+    default:
+      pq = 0;
+  }
+
+  return pq;
+}
+//function is called when the final button is clicked
+function getOption() {
+  var gpa;
+  var gpa1;
+
+  //credits according the order of the subjects
+  var credits_s3 = [4, 4, 4, 4, 3, 3, 1, 1];
+  var credits_s4 = [4, 4, 4, 3, 3, 3, 1, 1];
+  var credits_s12_graphics = [4, 4, 3, 3, 3, 3, 1, 1, 1];
+  var credits_s12_mechanics = [4, 4, 4, 3, 3, 3, 1, 1, 1];
+  var credits_s5 = [4, 3, 3, 3, 3, 3, 2, 1, 1];
+  var credits_s6 = [4, 3, 3, 3, 3, 3, 1, 1, 2];
+  var credits_s7 = [4, 3, 3, 3, 3, 3, 2, 1];
+  var credits_s8 = [3, 3, 3, 3, 6];
+
+
+
+
+
+
+  //total credits in each sem
+  var total_credits_s3 = 24;
+  var total_credits_s4 = 23;
+  var total_credits_s5 = 23;
+  var total_credits_s6 = 23;
+  var total_credits_s7 = 22;
+  var total_credits_s8 = 18;
+
+
+
+  var total_credits_s12_graphics = 23;
+  var total_credits_s12_mechanics = 24;
+
+
+  var obj = document.getElementById(&quot;sem&quot;);
+  var abc = obj.options[obj.selectedIndex].text;
+
+  var obj11 = document.getElementById(&quot;gmchoice&quot;);
+  var abc11 = obj11.options[obj11.selectedIndex].text;
+
+  //var obj12 = document.getElementById(&quot;blchoice&quot;);
+  //var abc12=obj12.options[obj12.selectedIndex].text;
+
+  //to find out which semester abc[1] gives the number
+  switch (abc[1]) {
+    case &#39;1&#39;:
+    case &#39;2&#39;:
+      //check if it is graphics or mechanics
+      //tempfile1 is getting the order of credits and tempfile2 to get the sum of credits
+      if (abc11 == &quot;Graphics&quot;) {
+        tempfile1 = credits_s12_graphics;
+        tempfile2 = total_credits_s12_graphics;
+      } else {
+        if (abc11 == &quot;Mechanics&quot;) {
+          tempfile1 = credits_s12_mechanics;
+          tempfile2 = total_credits_s12_mechanics;
+        }
+      }
+      break;
+    case &#39;3&#39;:
+      tempfile1 = credits_s3;
+      tempfile2 = total_credits_s3;
+      break;
+    case &#39;4&#39;:
+      tempfile1 = credits_s4;
+      tempfile2 = total_credits_s4;
+      break;
+    case &#39;5&#39;:
+      tempfile1 = credits_s5;
+      tempfile2 = total_credits_s5;
+      break;
+    case &#39;6&#39;:
+      tempfile1 = credits_s6;
+      tempfile2 = total_credits_s6;
+      break;
+    case &#39;7&#39;:
+      tempfile1 = credits_s7;
+      tempfile2 = total_credits_s7;
+      break;
+    case &#39;8&#39;:
+      tempfile1 = credits_s8;
+      tempfile2 = total_credits_s8;
+      break;
+  }
+
+  //the variables g1,g2... is used to find the corresponding number of the grade of all 9 subjects
+  var obj1 = document.getElementById(&quot;grade1&quot;);
+  var abc1 = obj1.options[obj1.selectedIndex].text;
+  var g1 = finding(abc1);
+
+
+
+  var obj2 = document.getElementById(&quot;grade2&quot;);
+  var abc2 = obj2.options[obj2.selectedIndex].text;
+  var g2 = finding(abc2);
+
+
+
+  var obj3 = document.getElementById(&quot;grade3&quot;);
+  var abc3 = obj3.options[obj3.selectedIndex].text;
+  var g3 = finding(abc3);
+
+
+
+  var obj4 = document.getElementById(&quot;grade4&quot;);
+  var abc4 = obj4.options[obj4.selectedIndex].text;
+  var g4 = finding(abc4);
+
+
+
+  var obj5 = document.getElementById(&quot;grade5&quot;);
+  var abc5 = obj5.options[obj5.selectedIndex].text;
+  var g5 = finding(abc5);
+
+
+
+  var obj6 = document.getElementById(&quot;grade6&quot;);
+  var abc6 = obj6.options[obj6.selectedIndex].text;
+  var g6 = finding(abc6);
+
+
+  var obj7 = document.getElementById(&quot;grade7&quot;);
+  var abc7 = obj7.options[obj7.selectedIndex].text;
+  var g7 = finding(abc7);
+
+
+  var obj8 = document.getElementById(&quot;grade8&quot;);
+  var abc8 = obj8.options[obj8.selectedIndex].text;
+  var g8 = finding(abc8);
+
+
+  var obj9 = document.getElementById(&quot;grade9&quot;);
+  var abc9 = obj9.options[obj9.selectedIndex].text;
+  var g9 = finding(abc9);
+
+
+  var obj10 = document.getElementById(&quot;sem&quot;);
+  var abc10 = obj10.options[obj10.selectedIndex].text;
+
+  //checking which sem it is. s1 and s2 has 9 subjects and all the others only 8
+  switch (abc10[1]) {
+    case &quot;1&quot;:
+    case &quot;2&quot;:
+    case &quot;5&quot;:
+    case &quot;6&quot;:
+      //s1 and s2
+      gpa = (g1 * tempfile1[0] + g2 * tempfile1[1] + g3 * tempfile1[2] + g4 * tempfile1[3] + g5 * tempfile1[4] + g6 * tempfile1[5] + g7 * tempfile1[6] + g8 * tempfile1[7] + g9 * tempfile1[8]) / tempfile2;
+      gpa1 = gpa.toFixed(2);
+      document.getElementById(&quot;cgpa&quot;).innerHTML = gpa1;
+      break;
+    case &quot;8&quot;:
+      gpa = (g1 * tempfile1[0] + g2 * tempfile1[1] + g3 * tempfile1[2] + g4 * tempfile1[3] + g5 * tempfile1[4]) / tempfile2;
+      gpa1 = gpa.toFixed(2);
+      document.getElementById(&quot;cgpa&quot;).innerHTML = gpa1;
+      break;
+//www.ktuassist.in
+    default:
+      //all other semesters
+      gpa = (g1 * tempfile1[0] + g2 * tempfile1[1] + g3 * tempfile1[2] + g4 * tempfile1[3] + g5 * tempfile1[4] + g6 * tempfile1[5] + g7 * tempfile1[6] + g8 * tempfile1[7]) / tempfile2;
+      gpa1 = gpa.toFixed(2);
+      document.getElementById(&quot;cgpa&quot;).innerHTML = gpa1;
+
+
+  }
+}
+//function is called if any of the value is changed - semester, branch or choice of graphics or mechanics
+function ifchanged() {
+
+  var obj = document.getElementById(&quot;sem&quot;);
+  var abc = obj.options[obj.selectedIndex].text;
+  changing_subjects(abc[1]);
+  //the integer value of the semester is passed
+}
+//changes the subjects according to the changein options
+function changing_subjects(j) {
+  var i;
+  //switchfile is the array with the list of subjects
+  var switchfile;
+
+  var obj = document.getElementById(&quot;branch&quot;);
+  var abc = obj.options[obj.selectedIndex].text;
+
+  var obj2 = document.getElementById(&quot;gmchoice&quot;);
+  var abc2 = obj2.options[obj2.selectedIndex].text;
+
+
+  //subjects of each sem and branch
+  var S4cs = [&quot;Probability Distributions and Transforms (MA202)&quot;, &quot;Computer Organization and Architecture(CS202)&quot;, &quot;Operating Systems(CS204)&quot;, &quot;Object Oriented Design and Programming(CS206)&quot;, &quot;Principles of Database Design(CS208)&quot;, &quot;Life Skills/Business Economics(HS210/HS200)&quot;, &quot;Free and Open Source Software Lab(CS232)&quot;, &quot;Digital Systems Lab(CS234)&quot;];
+  var S4me = [&quot;Probability Distributions and Transforms (MA202)&quot;, &quot;Advanced Mechanics of Solids(ME202)&quot;, &quot;Thermal Engineering(ME204)&quot;, &quot;Fluid Machinery(ME206)&quot;, &quot;Manufacturing Technology(ME220)&quot;, &quot;Life Skills/Business Economics(HS210/HS200)&quot;, &quot;Thermal Engineering Lab(ME232)&quot;, &quot;Fluid Mechanics &amp; Machines Lab(ME230)&quot;];
+  var S4ec = [&quot;Probability distributions, Random Processes and Numerical Methods (MA201)&quot;, &quot;Signals &amp; Systems(EC202)&quot;, &quot;Analog Integrated Circuits(EC204)&quot;, &quot;Computer Organization(EC206)&quot;, &quot;Analogue Communication Engineering(EC208)&quot;, &quot;Life Skills/Business Economics(HS210/HS200)&quot;, &quot;Analogue Integrated Circuits Lab(EC232)&quot;, &quot;Logic Circuit Design Lab(EC230)&quot;];
+  var S4ee = [&quot;Probability Distributions and Transforms (MA202)&quot;, &quot;Synchronous and Induction Machines(EE202)&quot;, &quot;Digital Electronics and Logic Design(EE204)&quot;, &quot;Material Science (EE206)&quot;, &quot;Measurements and Instrumentation(EE208)&quot;, &quot;Life Skills/Business Economics(HS210/HS200)&quot;, &quot;Electrical Machines Lab(EE232)&quot;, &quot;Circuits and Measurements Lab(EE234)&quot;];
+  var S4ce = [&quot;Probability Distributions and Transforms (MA202)&quot;, &quot;Structural Analysis (CE202)&quot;, &quot;Construction Technology (CE204)&quot;, &quot;Fluid Mechanics (CE206)&quot;, &quot;Geotechnical Engineering (CE208)&quot;, &quot;Life Skills/Business Economics (HS210/HS200)&quot;, &quot;Materials Testing Lab (CE232)&quot;, &quot;Fluid Mechanics Lab (CE234)&quot;];
+
+
+  var s5cs = [&quot;Theory of Computation (CS301)&quot;, &quot;System Software (CS303)&quot;, &quot;Microprocessors and Microcontrollers(CS305)&quot;, &quot;Data Communication (CS307)&quot;, &quot;Graph Theory and Combinatorics (CS309)&quot;, &quot;Elective 1(CS 361/363/365/367/369)&quot;, &quot;Design Project (CS341)&quot;, &quot;System Software Lab (CS331)&quot;, &quot; Application Software Development Lab (CS333)&quot;];
+
+  var s5ce = [&quot;Design of Concrete Structures I(CE 301) &quot;, &quot;Structural Analysis- II (CE 303)&quot;, &quot; Geotechnical Engineering- II (CE 305)&quot;, &quot;Geomatics(CE 307)&quot;, &quot;Water Resources Engineering(CE 309)&quot;, &quot;Elective I (CE 361/363/365/367/369/371/373)&quot;, &quot;Design Project(CE 341)&quot;, &quot;Materials Testing Lab II (CE 331)&quot;, &quot;Geotechnical Engineering Lab(CE 333)&quot;];
+
+  var s5ee = [&quot;Power Generation , Transmission and Protection(EE301)&quot;, &quot;Linear Control Systems(EE303) &quot;, &quot;Power Electronics (EE305)&quot;, &quot;Signals and Systems(EE307)&quot;, &quot; Microprocessor and Embedded Systems (EE301)&quot;, &quot;Elective 1(EE361/363/365/367/369)&quot;, &quot;Design Project (EE 341)&quot;, &quot;Digital Circuits and Embedded Systems Lab(EE 331)&quot;, &quot;Electrical Machines Lab II(EE 333)&quot;];
+
+  var s5ec = [&quot;Digital Signal Processing (EC 301)&quot;, &quot;Applied Electromagnetic Theory (EC 303)&quot;, &quot;Microprocessors and Microcontrollers (EC 305)&quot;, &quot;Power Electronics &amp; Instrumentation(EC 307) &quot;, &quot;Principles of Management(HS300) &quot;, &quot;Elective 1(EC 361/363/365/367/369) &quot;, &quot;Design Project (EC 341)&quot;, &quot;Digital Signal Processing Lab (EC 331)&quot;, &quot;Power Electronics &amp; Instrumentation Lab (EC 333)&quot;];
+
+  var s5me = [&quot;Mechanics of Machinery (ME 301)&quot;, &quot;Machine Tools and Digital Manufacturing (ME 303) &quot;, &quot;Computer Programming &amp; Numerical Methods (ME 305)&quot;, &quot;Electrical Drives &amp;Control for Automation (ME 307)&quot;, &quot;Principles of Management(HS300)&quot;, &quot;Elective 1(ME 361/363/365/367/369)&quot;, &quot;Design Project(ME 341)&quot;, &quot;Electrical and Electronics Lab(ME 331)&quot;, &quot;Manufacturing Technology Lab I (ME 333)&quot;];
+
+
+  var s6cs = [&quot;Design and Analysis of Algorithms(CS302)&quot;, &quot;Compiler Design(CS304)&quot;, &quot;Computer Networks(CS306)&quot;, &quot;Software Engineering and Project Management(CS308)&quot;, &quot;Principles of Management(HS300)&quot;, &quot;Elective 2(CS 362/364/366/368/372)&quot;, &quot;Microprocessor Lab(CS332)&quot;, &quot;Network Programming Lab(CS304)&quot;, &quot;Comprehensive Exam(CS352)&quot;];
+  var s6me = [&quot;Heat &amp; Mass Transfer(ME302)&quot;, &quot;Dynamics of Machinery(ME304)&quot;, &quot;Advanced Manufacturing Technology(ME306)&quot;, &quot;Computer Aided Design and Analysis(ME308)&quot;, &quot;Metrology and Instrumentation(ME312)&quot;, &quot;Elective 2(ME 362/364/366/368/372/376/374)&quot;, &quot;Computer Aided Design and Analysis Lab(ME332)&quot;, &quot;Manufacturing Technology Lab II(ME334)&quot;, &quot;Comprehensive Exam(ME352)&quot;];
+  var s6ec = [&quot;Digital Communication(EC302)&quot;, &quot;VLSI(EC304)&quot;, &quot;Antenna &amp; Wave Propagation(EC306)&quot;, &quot;Embedded System(EC308)&quot;, &quot; Object Oriented Programming (EC312)&quot;, &quot;Elective 2 &quot;, &quot;Communication Engg Lab(EC332)&quot;, &quot;Microcontroller Lab(EC334)&quot;, &quot;Comprehensive Exam(EC352)&quot;];
+  var s6ee = [&quot;Electromagnetics(EE302)&quot;, &quot;Advanced Control Theory(EE304)&quot;, &quot;Power System Analysis(EE306)&quot;, &quot;Electric Drives(EE308)&quot;, &quot;Principles of Management(HS300)&quot;, &quot;Elective 2 &quot;, &quot;Systems and Control Lab(EE332)&quot;, &quot; Power Electronics and Drives Lab(EE334)&quot;, &quot;Comprehensive Exam(EE352)&quot;];
+  var s6ce = [&quot;Design of Hydraulic Structures (CE302)&quot;, &quot;Design of Concrete Structures II (CE304)&quot;, &quot;Computer Programming and Computational Techniques(CE306) &quot;, &quot;Transportation Engineering- I(CE308)&quot;, &quot;Principles of Management(HS200)&quot;, &quot;Elective 2(CE332/CE334/CE352)&quot;, &quot;Transportation Engineering Lab(CE332)&quot;, &quot;Computer Aided Civil Engineering Lab(CE334)&quot;, &quot;Comprehensive Exam(CE352)&quot;];
+//www.ktuassist.in
+  var s7cs = [&#39;Computer Graphics (CS401)&#39;, &#39;Programming Paradigms (CS403)&#39;, &#39;Computer System Architecture (CS405)&#39;, &#39;Distributed Computing (CS407)&#39;, &#39;Cryptography and Network Security (CS409)&#39;, &#39;Elective 3 &#39;, &#39;Seminar &amp; Project Preliminary (CS451)&#39;, &#39;Compiler Design Lab (CS431)&#39;];
+  var s7ce = [&#39;Design of Steel Structures (CE401)&#39;, &#39;Structural Analysis III (CE403)&#39;, &#39;Environmental Engineering I (CE405)&#39;, &#39;Transportation Engineering II (CE407)&#39;, &#39;Quantity Surveying and Valuation(CE409)&#39;, &#39;Elective 3 &#39;, &#39;Seminar &amp; Project Preliminary (CE451)&#39;, &#39;Environmental Engineering Lab (CE431)&#39;];
+  var s7ee = [&#39;Electronic Communication (EE401)&#39;, &#39;Distributed Generation and Smart Grids (EE403)&#39;, &#39;Electrical System Design (EE405)&#39;, &#39;Digital Signal Processing (EE407) &#39;, &#39;Electrical Machine Design  (EE409)&#39;, &#39;Elective 3&#39;, &#39;Seminar &amp; Project Preliminary (EE451)&#39;, &#39;Power System Lab (EE431)&#39;];
+  var s7ec = [&#39;Information Theory &amp; Coding (EC401)&#39;, &#39;Microwave &amp; Radar Engineering (EC403)&#39;, &#39;Optical Communication (EC405)&#39;, &#39;Computer Communication (EC407)&#39;, &#39;Control Systems (EC409)&#39;, &#39;Elective 3&#39;, &#39;Seminar &amp; Project Preliminary (EC451)&#39;, &#39;Communication Systems Lab (EC431)&#39;];
+  var s7me = [&#39;Design of Machine Elements (ME401)&#39;, &#39;Advanced Energy Engineering (ME403)&#39;, &#39;Refrigeration and Air Conditioning (ME405) &#39;, &#39;Mechatronics (ME407)&#39;, &#39;Compressible Fluid Flow(ME409)&#39;, &#39;Elective &#39;, &#39;Seminar &amp; Project Preliminary (ME451)&#39;, &#39;Mechanical Engineering Lab  (ME431)&#39;];
+
+  var s8cs = [&#39;Data Mining and Ware Housing (CS402)&#39;, &#39;Embedded Systems (CS404)&#39;, &#39;Elective 4  &#39;, &#39;Elective 5 (Non Departmental)&#39;, &#39;Project  (CS492)&#39;];
+  var s8ce = [&#39;Environmental Engineering II (CE402)&#39;, &#39;Civil Engineering Project Management (CE402)&#39;, &#39;Elective 4 &#39;, &#39;Elective 5 (Non Departmental)&#39;, &#39;Project (CE492)&#39;];
+  var s8me = [&#39;Design of Machine Elements II (ME402)&#39;, &#39;Industrial Engineering (ME404)&#39;, &#39;Elective 4&#39;, &#39;Elective 5 (Non Departmental)&#39;, &#39;Project (ME492)&#39;];
+  var s8ee = [&#39;Special Electric Machines (EE402)&#39;, &#39;Industrial Instrumentation &amp; Automation (EE404)&#39;, &#39;Elective 4 &#39;, &#39;Elective 5 (Non Departmental)&#39;, &#39;Project (EE492)&#39;];
+  var s8ec = [&#39;Nano electronics (EC402)&#39;, &#39;Advanced Communication Systems (EC404)&#39;, &#39;Elective 4 &#39;, &#39;Elective 5 (Non Departmental)&#39;, &#39;Project (EC492)&#39;];
+
+
+
+  var S3cs = [&quot;Linear Algebra &amp; Complex Analysis(MA201)&quot;, &quot;Discrete Computational Structures(CS201)&quot;, &quot;Switching Theory and Logic Design(CS203)&quot;, &quot;Data Structures(CS205)&quot;, &quot; Electronics Devices &amp; Circuits(CS207)&quot;, &quot;Business Economics/Life Skills(HS200/HS210)&quot;, &quot;Data Structures Lab(CS231)&quot;, &quot;Electronics Circuits Lab(CS233)&quot;];
+  var S3me = [&quot;Linear Algebra &amp; Complex Analysis(MA201)&quot;, &quot;Mechanics of Solids(ME201)&quot;, &quot;Mechanics of Fluids(ME203)&quot;, &quot;Thermodynamics(ME205)&quot;, &quot;Metallurgy and Materials Engineering(ME210)&quot;, &quot;Business Economics/Life Skills(HS200/HS210)&quot;, &quot;Computer Aided Machine Drawing Lab(ME231)&quot;, &quot;Material Testing Lab(ME230)&quot;];
+  var S3ce = [&quot;Linear Algebra &amp; Complex Analysis(MA201)&quot;, &quot;Mechanics of Solids(CE201)&quot;, &quot;Fluid Mechanics I(CE203)&quot;, &quot;Engineering Geology(CE205)&quot;, &quot;Surveying(CE207)&quot;, &quot;Business Economics/Life Skills(HS200/HS210)&quot;, &quot;Civil Engineering Drafting Lab(CE231)&quot;, &quot;Surveying Lab(CE233)&quot;];
+  var S3eee = [&quot;Linear Algebra &amp; Complex Analysis(MA201)&quot;, &quot;Circuits and Networks(EE201)&quot;, &quot;Analog Electronic Circuits(EE203)&quot;, &quot;DC Machines and Transformers(EE205)&quot;, &quot;Computer Programming(EE207)&quot;, &quot;Business Economics/Life Skills(HS200/HS210)&quot;, &quot;Electronic Circuits Lab(EE231)&quot;, &quot;Programming Lab(EE233)&quot;];
+  var S3ec = [&quot;Linear Algebra &amp; Complex Analysis(MA201)&quot;, &quot;Network Theory(EC201)&quot;, &quot;Solid State Devices(EC203)&quot;, &quot;Electronic Circuits(EC205)&quot;, &quot;Logic Circuit Design(EC207)&quot;, &quot;Business Economics/Life Skills(HS200/HS210)&quot;, &quot;Electronic Devices &amp; Circuits Lab(EC231)&quot;, &quot;Electronic Design Automation Lab(EC223)&quot;];
+
+  //seperate for s1s2 graphics and mechanics
+  var S1_graphics = [&quot;Calculus (MA101)&quot;, &quot;Engineering Phy/Chem (PH100/CY100)&quot;, &quot;Engineering Graphics (BE110)&quot;, &quot;Introduction to your subject (BE101-0X)&quot;, &quot;Basics of X Engineering (CE/ME/EE/EC 100)&quot;, &quot;Introduction to Sustainable Engineering (BE103)&quot;, &quot;Phy/Chem Lab (PH110/CY110)&quot;, &quot;Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)&quot;, &quot;Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)&quot;];
+  var S1_mechanics = [&quot;Calculus (MA101)&quot;, &quot;Engineering Phy/Chem (PH100/CY100)&quot;, &quot;Engineering Mechanics(BE100)&quot;, &quot;Introduction to your subject (BE101-0X)&quot;, &quot;Basics of X Engineering (CE/ME/EE/EC 100)&quot;, &quot;Introduction to Sustainable Engineering (BE103)&quot;, &quot;Phy/Chem Lab (PH110/CY110)&quot;, &quot;Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)&quot;, &quot;Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)&quot;];
+  var S2_graphics = [&quot;Differential Equations (MA102)&quot;, &quot;Engineering Phy/Chem (PH100/CY100)&quot;, &quot;Engineering Graphics (BE110)&quot;, &quot;Basics of X Engineering (CE/ME/EE/EC 100)&quot;, &quot;Basics of Y Engineering (CE/ME/EE/EC 100)&quot;, &quot;Design and Engineering (BE102)&quot;, &quot;Phy/Chem Lab (PH110/CY110)&quot;, &quot;Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)&quot;, &quot;Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)&quot;];
+  var S2_mechanics = [&quot;Differential Equations (MA102)&quot;, &quot;Engineering Phy/Chem (PH100/CY100)&quot;, &quot;Engineering Mechanics(BE100)&quot;, &quot;Basics of X Engineering (CE/ME/EE/EC 100)&quot;, &quot;Basics of Y Engineering (CE/ME/EE/EC 100)&quot;, &quot;Design and Engineering (BE102)&quot;, &quot;Phy/Chem Lab (PH110/CY110)&quot;, &quot;Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)&quot;, &quot;Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)&quot;];
+
+  //ie if it is S1 or S2
+  if (j &lt; 3 || j == 5 || j == 6) {
+    //the 9th subject,choice of graphics mechnaics is visible
+    document.getElementById(&#39;grade9&#39;).style.visibility = &quot;visible&quot;;
+    document.getElementById(&#39;sub9&#39;).style.visibility = &quot;visible&quot;;
+    document.getElementById(&quot;gmchoice&quot;).disabled = false;
+    document.getElementById(&quot;branch&quot;).disabled = false;
+
+
+
+    //if s1
+    if (j == 1) {
+      //assigning switchfile according to the choice of mechanics or graphics  N.B the default value is graphics
+      if (abc2 == &quot;Mechanics&quot;) {
+        switchfile = S1_mechanics;
+      } else {
+        switchfile = S1_graphics;
+      }
+    }
+    //if s2
+    if (j == 2) {
+      if (abc2 == &quot;Mechanics&quot;) {
+        switchfile = S2_mechanics;
+      } else {
+        switchfile = S2_graphics;
+      }
+    }
+    if (j == 5) {
+      switch (abc) {
+        case &#39;Mechanical&#39;:
+          switchfile = s5me;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Electronics&#39;:
+        case &quot;5&quot;:
+          switchfile = s5ec;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Civil&#39;:
+          switchfile = s5ce;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Electrical&#39;:
+          switchfile = s5ee;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Computer Science&#39;:
+          switchfile = s5cs;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+      }
+    } else if (j == 6) {
+      switch (abc) {
+        case &#39;Mechanical&#39;:
+          switchfile = s6me;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Electronics&#39;:
+          switchfile = s6ec;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Civil&#39;:
+          switchfile = s6ce;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Electrical&#39;:
+          switchfile = s6ee;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case &#39;Computer Science&#39;:
+          switchfile = s6cs;
+          for (i = 1; i &lt; 9; i++) {
+            document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+      }
+    }
+
+
+
+    //displaying the subjects in the appropriate places
+    for (i = 1; i &lt; 10; i++) {
+      document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+    }
+  }
+  //if s3 or higher
+  else if (j &lt; 8) {
+    //the 9th subject and the choice of graphics and mechanics is hidden
+    document.getElementById(&#39;grade9&#39;).style.visibility = &quot;hidden&quot;;
+    document.getElementById(&#39;sub9&#39;).style.visibility = &quot;hidden&quot;;
+    document.getElementById(&quot;gmchoice&quot;).disabled = true;
+    document.getElementById(&quot;branch&quot;).disabled = false;
+
+
+    //abc has the branch.checking the branch and giving appropriate switchfiles
+    switch (abc) {
+      case &#39;Mechanical&#39;:
+        //j has the semester.
+        switch (j) {
+          //s3 mech
+          case &quot;3&quot;:
+            switchfile = S3me;
+            break;
+            //s4 mech
+          case &quot;4&quot;:
+            switchfile = S4me;
+            break;
+            //s5 mech
+          case &quot;7&quot;:
+            switchfile = s7me;
+            break;
+        }
+        for (i = 1; i &lt; 9; i++) {
+          document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case &#39;Electronics&#39;:
+        switch (j) {
+          case &quot;3&quot;:
+            switchfile = S3ec;
+            break;
+          case &quot;4&quot;:
+            switchfile = S4ec;
+            break;
+          case &quot;7&quot;:
+            switchfile = s7ec;
+            break;
+        }
+        for (i = 1; i &lt; 9; i++) {
+          document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case &#39;Civil&#39;:
+        switch (j) {
+          case &quot;3&quot;:
+            switchfile = S3ce;
+            break;
+          case &quot;4&quot;:
+            switchfile = S4ce;
+            break;
+          case &quot;7&quot;:
+            switchfile = s7ce;
+            break;
+        }
+        for (i = 1; i &lt; 9; i++) {
+          document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case &#39;Electrical&#39;:
+        switch (j) {
+          case &quot;3&quot;:
+            switchfile = S3eee;
+            break;
+          case &quot;4&quot;:
+            switchfile = S4ee;
+            break;
+          case &quot;7&quot;:
+            switchfile = s7ee;
+            break;
+        }
+        for (i = 1; i &lt; 9; i++) {
+          document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case &#39;Computer Science&#39;:
+        switch (j) {
+          case &quot;3&quot;:
+            switchfile = S3cs;
+            break;
+          case &quot;4&quot;:
+            switchfile = S4cs;
+            break;
+          case &quot;7&quot;:
+            switchfile = s7cs;
+            break;
+        }
+        for (i = 1; i &lt; 9; i++) {
+          document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+    }
+  } else {
+    document.getElementById(&#39;grade9&#39;).style.visibility = &quot;hidden&quot;;
+    document.getElementById(&#39;sub9&#39;).style.visibility = &quot;hidden&quot;;
+
+    document.getElementById(&#39;grade8&#39;).style.visibility = &quot;hidden&quot;;
+    document.getElementById(&#39;sub8&#39;).style.visibility = &quot;hidden&quot;;
+
+    document.getElementById(&#39;grade7&#39;).style.visibility = &quot;hidden&quot;;
+    document.getElementById(&#39;sub7&#39;).style.visibility = &quot;hidden&quot;;
+
+    document.getElementById(&#39;grade6&#39;).style.visibility = &quot;hidden&quot;;
+    document.getElementById(&#39;sub6&#39;).style.visibility = &quot;hidden&quot;;
+
+
+    document.getElementById(&quot;gmchoice&quot;).disabled = true;
+    document.getElementById(&quot;branch&quot;).disabled = false;
+
+    switch (abc) {
+      case &#39;Mechanical&#39;:
+        switchfile = s8me;
+
+        break;
+
+      case &#39;Electronics&#39;:
+        switchfile = s8ec;
+
+        break;
+
+      case &#39;Civil&#39;:
+        switchfile = s8ce;
+
+        break;
+
+      case &#39;Electrical&#39;:
+        switchfile = s8ee;
+
+        break;
+
+      case &#39;Computer Science&#39;:
+        switchfile = s8cs;
+
+        break;
+    }
+
+    for (i = 1; i &lt; 6; i++) {
+      document.getElementById(&quot;sub&quot; + i).innerHTML = switchfile[i - 1];
+    }
+
+
+  }
+}
+
+&lt;/script&gt;
+&lt;div class=&quot;wpb_wrapper&quot;&gt;
+    &lt;div class=&quot;wpb_wrapper td_block_wrap vc_raw_html td_uid_4_5d2e71e0d2a2d_rand &quot;&gt;
+    &lt;div class=&quot;td-fix-index&quot;&gt;
+
+    &lt;/div&gt;
+
+&lt;style&gt;
+.notetp table th,td{
+text-align:left;
+}
+
+.notestp button{
+margin:10px;
+padding:12px;
+background-color:white;
+border:2px solid green;
+color:green;
+
+}
+
+&lt;/style&gt;
+
+
+&lt;div class=&quot;notestp&quot;&gt;
+&lt;div class=&quot;wpb_wrapper wpb_text_column td_block_wrap td_block_wrap vc_column_text td_uid_5_5d2e71e0d319f_rand  td-pb-border-top td_block_template_4&quot; data-td-block-uid=&quot;td_uid_5_5d2e71e0d319f&quot;&gt;
+    &lt;div class=&quot;td-block-title-wrap&quot;&gt;
+    &lt;/div&gt;
+&lt;div class=&quot;td-fix-index&quot;&gt;
+    &lt;h3&gt;
+    Enter Semester details:&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;wpb_wrapper td_block_wrap vc_raw_html td_uid_6_5d2e71e0d6907_rand &quot;&gt;
+    &lt;div class=&quot;td-fix-index&quot;&gt;
+    &lt;table&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;th&gt;Select Semester :&lt;/th&gt;&lt;th&gt;&lt;select id=&quot;sem&quot; onchange=&quot;ifchanged()&quot;&gt;&lt;option value=&quot;s1&quot;&gt;S1&lt;/option&gt;&lt;option value=&quot;s2&quot;&gt;S2&lt;/option&gt;&lt;option value=&quot;s3&quot;&gt;S3&lt;/option&gt;&lt;option value=&quot;s4&quot;&gt;S4&lt;/option&gt;&lt;option value=&quot;s5&quot;&gt;S5&lt;/option&gt;&lt;option value=&quot;s6&quot;&gt;S6&lt;/option&gt;&lt;option value=&quot;s7&quot;&gt;S7&lt;/option&gt;&lt;option value=&quot;s8&quot;&gt;S8&lt;/option&gt;&lt;/select&gt;&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Enter Branch:&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;branch&quot; name=&quot;branch&quot; onchange=&quot;ifchanged()&quot;&gt;&lt;option value=&quot;cs&quot;&gt;Computer Science&lt;/option&gt;&lt;option value=&quot;eee&quot;&gt;Electrical&lt;/option&gt;&lt;option value=&quot;ec&quot;&gt;Electronics&lt;/option&gt;&lt;option value=&quot;me&quot;&gt;Mechanical&lt;/option&gt;&lt;option value=&quot;ce&quot;&gt;Civil&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Select Subject (Only for S1 and S2) :&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;gmchoice&quot; onchange=&quot;ifchanged()&quot;&gt;&lt;option value=&quot;gs&quot;&gt;Graphics&lt;/option&gt;&lt;option value=&quot;ms&quot;&gt;Mechanics&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;wpb_wrapper wpb_text_column td_block_wrap td_block_wrap vc_column_text td_uid_7_5d2e71e0d6a08_rand  td-pb-border-top td_block_template_4&quot; data-td-block-uid=&quot;td_uid_7_5d2e71e0d6a08&quot;&gt;
+    &lt;div class=&quot;td-block-title-wrap&quot;&gt;
+    &lt;/div&gt;
+&lt;div class=&quot;td-fix-index&quot;&gt;
+    &lt;h3&gt;
+    Enter Grade details:&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;wpb_wrapper td_block_wrap vc_raw_html td_uid_8_5d2e71e0d97ed_rand &quot;&gt;
+    &lt;div class=&quot;td-fix-index&quot;&gt;
+    &lt;table&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub1&quot;&gt;
+    Calculus&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade1&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub2&quot;&gt;
+    Engineering Phy/Chem:&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade2&quot; name=&quot;grade2&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub3&quot;&gt;
+    Engineering Graphics:&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade3&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub4&quot;&gt;
+    Introduction to your subject:&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade4&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub5&quot;&gt;
+    Basics of X Engineering:&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade5&quot; name=&quot;grade5&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub6&quot;&gt;
+    Introduction to Sustainable Engineering&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade6&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub7&quot;&gt;
+    Phy/Chem Lab&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade7&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub8&quot;&gt;
+    Basic Engineering Workshop I&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade8&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;div id=&quot;sub9&quot;&gt;
+    Basic Engineering Workshop II&lt;/div&gt;
+&lt;/td&gt;&lt;td&gt;&lt;select id=&quot;grade9&quot;&gt;&lt;option value=&quot;os&quot;&gt;OS&lt;/option&gt;&lt;option value=&quot;a+&quot;&gt;A+&lt;/option&gt;&lt;option value=&quot;a&quot;&gt;A&lt;/option&gt;&lt;option value=&quot;b+&quot;&gt;B+&lt;/option&gt;&lt;option value=&quot;b&quot;&gt;B&lt;/option&gt;&lt;option value=&quot;c&quot;&gt;C&lt;/option&gt;&lt;option value=&quot;p&quot;&gt;P&lt;/option&gt;&lt;option value=&quot;f&quot;&gt;F&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;wpb_wrapper td_block_wrap vc_raw_html td_uid_9_5d2e71e0d9997_rand &quot;&gt;
+    &lt;div class=&quot;td-fix-index&quot;&gt;
+
+     &lt;button class=&quot;btn btn-3 btn-3e icon-arrow-right&quot; id=&quot;gpabutton2&quot; onclick=&quot;getOption()&quot;&gt;CALCULATE SGPA&lt;/button&gt; &lt;br /&gt;&lt;br /&gt;&lt;div id=&quot;cgpadecor&quot;&gt;
+    &lt;h3 class=&quot;gpa1&quot;&gt;
+    YOUR SGPA :&lt;/h3&gt;
+&lt;h2 class=&quot;gpa2&quot; id=&quot;cgpa&quot; style=&quot;display: inline;&quot;&gt;
+    &lt;/h2&gt;
+
+&lt;br /&gt;&lt;br /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;hr /&gt;
+&lt;span style=&quot;font-size: xx-small;&quot;&gt;THIS WEBSITE IS TO PROVIDE KTU (KERALA TECHNOLOGICAL UNIVERSITY ) STUDY MATERIALS FREE FOR STUDENTS. HERE YOU CAN DOWNLOAD KTU CLASS NOTES , KTU PREVIOUS UNIVERSITY QUESTION PAPERS , KTU BRANCH WISE COURSE SYLLABUS,KTU SYLLABUS PREFERRED TEXTBOOKS AS PDF FORMAT. ALL THIS STUDY MATERIALS ARE COLLECTED FROM DIFFERENT COLLEGES AND VARIOUS SOURCES. ALSO THIS WEBSITE PROVIDE SOMANY OTHER SERVICES FOR KTU STUDENTS SUCH AS KTU CGPA CALCULATOR, KTU NOTIFICATION, CALENDER, SCHOLARSHIP INFO ETC... 
+&lt;/span&gt;&lt;br /&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div style=&quot;background-color: #85a577; color: white; padding: 10px;&quot;&gt;
+&lt;b&gt;&lt;span style=&quot;font-size: xx-small;&quot;&gt;Tags&lt;/span&gt;&lt;/b&gt;&lt;/div&gt;
+&lt;span style=&quot;font-size: xx-small;&quot;&gt;ktu notifications, new ktu announcements, ktu info , kerala technological university, ktu circulars, ktu results,ktu exams , ktu exam registrations , ktu course registration , ktu documents, ktu login, ktu syllabus, ktu amendments,ktu notes, ktu notes download, ktu s4 notes, ktu s3 notes, ktu cse notes, ktu question papers, ktu syllabus, ktu s3 syllabus, ktu s4 syllabus, ktu login, kerala tecnological university, ktu notification, ktu solved questions, ktu solved question papers, ktu notes app, ktu students application, ktu students, ktu assist app, ktu assist aplication, ktu live, ktu study materials, download ktu notes, download ktu syllabus, download ktu question papers, ktu s5 notes, ktu s6 notes, ktu s5 cse notes, ktu s5 ec notes, ktu s5civil notes, ktu s5 eee notes, ktu s5 mech notes, 
+ktu s6 notes, ktu s6 notes, ktu s6 cse notes, ktu s6 ec notes, ktu s6civil notes, ktu s6 eee notes, ktu s6 mech notes,ktu s3 notes, ktu s3 notes, ktu s3 cse notes, ktu s3 ec notes, ktu s3civil notes, ktu s3 eee notes, ktu s3 mech notes,
+ktu s4 notes, ktu s4 notes, ktu s4 cse notes, ktu s4 ec notes, ktu s4civil notes, ktu s4 eee notes, ktu s4 mech notes,ktu s7 notes, ktu s7 notes, ktu s7 cse notes, ktu s7 ec notes, ktu s7civil notes, ktu s7 eee notes, ktu s7 mech notes,
+ktu s8 notes, ktu s8 notes, ktu s8 cse notes, ktu s8 ec notes, ktu s8civil notes, ktu s8 eee notes, ktu s8 mech notes,ktu first year notes, ktu lucture notes, ktu video class, ktu videos,ktu s1 notes, ktu s2 notes
+&lt;/span&gt;&lt;br /&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/head&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+"></div>
+<center>
+
+<div class="post hentry uncustomized-post-template" itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+<meta content="1616131319615787936" itemprop="blogId">
+<meta content="4836821843224633263" itemprop="postId">
+<a name="4836821843224633263"></a>
+<h2 class="post-title entry-title" itemprop="name">
+KTU - SGPA CALCULATOR
+</h2>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+
+
+<script>
+//www.ktuassist.in
+// to find which grade it is and return the corresponding number
+function finding(abc) {
+  var pq;
+  switch (abc) {
+    case 'OS':
+      pq = 10;
+      break;
+    case 'A+':
+      pq = 9;
+      break;
+    case 'A':
+      pq = 8.5;
+      break;
+    case 'B+':
+      pq = 8;
+      break;
+    case 'B':
+      pq = 7;
+      break;
+    case 'C':
+      pq = 6;
+      break;
+    case 'P':
+      pq = 5;
+      break;
+    case 'F':
+      pq = 0;
+    default:
+      pq = 0;
+  }
+
+  return pq;
+}
+//function is called when the final button is clicked
+function getOption() {
+  var gpa;
+  var gpa1;
+
+  //credits according the order of the subjects
+  var credits_s3 = [4, 4, 4, 4, 3, 3, 1, 1];
+  var credits_s4 = [4, 4, 4, 3, 3, 3, 1, 1];
+  var credits_s12_graphics = [4, 4, 3, 3, 3, 3, 1, 1, 1];
+  var credits_s12_mechanics = [4, 4, 4, 3, 3, 3, 1, 1, 1];
+  var credits_s5 = [4, 3, 3, 3, 3, 3, 2, 1, 1];
+  var credits_s6 = [4, 3, 3, 3, 3, 3, 1, 1, 2];
+  var credits_s7 = [4, 3, 3, 3, 3, 3, 2, 1];
+  var credits_s8 = [3, 3, 3, 3, 6];
+
+
+
+
+
+
+  //total credits in each sem
+  var total_credits_s3 = 24;
+  var total_credits_s4 = 23;
+  var total_credits_s5 = 23;
+  var total_credits_s6 = 23;
+  var total_credits_s7 = 22;
+  var total_credits_s8 = 18;
+
+
+
+  var total_credits_s12_graphics = 23;
+  var total_credits_s12_mechanics = 24;
+
+
+  var obj = document.getElementById("sem");
+  var abc = obj.options[obj.selectedIndex].text;
+
+  var obj11 = document.getElementById("gmchoice");
+  var abc11 = obj11.options[obj11.selectedIndex].text;
+
+  //var obj12 = document.getElementById("blchoice");
+  //var abc12=obj12.options[obj12.selectedIndex].text;
+
+  //to find out which semester abc[1] gives the number
+  switch (abc[1]) {
+    case '1':
+    case '2':
+      //check if it is graphics or mechanics
+      //tempfile1 is getting the order of credits and tempfile2 to get the sum of credits
+      if (abc11 == "Graphics") {
+        tempfile1 = credits_s12_graphics;
+        tempfile2 = total_credits_s12_graphics;
+      } else {
+        if (abc11 == "Mechanics") {
+          tempfile1 = credits_s12_mechanics;
+          tempfile2 = total_credits_s12_mechanics;
+        }
+      }
+      break;
+    case '3':
+      tempfile1 = credits_s3;
+      tempfile2 = total_credits_s3;
+      break;
+    case '4':
+      tempfile1 = credits_s4;
+      tempfile2 = total_credits_s4;
+      break;
+    case '5':
+      tempfile1 = credits_s5;
+      tempfile2 = total_credits_s5;
+      break;
+    case '6':
+      tempfile1 = credits_s6;
+      tempfile2 = total_credits_s6;
+      break;
+    case '7':
+      tempfile1 = credits_s7;
+      tempfile2 = total_credits_s7;
+      break;
+    case '8':
+      tempfile1 = credits_s8;
+      tempfile2 = total_credits_s8;
+      break;
+  }
+
+  //the variables g1,g2... is used to find the corresponding number of the grade of all 9 subjects
+  var obj1 = document.getElementById("grade1");
+  var abc1 = obj1.options[obj1.selectedIndex].text;
+  var g1 = finding(abc1);
+
+
+
+  var obj2 = document.getElementById("grade2");
+  var abc2 = obj2.options[obj2.selectedIndex].text;
+  var g2 = finding(abc2);
+
+
+
+  var obj3 = document.getElementById("grade3");
+  var abc3 = obj3.options[obj3.selectedIndex].text;
+  var g3 = finding(abc3);
+
+
+
+  var obj4 = document.getElementById("grade4");
+  var abc4 = obj4.options[obj4.selectedIndex].text;
+  var g4 = finding(abc4);
+
+
+
+  var obj5 = document.getElementById("grade5");
+  var abc5 = obj5.options[obj5.selectedIndex].text;
+  var g5 = finding(abc5);
+
+
+
+  var obj6 = document.getElementById("grade6");
+  var abc6 = obj6.options[obj6.selectedIndex].text;
+  var g6 = finding(abc6);
+
+
+  var obj7 = document.getElementById("grade7");
+  var abc7 = obj7.options[obj7.selectedIndex].text;
+  var g7 = finding(abc7);
+
+
+  var obj8 = document.getElementById("grade8");
+  var abc8 = obj8.options[obj8.selectedIndex].text;
+  var g8 = finding(abc8);
+
+
+  var obj9 = document.getElementById("grade9");
+  var abc9 = obj9.options[obj9.selectedIndex].text;
+  var g9 = finding(abc9);
+
+
+  var obj10 = document.getElementById("sem");
+  var abc10 = obj10.options[obj10.selectedIndex].text;
+
+  //checking which sem it is. s1 and s2 has 9 subjects and all the others only 8
+  switch (abc10[1]) {
+    case "1":
+    case "2":
+    case "5":
+    case "6":
+      //s1 and s2
+      gpa = (g1 * tempfile1[0] + g2 * tempfile1[1] + g3 * tempfile1[2] + g4 * tempfile1[3] + g5 * tempfile1[4] + g6 * tempfile1[5] + g7 * tempfile1[6] + g8 * tempfile1[7] + g9 * tempfile1[8]) / tempfile2;
+      gpa1 = gpa.toFixed(2);
+      document.getElementById("cgpa").innerHTML = gpa1;
+      break;
+    case "8":
+      gpa = (g1 * tempfile1[0] + g2 * tempfile1[1] + g3 * tempfile1[2] + g4 * tempfile1[3] + g5 * tempfile1[4]) / tempfile2;
+      gpa1 = gpa.toFixed(2);
+      document.getElementById("cgpa").innerHTML = gpa1;
+      break;
+//www.ktuassist.in
+    default:
+      //all other semesters
+      gpa = (g1 * tempfile1[0] + g2 * tempfile1[1] + g3 * tempfile1[2] + g4 * tempfile1[3] + g5 * tempfile1[4] + g6 * tempfile1[5] + g7 * tempfile1[6] + g8 * tempfile1[7]) / tempfile2;
+      gpa1 = gpa.toFixed(2);
+      document.getElementById("cgpa").innerHTML = gpa1;
+
+
+  }
+}
+//function is called if any of the value is changed - semester, branch or choice of graphics or mechanics
+function ifchanged() {
+
+  var obj = document.getElementById("sem");
+  var abc = obj.options[obj.selectedIndex].text;
+  changing_subjects(abc[1]);
+  //the integer value of the semester is passed
+}
+//changes the subjects according to the changein options
+function changing_subjects(j) {
+  var i;
+  //switchfile is the array with the list of subjects
+  var switchfile;
+
+  var obj = document.getElementById("branch");
+  var abc = obj.options[obj.selectedIndex].text;
+
+  var obj2 = document.getElementById("gmchoice");
+  var abc2 = obj2.options[obj2.selectedIndex].text;
+
+
+  //subjects of each sem and branch
+  var S4cs = ["Probability Distributions and Transforms (MA202)", "Computer Organization and Architecture(CS202)", "Operating Systems(CS204)", "Object Oriented Design and Programming(CS206)", "Principles of Database Design(CS208)", "Life Skills/Business Economics(HS210/HS200)", "Free and Open Source Software Lab(CS232)", "Digital Systems Lab(CS234)"];
+  var S4me = ["Probability Distributions and Transforms (MA202)", "Advanced Mechanics of Solids(ME202)", "Thermal Engineering(ME204)", "Fluid Machinery(ME206)", "Manufacturing Technology(ME220)", "Life Skills/Business Economics(HS210/HS200)", "Thermal Engineering Lab(ME232)", "Fluid Mechanics & Machines Lab(ME230)"];
+  var S4ec = ["Probability distributions, Random Processes and Numerical Methods (MA201)", "Signals & Systems(EC202)", "Analog Integrated Circuits(EC204)", "Computer Organization(EC206)", "Analogue Communication Engineering(EC208)", "Life Skills/Business Economics(HS210/HS200)", "Analogue Integrated Circuits Lab(EC232)", "Logic Circuit Design Lab(EC230)"];
+  var S4ee = ["Probability Distributions and Transforms (MA202)", "Synchronous and Induction Machines(EE202)", "Digital Electronics and Logic Design(EE204)", "Material Science (EE206)", "Measurements and Instrumentation(EE208)", "Life Skills/Business Economics(HS210/HS200)", "Electrical Machines Lab(EE232)", "Circuits and Measurements Lab(EE234)"];
+  var S4ce = ["Probability Distributions and Transforms (MA202)", "Structural Analysis (CE202)", "Construction Technology (CE204)", "Fluid Mechanics (CE206)", "Geotechnical Engineering (CE208)", "Life Skills/Business Economics (HS210/HS200)", "Materials Testing Lab (CE232)", "Fluid Mechanics Lab (CE234)"];
+
+
+  var s5cs = ["Theory of Computation (CS301)", "System Software (CS303)", "Microprocessors and Microcontrollers(CS305)", "Data Communication (CS307)", "Graph Theory and Combinatorics (CS309)", "Elective 1(CS 361/363/365/367/369)", "Design Project (CS341)", "System Software Lab (CS331)", " Application Software Development Lab (CS333)"];
+
+  var s5ce = ["Design of Concrete Structures I(CE 301) ", "Structural Analysis- II (CE 303)", " Geotechnical Engineering- II (CE 305)", "Geomatics(CE 307)", "Water Resources Engineering(CE 309)", "Elective I (CE 361/363/365/367/369/371/373)", "Design Project(CE 341)", "Materials Testing Lab II (CE 331)", "Geotechnical Engineering Lab(CE 333)"];
+
+  var s5ee = ["Power Generation , Transmission and Protection(EE301)", "Linear Control Systems(EE303) ", "Power Electronics (EE305)", "Signals and Systems(EE307)", " Microprocessor and Embedded Systems (EE301)", "Elective 1(EE361/363/365/367/369)", "Design Project (EE 341)", "Digital Circuits and Embedded Systems Lab(EE 331)", "Electrical Machines Lab II(EE 333)"];
+
+  var s5ec = ["Digital Signal Processing (EC 301)", "Applied Electromagnetic Theory (EC 303)", "Microprocessors and Microcontrollers (EC 305)", "Power Electronics & Instrumentation(EC 307) ", "Principles of Management(HS300) ", "Elective 1(EC 361/363/365/367/369) ", "Design Project (EC 341)", "Digital Signal Processing Lab (EC 331)", "Power Electronics & Instrumentation Lab (EC 333)"];
+
+  var s5me = ["Mechanics of Machinery (ME 301)", "Machine Tools and Digital Manufacturing (ME 303) ", "Computer Programming & Numerical Methods (ME 305)", "Electrical Drives &Control for Automation (ME 307)", "Principles of Management(HS300)", "Elective 1(ME 361/363/365/367/369)", "Design Project(ME 341)", "Electrical and Electronics Lab(ME 331)", "Manufacturing Technology Lab I (ME 333)"];
+
+
+  var s6cs = ["Design and Analysis of Algorithms(CS302)", "Compiler Design(CS304)", "Computer Networks(CS306)", "Software Engineering and Project Management(CS308)", "Principles of Management(HS300)", "Elective 2(CS 362/364/366/368/372)", "Microprocessor Lab(CS332)", "Network Programming Lab(CS304)", "Comprehensive Exam(CS352)"];
+  var s6me = ["Heat & Mass Transfer(ME302)", "Dynamics of Machinery(ME304)", "Advanced Manufacturing Technology(ME306)", "Computer Aided Design and Analysis(ME308)", "Metrology and Instrumentation(ME312)", "Elective 2(ME 362/364/366/368/372/376/374)", "Computer Aided Design and Analysis Lab(ME332)", "Manufacturing Technology Lab II(ME334)", "Comprehensive Exam(ME352)"];
+  var s6ec = ["Digital Communication(EC302)", "VLSI(EC304)", "Antenna & Wave Propagation(EC306)", "Embedded System(EC308)", " Object Oriented Programming (EC312)", "Elective 2 ", "Communication Engg Lab(EC332)", "Microcontroller Lab(EC334)", "Comprehensive Exam(EC352)"];
+  var s6ee = ["Electromagnetics(EE302)", "Advanced Control Theory(EE304)", "Power System Analysis(EE306)", "Electric Drives(EE308)", "Principles of Management(HS300)", "Elective 2 ", "Systems and Control Lab(EE332)", " Power Electronics and Drives Lab(EE334)", "Comprehensive Exam(EE352)"];
+  var s6ce = ["Design of Hydraulic Structures (CE302)", "Design of Concrete Structures II (CE304)", "Computer Programming and Computational Techniques(CE306) ", "Transportation Engineering- I(CE308)", "Principles of Management(HS200)", "Elective 2(CE332/CE334/CE352)", "Transportation Engineering Lab(CE332)", "Computer Aided Civil Engineering Lab(CE334)", "Comprehensive Exam(CE352)"];
+//www.ktuassist.in
+  var s7cs = ['Computer Graphics (CS401)', 'Programming Paradigms (CS403)', 'Computer System Architecture (CS405)', 'Distributed Computing (CS407)', 'Cryptography and Network Security (CS409)', 'Elective 3 ', 'Seminar & Project Preliminary (CS451)', 'Compiler Design Lab (CS431)'];
+  var s7ce = ['Design of Steel Structures (CE401)', 'Structural Analysis III (CE403)', 'Environmental Engineering I (CE405)', 'Transportation Engineering II (CE407)', 'Quantity Surveying and Valuation(CE409)', 'Elective 3 ', 'Seminar & Project Preliminary (CE451)', 'Environmental Engineering Lab (CE431)'];
+  var s7ee = ['Electronic Communication (EE401)', 'Distributed Generation and Smart Grids (EE403)', 'Electrical System Design (EE405)', 'Digital Signal Processing (EE407) ', 'Electrical Machine Design  (EE409)', 'Elective 3', 'Seminar & Project Preliminary (EE451)', 'Power System Lab (EE431)'];
+  var s7ec = ['Information Theory & Coding (EC401)', 'Microwave & Radar Engineering (EC403)', 'Optical Communication (EC405)', 'Computer Communication (EC407)', 'Control Systems (EC409)', 'Elective 3', 'Seminar & Project Preliminary (EC451)', 'Communication Systems Lab (EC431)'];
+  var s7me = ['Design of Machine Elements (ME401)', 'Advanced Energy Engineering (ME403)', 'Refrigeration and Air Conditioning (ME405) ', 'Mechatronics (ME407)', 'Compressible Fluid Flow(ME409)', 'Elective ', 'Seminar & Project Preliminary (ME451)', 'Mechanical Engineering Lab  (ME431)'];
+
+  var s8cs = ['Data Mining and Ware Housing (CS402)', 'Embedded Systems (CS404)', 'Elective 4  ', 'Elective 5 (Non Departmental)', 'Project  (CS492)'];
+  var s8ce = ['Environmental Engineering II (CE402)', 'Civil Engineering Project Management (CE402)', 'Elective 4 ', 'Elective 5 (Non Departmental)', 'Project (CE492)'];
+  var s8me = ['Design of Machine Elements II (ME402)', 'Industrial Engineering (ME404)', 'Elective 4', 'Elective 5 (Non Departmental)', 'Project (ME492)'];
+  var s8ee = ['Special Electric Machines (EE402)', 'Industrial Instrumentation & Automation (EE404)', 'Elective 4 ', 'Elective 5 (Non Departmental)', 'Project (EE492)'];
+  var s8ec = ['Nano electronics (EC402)', 'Advanced Communication Systems (EC404)', 'Elective 4 ', 'Elective 5 (Non Departmental)', 'Project (EC492)'];
+
+
+
+  var S3cs = ["Linear Algebra & Complex Analysis(MA201)", "Discrete Computational Structures(CS201)", "Switching Theory and Logic Design(CS203)", "Data Structures(CS205)", " Electronics Devices & Circuits(CS207)", "Business Economics/Life Skills(HS200/HS210)", "Data Structures Lab(CS231)", "Electronics Circuits Lab(CS233)"];
+  var S3me = ["Linear Algebra & Complex Analysis(MA201)", "Mechanics of Solids(ME201)", "Mechanics of Fluids(ME203)", "Thermodynamics(ME205)", "Metallurgy and Materials Engineering(ME210)", "Business Economics/Life Skills(HS200/HS210)", "Computer Aided Machine Drawing Lab(ME231)", "Material Testing Lab(ME230)"];
+  var S3ce = ["Linear Algebra & Complex Analysis(MA201)", "Mechanics of Solids(CE201)", "Fluid Mechanics I(CE203)", "Engineering Geology(CE205)", "Surveying(CE207)", "Business Economics/Life Skills(HS200/HS210)", "Civil Engineering Drafting Lab(CE231)", "Surveying Lab(CE233)"];
+  var S3eee = ["Linear Algebra & Complex Analysis(MA201)", "Circuits and Networks(EE201)", "Analog Electronic Circuits(EE203)", "DC Machines and Transformers(EE205)", "Computer Programming(EE207)", "Business Economics/Life Skills(HS200/HS210)", "Electronic Circuits Lab(EE231)", "Programming Lab(EE233)"];
+  var S3ec = ["Linear Algebra & Complex Analysis(MA201)", "Network Theory(EC201)", "Solid State Devices(EC203)", "Electronic Circuits(EC205)", "Logic Circuit Design(EC207)", "Business Economics/Life Skills(HS200/HS210)", "Electronic Devices & Circuits Lab(EC231)", "Electronic Design Automation Lab(EC223)"];
+
+  //seperate for s1s2 graphics and mechanics
+  var S1_graphics = ["Calculus (MA101)", "Engineering Phy/Chem (PH100/CY100)", "Engineering Graphics (BE110)", "Introduction to your subject (BE101-0X)", "Basics of X Engineering (CE/ME/EE/EC 100)", "Introduction to Sustainable Engineering (BE103)", "Phy/Chem Lab (PH110/CY110)", "Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)", "Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)"];
+  var S1_mechanics = ["Calculus (MA101)", "Engineering Phy/Chem (PH100/CY100)", "Engineering Mechanics(BE100)", "Introduction to your subject (BE101-0X)", "Basics of X Engineering (CE/ME/EE/EC 100)", "Introduction to Sustainable Engineering (BE103)", "Phy/Chem Lab (PH110/CY110)", "Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)", "Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)"];
+  var S2_graphics = ["Differential Equations (MA102)", "Engineering Phy/Chem (PH100/CY100)", "Engineering Graphics (BE110)", "Basics of X Engineering (CE/ME/EE/EC 100)", "Basics of Y Engineering (CE/ME/EE/EC 100)", "Design and Engineering (BE102)", "Phy/Chem Lab (PH110/CY110)", "Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)", "Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)"];
+  var S2_mechanics = ["Differential Equations (MA102)", "Engineering Phy/Chem (PH100/CY100)", "Engineering Mechanics(BE100)", "Basics of X Engineering (CE/ME/EE/EC 100)", "Basics of Y Engineering (CE/ME/EE/EC 100)", "Design and Engineering (BE102)", "Phy/Chem Lab (PH110/CY110)", "Basic Engineering Workshop I (CE/CS/ME/EE/EC 110)", "Basic Engineering Workshop II (CE/CS/ME/EE/EC 110)"];
+
+  //ie if it is S1 or S2
+  if (j < 3 || j == 5 || j == 6) {
+    //the 9th subject,choice of graphics mechnaics is visible
+    document.getElementById('grade9').style.visibility = "visible";
+    document.getElementById('sub9').style.visibility = "visible";
+    document.getElementById("gmchoice").disabled = false;
+    document.getElementById("branch").disabled = false;
+
+
+
+    //if s1
+    if (j == 1) {
+      //assigning switchfile according to the choice of mechanics or graphics  N.B the default value is graphics
+      if (abc2 == "Mechanics") {
+        switchfile = S1_mechanics;
+      } else {
+        switchfile = S1_graphics;
+      }
+    }
+    //if s2
+    if (j == 2) {
+      if (abc2 == "Mechanics") {
+        switchfile = S2_mechanics;
+      } else {
+        switchfile = S2_graphics;
+      }
+    }
+    if (j == 5) {
+      switch (abc) {
+        case 'Mechanical':
+          switchfile = s5me;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Electronics':
+        case "5":
+          switchfile = s5ec;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Civil':
+          switchfile = s5ce;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Electrical':
+          switchfile = s5ee;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Computer Science':
+          switchfile = s5cs;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+      }
+    } else if (j == 6) {
+      switch (abc) {
+        case 'Mechanical':
+          switchfile = s6me;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Electronics':
+          switchfile = s6ec;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Civil':
+          switchfile = s6ce;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Electrical':
+          switchfile = s6ee;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+
+        case 'Computer Science':
+          switchfile = s6cs;
+          for (i = 1; i < 9; i++) {
+            document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+          }
+          break;
+      }
+    }
+
+
+
+    //displaying the subjects in the appropriate places
+    for (i = 1; i < 10; i++) {
+      document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+    }
+  }
+  //if s3 or higher
+  else if (j < 8) {
+    //the 9th subject and the choice of graphics and mechanics is hidden
+    document.getElementById('grade9').style.visibility = "hidden";
+    document.getElementById('sub9').style.visibility = "hidden";
+    document.getElementById("gmchoice").disabled = true;
+    document.getElementById("branch").disabled = false;
+
+
+    //abc has the branch.checking the branch and giving appropriate switchfiles
+    switch (abc) {
+      case 'Mechanical':
+        //j has the semester.
+        switch (j) {
+          //s3 mech
+          case "3":
+            switchfile = S3me;
+            break;
+            //s4 mech
+          case "4":
+            switchfile = S4me;
+            break;
+            //s5 mech
+          case "7":
+            switchfile = s7me;
+            break;
+        }
+        for (i = 1; i < 9; i++) {
+          document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case 'Electronics':
+        switch (j) {
+          case "3":
+            switchfile = S3ec;
+            break;
+          case "4":
+            switchfile = S4ec;
+            break;
+          case "7":
+            switchfile = s7ec;
+            break;
+        }
+        for (i = 1; i < 9; i++) {
+          document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case 'Civil':
+        switch (j) {
+          case "3":
+            switchfile = S3ce;
+            break;
+          case "4":
+            switchfile = S4ce;
+            break;
+          case "7":
+            switchfile = s7ce;
+            break;
+        }
+        for (i = 1; i < 9; i++) {
+          document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case 'Electrical':
+        switch (j) {
+          case "3":
+            switchfile = S3eee;
+            break;
+          case "4":
+            switchfile = S4ee;
+            break;
+          case "7":
+            switchfile = s7ee;
+            break;
+        }
+        for (i = 1; i < 9; i++) {
+          document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+
+      case 'Computer Science':
+        switch (j) {
+          case "3":
+            switchfile = S3cs;
+            break;
+          case "4":
+            switchfile = S4cs;
+            break;
+          case "7":
+            switchfile = s7cs;
+            break;
+        }
+        for (i = 1; i < 9; i++) {
+          document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+        }
+        break;
+    }
+  } else {
+    document.getElementById('grade9').style.visibility = "hidden";
+    document.getElementById('sub9').style.visibility = "hidden";
+
+    document.getElementById('grade8').style.visibility = "hidden";
+    document.getElementById('sub8').style.visibility = "hidden";
+
+    document.getElementById('grade7').style.visibility = "hidden";
+    document.getElementById('sub7').style.visibility = "hidden";
+
+    document.getElementById('grade6').style.visibility = "hidden";
+    document.getElementById('sub6').style.visibility = "hidden";
+
+
+    document.getElementById("gmchoice").disabled = true;
+    document.getElementById("branch").disabled = false;
+
+    switch (abc) {
+      case 'Mechanical':
+        switchfile = s8me;
+
+        break;
+
+      case 'Electronics':
+        switchfile = s8ec;
+
+        break;
+
+      case 'Civil':
+        switchfile = s8ce;
+
+        break;
+
+      case 'Electrical':
+        switchfile = s8ee;
+
+        break;
+
+      case 'Computer Science':
+        switchfile = s8cs;
+
+        break;
+    }
+
+    for (i = 1; i < 6; i++) {
+      document.getElementById("sub" + i).innerHTML = switchfile[i - 1];
+    }
+
+
+  }
+}
+
+</script>
+<div class="wpb_wrapper">
+    <div class="wpb_wrapper td_block_wrap vc_raw_html td_uid_4_5d2e71e0d2a2d_rand ">
+    <div class="td-fix-index">
+
+    </div>
+
+<style>
+.notetp table th,td{
+text-align:left;
+}
+
+.notestp button{
+margin:10px;
+padding:12px;
+background-color:white;
+border:2px solid green;
+color:green;
+
+}
+
+</style>
+
+<center>
+<div class="notestp">
+<div class="wpb_wrapper wpb_text_column td_block_wrap td_block_wrap vc_column_text td_uid_5_5d2e71e0d319f_rand  td-pb-border-top td_block_template_4" data-td-block-uid="td_uid_5_5d2e71e0d319f">
+    <div class="td-block-title-wrap">
+    </div>
+<div class="td-fix-index">
+    <h3>
+    Enter Semester details:</h3>
+</div>
+</div>
+<div class="wpb_wrapper td_block_wrap vc_raw_html td_uid_6_5d2e71e0d6907_rand ">
+    <div class="td-fix-index">
+    <table><tbody>
+<tr><th>Select Semester :</th><th><select id="sem" onchange="ifchanged()"><option value="s1">S1</option><option value="s2">S2</option><option value="s3">S3</option><option value="s4">S4</option><option value="s5">S5</option><option value="s6">S6</option><option value="s7">S7</option><option value="s8">S8</option></select></th></tr>
+<tr><td>Enter Branch:</td><td><select id="branch" name="branch" onchange="ifchanged()"><option value="cs">Computer Science</option><option value="eee">Electrical</option><option value="ec">Electronics</option><option value="me">Mechanical</option><option value="ce">Civil</option></select></td></tr>
+<tr><td>Select Subject (Only for S1 and S2) :</td><td><select id="gmchoice" onchange="ifchanged()"><option value="gs">Graphics</option><option value="ms">Mechanics</option></select></td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="wpb_wrapper wpb_text_column td_block_wrap td_block_wrap vc_column_text td_uid_7_5d2e71e0d6a08_rand  td-pb-border-top td_block_template_4" data-td-block-uid="td_uid_7_5d2e71e0d6a08">
+    <div class="td-block-title-wrap">
+    </div>
+<div class="td-fix-index">
+    <h3>
+    Enter Grade details:</h3>
+</div>
+</div>
+<div class="wpb_wrapper td_block_wrap vc_raw_html td_uid_8_5d2e71e0d97ed_rand ">
+    <div class="td-fix-index">
+    <table><tbody>
+<tr><td><div id="sub1">
+    Calculus</div>
+</td><td><select id="grade1"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub2">
+    Engineering Phy/Chem:</div>
+</td><td><select id="grade2" name="grade2"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub3">
+    Engineering Graphics:</div>
+</td><td><select id="grade3"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub4">
+    Introduction to your subject:</div>
+</td><td><select id="grade4"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub5">
+    Basics of X Engineering:</div>
+</td><td><select id="grade5" name="grade5"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub6">
+    Introduction to Sustainable Engineering</div>
+</td><td><select id="grade6"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub7">
+    Phy/Chem Lab</div>
+</td><td><select id="grade7"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub8">
+    Basic Engineering Workshop I</div>
+</td><td><select id="grade8"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+<tr><td><div id="sub9">
+    Basic Engineering Workshop II</div>
+</td><td><select id="grade9"><option value="os">OS</option><option value="a+">A+</option><option value="a">A</option><option value="b+">B+</option><option value="b">B</option><option value="c">C</option><option value="p">P</option><option value="f">F</option></select></td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="wpb_wrapper td_block_wrap vc_raw_html td_uid_9_5d2e71e0d9997_rand ">
+    <div class="td-fix-index">
+
+     <button class="btn btn-3 btn-3e icon-arrow-right" id="gpabutton2" onclick="getOption()">CALCULATE SGPA</button> <br><br><div id="cgpadecor">
+    <h3 class="gpa1">
+    YOUR SGPA :</h3>
+<h2 class="gpa2" id="cgpa" style="display: inline;">
+    </h2>
+
+<script type="text/javascript">
+    (function() {
+      var items = null;
+      var msgs = null;
+      var config = {};
+
+// <![CDATA[
+      var cursor = null;
+      if (items && items.length > 0) {
+        cursor = parseInt(items[items.length - 1].timestamp) + 1;
+      }
+
+      var bodyFromEntry = function(entry) {
+        if (entry.gd$extendedProperty) {
+          for (var k in entry.gd$extendedProperty) {
+            if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') {
+              return '<span class="deleted-comment">' + entry.content.$t + '</span>';
+            }
+          }
+        }
+        return entry.content.$t;
+      }
+
+      var parse = function(data) {
+        cursor = null;
+        var comments = [];
+        if (data && data.feed && data.feed.entry) {
+          for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
+            var comment = {};
+            // comment ID, parsed out of the original id format
+            var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t);
+            comment.id = id ? id[2] : null;
+            comment.body = bodyFromEntry(entry);
+            comment.timestamp = Date.parse(entry.published.$t) + '';
+            if (entry.author && entry.author.constructor === Array) {
+              var auth = entry.author[0];
+              if (auth) {
+                comment.author = {
+                  name: (auth.name ? auth.name.$t : undefined),
+                  profileUrl: (auth.uri ? auth.uri.$t : undefined),
+                  avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined)
+                };
+              }
+            }
+            if (entry.link) {
+              if (entry.link[2]) {
+                comment.link = comment.permalink = entry.link[2].href;
+              }
+              if (entry.link[3]) {
+                var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href);
+                if (pid && pid[1]) {
+                  comment.parentId = pid[1];
+                }
+              }
+            }
+            comment.deleteclass = 'item-control blog-admin';
+            if (entry.gd$extendedProperty) {
+              for (var k in entry.gd$extendedProperty) {
+                if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') {
+                  comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value;
+                } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') {
+                  comment.displayTime = entry.gd$extendedProperty[k].value;
+                }
+              }
+            }
+            comments.push(comment);
+          }
+        }
+        return comments;
+      };
+
+      var paginator = function(callback) {
+        if (hasMore()) {
+          var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50';
+          if (cursor) {
+            url += '&published-min=' + new Date(cursor).toISOString();
+          }
+          window.bloggercomments = function(data) {
+            var parsed = parse(data);
+            cursor = parsed.length < 50 ? null
+                : parseInt(parsed[parsed.length - 1].timestamp) + 1
+            callback(parsed);
+            window.bloggercomments = null;
+          }
+          url += '&callback=bloggercomments';
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+        }
+      };
+      var hasMore = function() {
+        return !!cursor;
+      };
+      var getMeta = function(key, comment) {
+        if ('iswriter' == key) {
+          var matches = !!comment.author
+              && comment.author.name == config.authorName
+              && comment.author.profileUrl == config.authorUrl;
+          return matches ? 'true' : '';
+        } else if ('deletelink' == key) {
+          return config.baseUri + '/delete-comment.g?blogID='
+               + config.blogId + '&postID=' + comment.id;
+        } else if ('deleteclass' == key) {
+          return comment.deleteclass;
+        }
+        return '';
+      };
+
+      var replybox = null;
+      var replyUrlParts = null;
+      var replyParent = undefined;
+
+      var onReply = function(commentId, domId) {
+        if (replybox == null) {
+          // lazily cache replybox, and adjust to suit this style:
+          replybox = document.getElementById('comment-editor');
+          if (replybox != null) {
+            replybox.height = '250px';
+            replybox.style.display = 'block';
+            replyUrlParts = replybox.src.split('#');
+          }
+        }
+        if (replybox && (commentId !== replyParent)) {
+          replybox.src = '';
+          document.getElementById(domId).insertBefore(replybox, null);
+          replybox.src = replyUrlParts[0]
+              + (commentId ? '&parentID=' + commentId : '')
+              + '#' + replyUrlParts[1];
+          replyParent = commentId;
+        }
+      };
+
+      var hash = (window.location.hash || '#').substring(1);
+      var startThread, targetComment;
+      if (/^comment-form_/.test(hash)) {
+        startThread = hash.substring('comment-form_'.length);
+      } else if (/^c[0-9]+$/.test(hash)) {
+        targetComment = hash.substring(1);
+      }
+
+      // Configure commenting API:
+      var configJso = {
+        'maxDepth': config.maxThreadDepth
+      };
+      var provider = {
+        'id': config.postId,
+        'data': items,
+        'loadNext': paginator,
+        'hasMore': hasMore,
+        'getMeta': getMeta,
+        'onReply': onReply,
+        'rendered': true,
+        'initComment': targetComment,
+        'initReplyThread': startThread,
+        'config': configJso,
+        'messages': msgs
+      };
+    })
