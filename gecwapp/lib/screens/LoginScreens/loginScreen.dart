@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:gecwapp/Models/userModel.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
 import 'package:gecwapp/customWidgets/Alerts/alert_dialog.dart';
+import 'package:gecwapp/customWidgets/Alerts/internet-alert.dart';
 import 'package:gecwapp/customWidgets/Alerts/loading-alert.dart';
 import 'package:gecwapp/customWidgets/overlayLoader.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
@@ -34,28 +37,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    checkInternetConnection(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     context.read<GWValuesProvider>().setScreenSize(screenHeight, screenWidth);
     // GWValues().setScreenSizes = [screenHeight, screenWidth];
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body:
-          // Stack(
-          //   children: [
-          // Positioned(
-          //   top: screenHeight * 0.65,
-          //   right: -(screenWidth * 0.5),
-          //   // alignment: Alignment.bottomCenter,
-          //   child: Container(
-          //     width: screenWidth * 2,
-          //     height: screenWidth * 2,
-          //     decoration: BoxDecoration(
-          //         shape: BoxShape.circle,
-          //         color: Color.fromARGB(255, 255, 255, 255)),
-          //   ),
-          // ),
-          Container(
+      body: Container(
         decoration: BoxDecoration(
             // image: DecorationImage(
             //   image: AssetImage("assets/images/background.png"),
@@ -412,21 +401,25 @@ class _LoginScreenState extends State<LoginScreen> {
 ///////////////////Google auth
 
   Future<void> signInWithGoogle(BuildContext context) async {
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    final authResult = await _auth.signInWithCredential(credential);
-    final User? user = authResult.user;
-    assert(!user!.isAnonymous);
-    assert(await user?.getIdToken() != null);
-    final User currentUser = await _auth.currentUser!;
-    assert(user?.uid == currentUser.uid);
-    createUser(user!, context);
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      final authResult = await _auth.signInWithCredential(credential);
+      final User? user = authResult.user;
+      assert(!user!.isAnonymous);
+      assert(await user?.getIdToken() != null);
+      final User currentUser = await _auth.currentUser!;
+      assert(user?.uid == currentUser.uid);
+      createUser(user!, context);
+    } catch (e) {
+      print("!!!!!!!!!!!!!!!!!$e!!!!!!!!!!!!!!");
+    }
   }
 
   Future<void> createUser(User currentUser, BuildContext context) async {
@@ -452,6 +445,26 @@ class _LoginScreenState extends State<LoginScreen> {
       // Navigator.of(context)
       //     .push(MaterialPageRoute(builder: (context) => HomeScreen()));
     });
+  }
+
+  /////
+  /////Check internet connection
+  Future checkInternetConnection(BuildContext context) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+      showDialog(
+          context: context,
+          builder: (BuildContext buildContext) {
+            return WillPopScope(
+                onWillPop: () => Future.value(false), child: InternetAlert());
+          });
+      // Messages.displayMessage(context, "Connect to internet for this feature");
+    }
   }
 }
 

@@ -6,10 +6,10 @@ import 'package:gecwapp/Models/userModel.dart';
 
 class UserProvider with ChangeNotifier {
   String _userId = "";
-  UserModel? _userModel;
+  UserModel _userModel = UserModel("mail", 0, false, "club");
   int _versionCode = 0;
 
-  UserModel get userModel => _userModel!;
+  UserModel get userModel => _userModel;
   String get uuId => _userId;
   int get versionCode => _versionCode;
 

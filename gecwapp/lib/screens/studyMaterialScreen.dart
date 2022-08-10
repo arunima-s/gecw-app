@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Utilities/popup_messages.dart';
+import 'package:gecwapp/customWidgets/Alerts/exit-alert.dart';
+import 'package:gecwapp/customWidgets/Alerts/internet-alert.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
 import 'package:gecwapp/screens/scholarshipScreen.dart';
 import 'package:gecwapp/screens/semesterScreen.dart';
@@ -17,10 +22,11 @@ class HomeScreenMenu extends StatefulWidget {
 class _HomeScreenMenuState extends State<HomeScreenMenu> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       new FlutterLocalNotificationsPlugin();
-
+  var isConnected = true;
   var screenType = 0;
   @override
   Widget build(BuildContext context) {
+    // checkInternetConnection(context);
     return ListView(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
@@ -41,10 +47,6 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
-                // onTap: () => {
-                //       Navigator.of(context).push(MaterialPageRoute(
-                //           builder: (context) => StudyMaterialsScreen()))
-                //     },
                 onTap: () {
                   showDialog(
                       context: context,
@@ -83,21 +85,19 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
     );
   }
 
-  // Future _showNotificationWithDefaultSound() async {
-  //   print('///////////////////////////////////');
-  //   var flutterLocalNotificationsPlugin;
-  //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-  //       'your channel id', 'your channel name',
-  //       importance: Importance.max, priority: Priority.high);
-  //   // var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-  //   var platformChannelSpecifics = new NotificationDetails();
-  //   await flutterLocalNotificationsPlugin.show(
-  //     0,
-  //     'New Post',
-  //     'How to Show Notification in Flutter',
-  //     platformChannelSpecifics,
-  //     payload: 'Default_Sound',
-  //   );
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     if (!isConnected) {
+  //       showDialog(
+  //           context: context,
+  //           builder: (BuildContext context) {
+  //             return ExitAlert("alertMessage", "alertTitle", "buttonTitle");
+  //           });
+  //     }
+  //   });
   // }
 
   Future showNotification() async {
@@ -110,11 +110,6 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
         payload: 'Nitish Kumar Singh is part time Youtuber');
   }
 }
-
-// class StudyMaterialsScreen extends StatelessWidget {
-//   // const StudyMaterialsScreen({ Key? key }) : super(key: key);
-
-// }
 
 class StudyMenuItem extends StatelessWidget {
   final String _assetPath, text;

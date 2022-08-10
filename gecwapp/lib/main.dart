@@ -1,4 +1,6 @@
 // @dart=2.9
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -166,13 +168,17 @@ class _MyAppState extends State<MyApp> {
   ///
 
   initCM() async {
-    final firebaseMessaging = FCM();
-    firebaseMessaging.setNotifications();
+    try {
+      final firebaseMessaging = await FCM();
+      await firebaseMessaging.setNotifications();
 
-    firebaseMessaging.streamCtlr.stream.listen(_changeData);
-    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
-    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
-    await FirebaseMessaging.instance.subscribeToTopic('weather');
+      firebaseMessaging.streamCtlr.stream.listen(_changeData);
+      firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+      firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+      await FirebaseMessaging.instance.subscribeToTopic('weather');
+    } catch (e) {
+      print("!!!!!!!!!!!!!!!!!$e!!!!!!!!!!!!!!!!!!");
+    }
   }
 
   _changeData(String msg) => setState(() => notificationData = msg);
