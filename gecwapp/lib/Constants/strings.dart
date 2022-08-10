@@ -8,6 +8,8 @@ class AppColors {
   static const grey2 = Color.fromRGBO(227, 227, 225, 1);
   static const grey3 = Color.fromRGBO(189, 189, 199, 1);
   static const darkGrey = Color.fromRGBO(80, 80, 80, 1);
+  static const bicycleGif = Color.fromRGBO(112, 209, 64, 1);
+  static const bicycleStop = Color.fromRGBO(234, 8, 45, 1);
 }
 
 class SharedKeys {
@@ -27,4 +29,4 @@ class FirebaseKeys {
   static const clubs = "clubs";
 }
 
-enum UserAccess { user, admin, superUser }
+enum UserAccess { user, admin, superUser, bicycle }
