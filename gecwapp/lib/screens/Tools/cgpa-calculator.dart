@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
@@ -21,8 +22,47 @@ class CGPACalculator extends StatelessWidget {
           physics: ClampingScrollPhysics(),
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [Text("Semster"), Text("SGPA")],
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                /////
+                //////Back Button
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios)),
+                AutoSizeText(
+                  "CGPA Calculator",
+                  style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500),
+                ),
+
+                /////////////
+                ////////////Verify button
+              ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "Semester",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text("SGPA",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                )
+              ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.015,
             ),
             ////
             ListView.separated(
