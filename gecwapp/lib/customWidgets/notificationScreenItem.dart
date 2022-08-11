@@ -187,7 +187,8 @@ class NotificationScreenItems extends StatelessWidget {
         notificationItem!.userId,
         notificationItem!.timeStamp,
         notificationItem!.eventDate,
-        notificationItem!.user);
+        notificationItem!.user,
+        notificationItem!.eventName);
     notificationRef.child(notificationItem!.timeStamp).set(notItem.toJson());
     setCalendarEvent();
     // scheduleNotifications();
@@ -217,8 +218,8 @@ class NotificationScreenItems extends StatelessWidget {
     // int hour = 0, int minute = 0, int second = 0,
     // int millisecond = 0, int microsecond = 0])
     final time = tempDate.subtract(Duration(days: 1));
-    final notificationTime = new DateTime(time.year, time.month, time.day, 16,
-        36, time.second, time.millisecond, time.microsecond);
+    final notificationTime = new DateTime(time.year, time.month, time.day, 2, 4,
+        time.second, time.millisecond, time.microsecond);
     String date = DateFormat("yyyy-MM-dd hh:mm:ss").format(notificationTime);
 
     tz.initializeTimeZones(); //  <----
@@ -228,8 +229,8 @@ class NotificationScreenItems extends StatelessWidget {
     var platform = new NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        "Notification Title",
-        "This is the Notification Body!",
+        notificationItem?.user,
+        "Don't forget ${notificationItem?.eventName} scheduled for tomorrow",
         // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
         tz.TZDateTime.from(notificationTime, tz.local),
         platform,

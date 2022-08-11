@@ -14,6 +14,7 @@ import 'package:gecwapp/customWidgets/customAppbar.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/navdrawer.dart';
 import 'package:gecwapp/customWidgets/simple_widgets.dart';
+import 'package:gecwapp/screens/NotificationScreens/notification-detail-screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -135,11 +136,16 @@ class MainScreen extends StatelessWidget {
                               screenHeight * 0.3,
                               screenWidth * 0.8),
                         ),
-                  onTap: () => {
-                    openURL(context
-                        .watch<NotificationProvider>()
-                        .notifications[index]
-                        .link)
+                  onTap: () {
+                    // openURL(context
+                    //     .watch<NotificationProvider>()
+                    //     .notifications[index]
+                    //     .link);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                NotificationDetailsScreen(index)));
                   },
                 );
               },

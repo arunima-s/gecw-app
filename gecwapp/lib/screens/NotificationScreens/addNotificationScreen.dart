@@ -113,21 +113,21 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
             Align(
               alignment: Alignment.center,
               child: SizedBox(
-                width: screenWidth * 0.3,
+                width: screenWidth * 0.8,
                 height: screenHeight * 0.08,
-                // child: TextField(
-                //   textInputAction: TextInputAction.next,
-                //   decoration: InputDecoration(
-                //       hintText: "Enter Event Name",
-                //       enabledBorder: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(10.0),
-                //           borderSide: BorderSide(
-                //               width: 1,
-                //               color: Color.fromARGB(255, 189, 189, 189)))),
-                //   controller: nameController,
-                //   textAlign: TextAlign.center,
-                //   // decoration: InputDecoration(hintText: 'Enter name'),
-                // ),
+                child: TextField(
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                      hintText: "Enter Event Name",
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: Color.fromARGB(255, 189, 189, 189)))),
+                  controller: nameController,
+                  textAlign: TextAlign.center,
+                  // decoration: InputDecoration(hintText: 'Enter name'),
+                ),
 
                 // child: DropdownButton(
                 //   value: selectedClub,
@@ -147,7 +147,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 // ),
               ),
             ),
-            GWSpace(screenHeight * 0.025, 0),
+            GWSpace(screenHeight * 0.02, 0),
 
             Align(
               alignment: Alignment.center,
@@ -169,7 +169,7 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
                 ),
               ),
             ),
-            GWSpace(screenHeight * 0.025, 0),
+            GWSpace(screenHeight * 0.02, 0),
             // TextField(
             //   controller: tapUrlController,
             //   textAlign: TextAlign.center,
@@ -319,7 +319,8 @@ class _AddNotificationScreenState extends State<AddNotificationScreen> {
         uid.toString(),
         timeStamp,
         DateFormat('yyyy-MM-dd').format(selectedDate),
-        userData!.club!);
+        userData!.club!,
+        nameController.text);
 
     // final calendarModel = CalendarDataModel(
     //     nameController.text,
