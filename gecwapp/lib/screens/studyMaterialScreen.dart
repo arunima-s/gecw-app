@@ -40,7 +40,14 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
                           builder: (context) => HostelListScreen()))
                     },
                 child: StudyMenuItem("assets/images/hostel.png", "Hostels")),
-            StudyMenuItem("assets/images/bicycle.png", "Book Bicycle"),
+            // StudyMenuItem("assets/images/bicycle.png", "Book Bicycle"),
+            GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => StudyMaterialsScreen(false));
+                },
+                child: StudyMenuItem("assets/images/notes.png", "Notes")),
           ],
         ),
         Row(
@@ -66,19 +73,19 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => StudyMaterialsScreen(false));
-                },
-                child: StudyMenuItem("assets/images/notes.png", "Notes")),
-            GestureDetector(
-              child: StudyMenuItem("assets/images/notes.png", "Notes"),
-              onTap: () {
-                showNotification();
-              },
-            ),
+            // GestureDetector(
+            //     onTap: () {
+            //       showDialog(
+            //           context: context,
+            //           builder: (context) => StudyMaterialsScreen(false));
+            //     },
+            //     child: StudyMenuItem("assets/images/notes.png", "Notes")),
+            // GestureDetector(
+            //   child: StudyMenuItem("assets/images/notes.png", "Notes"),
+            //   onTap: () {
+            //     showNotification();
+            //   },
+            // ),
           ],
         )
       ],

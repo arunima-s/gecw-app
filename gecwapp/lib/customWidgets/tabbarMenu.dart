@@ -17,8 +17,9 @@ class TabBarMenu extends StatelessWidget {
       child: Container(
         height: MediaQuery.of(context).size.height * .09,
         // width: 5,
-        margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+        margin: EdgeInsets.fromLTRB(50, 0, 50, 5),
         decoration: BoxDecoration(
+          // color: Colors.yellow,
           borderRadius: BorderRadius.all(Radius.circular(50)),
           // borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
           border: Border.all(color: AppColors.primaryColor, width: 2),
@@ -34,10 +35,10 @@ class TabBarMenu extends StatelessWidget {
             borderRadius: BorderRadius.circular(50.0),
           ),
           tabs: [
-            Tab(
-              text: "Calendar",
-              icon: Icon(Icons.calendar_month),
-            ),
+            // Tab(
+            //   text: "Calendar",
+            //   icon: Icon(Icons.calendar_month),
+            // ),
             Tab(
               text: "Haiku",
               icon: Icon(Icons.home),

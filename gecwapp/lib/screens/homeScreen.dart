@@ -26,9 +26,10 @@ class HomeScreen extends StatelessWidget {
     context.read<AdsProvider>().getNotifications();
     return MaterialApp(
       home: DefaultTabController(
-        length: 3,
-        initialIndex: 1,
+        length: 2,
+        initialIndex: 0,
         child: Scaffold(
+          // backgroundColor: Colors.red,
           drawer: NavDrawer(),
           // appBar: CustomAppBar(),
           bottomNavigationBar: TabBarMenu(),
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
             // HostelList(),
             // WebScraperApp(),
             // BusTiming(),
-            CalendarScreen(),
+            // CalendarScreen(),
             MainScreen(),
 
             ToolSScreen()
