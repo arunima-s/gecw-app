@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
+import 'package:gecwapp/customWidgets/Alerts/marks-alert.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,9 @@ class CGPACalculator extends StatelessWidget {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           children: [
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -87,14 +91,19 @@ class CGPACalculator extends StatelessWidget {
               child: RoundedButton("Calculate CGPA", () {
                 print(sgpaList);
                 print(sgpaList.length);
+                sum = 0;
                 if (sgpaList.length != 8) {
                   Messages.displayMessage(context, "Enter all values");
                 } else {
                   sgpaList.values.map((e) {
                     sum = sum + e;
                   }).toList();
-                  Messages.displayMessage(context, "${sum * 0.125}");
-                  sum = 0;
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return MarkAlert("${sum * 0.125}", "", "Your CGPA is");
+                      });
+                  // Messages.displayMessage(context, "${sum * 0.125}");
                 }
               }, screenWidth * 0.5, screenHeight * 0.08),
             )
