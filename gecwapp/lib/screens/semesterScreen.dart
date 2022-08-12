@@ -22,7 +22,7 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   var selectedDepartmentString = "EEE";
   List<String> departmentNames = [];
   var selectedSubject = "";
-  List<String> subjectList = [];
+  List<dynamic> subjectList = [];
   // = ["EEE", "EC", "MECH", "CS"];
   double screenHeight = 0, screenWidth = 0;
 
@@ -185,7 +185,12 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   }
 
   void setSubject() {
-    final dep = selectedDepartmentString + selectedSemesterString;
+    String dep;
+    if (selectedSemesterString == "S1 - S2") {
+      dep = "S1 - S2";
+    } else {
+      dep = selectedDepartmentString + selectedSemesterString;
+    }
     setState(() {
       subjectList =
           DropDownDataset.subjectList[dep]!.map((e) => e.first).toList();
@@ -194,10 +199,17 @@ class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
   }
 
   void openDrive() async {
-    final dep = selectedDepartmentString + selectedSemesterString;
+    String dep;
+    if (selectedSemesterString == "S1 - S2") {
+      dep = "S1 - S2";
+    } else {
+      dep = selectedDepartmentString + selectedSemesterString;
+    }
+    // final dep = selectedDepartmentString + selectedSemesterString;
     final index = subjectList.indexOf(selectedSubject);
-    final _url =
-        DropDownDataset.subjectList[dep]![index][widget.isSyllabus ? 1 : 2];
+    final _url = DropDownDataset.subjectList[dep]![index]
+            [widget.isSyllabus ? 1 : 2]
+        .toString();
     // "https://stackoverflow.com/questions/68610058/how-to-open-url-in-flutter-app-with-url-launcher";
     await launch(_url,
         forceSafariVC: true, forceWebView: true, enableJavaScript: true);

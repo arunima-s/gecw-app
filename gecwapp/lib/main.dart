@@ -1,4 +1,6 @@
 // @dart=2.9
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import 'Providers/custom-ads-provider.dart';
+
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
@@ -27,7 +31,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => HostelProvider()),
       ChangeNotifierProvider(create: (_) => SharedPrefsProvider()),
       ChangeNotifierProvider(create: (_) => CalendarDataProvider()),
-      ChangeNotifierProvider(create: (_) => GWValuesProvider())
+      ChangeNotifierProvider(create: (_) => GWValuesProvider()),
+      ChangeNotifierProvider(create: (_) => AdsProvider())
     ],
     child: RestartWidget(child: MyApp()),
   ));
@@ -133,6 +138,7 @@ class _MyAppState extends State<MyApp> {
   ///
   void initNotifications() {
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    // var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
     var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
     var iOS = new IOSInitializationSettings();
     var initSetttings = new InitializationSettings(android: android, iOS: iOS);
@@ -163,13 +169,17 @@ class _MyAppState extends State<MyApp> {
   ///
 
   initCM() async {
-    final firebaseMessaging = FCM();
-    firebaseMessaging.setNotifications();
+    try {
+      final firebaseMessaging = await FCM();
+      await firebaseMessaging.setNotifications();
 
-    firebaseMessaging.streamCtlr.stream.listen(_changeData);
-    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
-    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
-    await FirebaseMessaging.instance.subscribeToTopic('weather');
+      firebaseMessaging.streamCtlr.stream.listen(_changeData);
+      firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+      firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+      await FirebaseMessaging.instance.subscribeToTopic('general');
+    } catch (e) {
+      print("!!!!!!!!!!!!!!!!!$e!!!!!!!!!!!!!!!!!!");
+    }
   }
 
   _changeData(String msg) => setState(() => notificationData = msg);

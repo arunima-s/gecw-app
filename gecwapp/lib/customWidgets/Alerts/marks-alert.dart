@@ -1,19 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
-import 'package:gecwapp/main.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class AlertScreen extends StatelessWidget {
+class MarkAlert extends StatelessWidget {
   // const AlertScreen({Key? key}) : super(key: key);
-  final VoidCallback cancelFn, okFn;
-  var isAdmin;
-  final String alertMessage, alertTitle, buttonTitle;
-  AlertScreen(this.alertMessage, this.alertTitle, this.buttonTitle, this.okFn,
-      this.cancelFn);
+  final String alertMessage1, alertMessage2, alertTitle;
+  MarkAlert(this.alertMessage1, this.alertMessage2, this.alertTitle);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +23,7 @@ class AlertScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/sad48.png'),
+            // Image.asset('assets/images/sad48.png'),
             SizedBox(
               height: 10,
             ),
@@ -42,7 +35,15 @@ class AlertScreen extends StatelessWidget {
               height: 10,
             ),
             Text(
-              alertMessage,
+              alertMessage1,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15, color: Colors.grey[600]),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              alertMessage2,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 15, color: Colors.grey[600]),
             ),
@@ -52,16 +53,15 @@ class AlertScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  RoundedButton(
-                      "Cancel",
-                      //  (() {
-                      //   Navigator.pop(context);
-                      // }),
-                      cancelFn,
-                      screenWidth * 0.25,
-                      screenHeight * 0.06),
-                  RoundedButton(
-                      buttonTitle,
+                  // RoundedButton(
+                  //     "Cancel",
+                  //     //  (() {
+                  //     //   Navigator.pop(context);
+                  //     // }),
+                  //     cancelFn,
+                  //     screenWidth * 0.25,
+                  //     screenHeight * 0.06),
+                  RoundedButton("OK",
                       // () async {
                       //   SharedPreferences prefs =
                       //       await SharedPreferences.getInstance();
@@ -70,9 +70,9 @@ class AlertScreen extends StatelessWidget {
                       //     RestartWidget.restartApp(context);
                       //   });
                       // },
-                      okFn,
-                      screenWidth * 0.25,
-                      screenHeight * 0.06)
+                      () {
+                    Navigator.pop(context);
+                  }, screenWidth * 0.25, screenHeight * 0.06)
                 ],
               ),
             )
