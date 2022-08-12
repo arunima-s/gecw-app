@@ -71,8 +71,15 @@ class _HomeScreenMenuState extends State<HomeScreenMenu> {
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            GestureDetector(
+                onTap: () {
+                  Messages.displayMessage(
+                      context, "Feature will be available soon");
+                },
+                child:
+                    StudyMenuItem("assets/images/bicycle.png", "Book Bicycle")),
             // GestureDetector(
             //     onTap: () {
             //       showDialog(

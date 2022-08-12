@@ -176,7 +176,7 @@ class _MyAppState extends State<MyApp> {
       firebaseMessaging.streamCtlr.stream.listen(_changeData);
       firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
       firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
-      await FirebaseMessaging.instance.subscribeToTopic('weather');
+      await FirebaseMessaging.instance.subscribeToTopic('general');
     } catch (e) {
       print("!!!!!!!!!!!!!!!!!$e!!!!!!!!!!!!!!!!!!");
     }

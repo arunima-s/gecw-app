@@ -5,6 +5,7 @@ import 'package:gecwapp/Providers/gw_values_provider.dart';
 import 'package:gecwapp/customWidgets/imagebanner.dart';
 import 'package:gecwapp/customWidgets/rounded_button.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExitAlert extends StatelessWidget {
   // const AlertScreen({Key? key}) : super(key: key);
@@ -53,8 +54,13 @@ class ExitAlert extends StatelessWidget {
                   RoundedButton("Cancel", () {
                     Navigator.pop(context);
                   }, screenWidth * 0.2, screenHeight * 0.06),
-                  RoundedButton(
-                      "Rate Us", () {}, screenWidth * 0.2, screenHeight * 0.06),
+                  RoundedButton("Rate Us", () async {
+                    await launch(
+                        "https://play.google.com/store/apps/details?id=com.inceptra.haiku",
+                        forceSafariVC: true,
+                        forceWebView: true,
+                        enableJavaScript: true);
+                  }, screenWidth * 0.2, screenHeight * 0.06),
                   RoundedButton(buttonTitle, () {
                     SystemNavigator.pop();
                   }, screenWidth * 0.2, screenHeight * 0.06)
