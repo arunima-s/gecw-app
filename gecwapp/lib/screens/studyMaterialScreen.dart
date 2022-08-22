@@ -156,7 +156,13 @@ class StudyMenuItem extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.25,
           ),
           GWSpace(screenHeight * 0.01, 0),
-          Text(text)
+          Text(
+            text,
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Nunito',
+                fontSize: 14),
+          )
         ],
       ),
     );
