@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gecwapp/Constants/strings.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
 import 'package:gecwapp/main.dart';
+import 'package:gecwapp/screens/links-screen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -55,6 +56,19 @@ class NavDrawer extends StatelessWidget {
                   forceSafariVC: true,
                   forceWebView: true,
                   enableJavaScript: true);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Useful Links'),
+            onTap: () async {
+              // await launch(
+              //     "https://docs.google.com/forms/d/e/1FAIpQLSeRhAUgDzIVP_yqlV1LFAsSeQ2nfEQh15aodJr1wvvcOm4HrA/viewform?usp=sf_link",
+              //     forceSafariVC: true,
+              //     forceWebView: true,
+              //     enableJavaScript: true);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LinkScreen()));
             },
           ),
           ListTile(

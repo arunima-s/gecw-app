@@ -57,13 +57,13 @@ class _HostelListScreenState extends State<HostelListScreen> {
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
-                          userAccess == 2
-                              ? IconButton(
-                                  onPressed: () {
-                                    editHostel(context);
-                                  },
-                                  icon: Icon(Icons.edit))
-                              : SizedBox()
+                          // userAccess == 2
+                          //     ? IconButton(
+                          //         onPressed: () {
+                          //           editHostel(context);
+                          //         },
+                          //         icon: Icon(Icons.edit))
+                          //     : SizedBox()
                         ],
                       ),
                     ),
