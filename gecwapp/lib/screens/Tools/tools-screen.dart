@@ -44,16 +44,6 @@ class ToolSScreen extends StatelessWidget {
                   child:
                       StudyMenuItem("assets/images/bunk.png", "Bunk Manager")),
               GestureDetector(
-                  onTap: () {
-                    Messages.displayMessage(context, "Feature coming soon....");
-                  },
-                  child: StudyMenuItem("assets/images/games.png", "Games")),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
                   // onTap: () => {
                   //       Navigator.of(context).push(MaterialPageRoute(
                   //           builder: (context) => StudyMaterialsScreen()))
@@ -65,14 +55,24 @@ class ToolSScreen extends StatelessWidget {
                   },
                   child: StudyMenuItem(
                       "assets/images/cgpa.png", "CGPA Calculator")),
-              GestureDetector(
-                child:
-                    StudyMenuItem("assets/images/sgpa.png", "SGPA Calculator"),
-                onTap: () => {
-                  showDialog(
-                      context: context, builder: (context) => SGPACalculator())
-                },
-              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // GestureDetector(
+              //   child:
+              //       StudyMenuItem("assets/images/sgpa.png", "SGPA Calculator"),
+              //   onTap: () => {
+              //     showDialog(
+              //         context: context, builder: (context) => SGPACalculator())
+              //   },
+              // ),
+              // GestureDetector(
+              //     onTap: () {
+              //       Messages.displayMessage(context, "Feature coming soon....");
+              //     },
+              //     child: StudyMenuItem("assets/images/games.png", "Games")),
             ],
           ),
           // Row(
