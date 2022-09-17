@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
+import 'package:gecwapp/games/tic-tac-toe.dart';
 import 'package:gecwapp/screens/Tools/bunk-manager-screen.dart';
 import 'package:gecwapp/screens/Tools/cgpa-calculator.dart';
 import 'package:gecwapp/screens/Tools/sgpa-calculator.dart';
@@ -45,7 +46,9 @@ class ToolSScreen extends StatelessWidget {
                       StudyMenuItem("assets/images/bunk.png", "Bunk Manager")),
               GestureDetector(
                   onTap: () {
-                    Messages.displayMessage(context, "Feature coming soon....");
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => TicTacToe()));
+                    // Messages.displayMessage(context, "Feature coming soon....");
                   },
                   child: StudyMenuItem("assets/images/games.png", "Games")),
             ],
