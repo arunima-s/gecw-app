@@ -77,10 +77,10 @@ class ScholarshipModel {
         "STATE MERIT",
         "1250 per annum",
         "50% or above in qualifying exam",
-        "Befor 1 lakh",
+        "Below 1 lakh",
         "https://www.dcescholarship.kerala.gov.in/dce/he_ma/he_maindx.php"),
     ScholarshipModel("VIDYA SAMUNNATHI", "Upto 50k per annum",
-        "Non-reserver categories", "Before 2 lakh", "https://www.kswcfc.org/"),
+        "Non-reserver categories", "Below 2 lakh", "https://www.kswcfc.org/"),
     ScholarshipModel(
         "KEEP SMILING INDIA",
         "Around 30k per 3 years",
