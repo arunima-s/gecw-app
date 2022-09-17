@@ -130,7 +130,7 @@ class _MyWidgetState extends State<BunkManagerScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 30),
+                        padding: const EdgeInsets.only(top: 15, bottom: 20),
                         child: Text(
                           "$attend",
                           style: TextStyle(
@@ -177,11 +177,18 @@ class _MyWidgetState extends State<BunkManagerScreen> {
       final _totalClass = double.parse(totalClassController.text.toString());
       final _attandClass = double.parse(attendController.text.toString());
       setState(() {
+        final currentAttendence =
+            (100 - (((_totalClass - _attandClass) / _totalClass) * 100));
         attend =
-            "   Your current attendence is: ${(100 - (((_totalClass - _attandClass) / _totalClass) * 100)).toString()}%     ";
+            "   Your current attendence is: ${currentAttendence.toString()}%     ";
 
-        needed =
-            "   Classes you need to attend are: ${(((.75 * _totalClass) - _attandClass) / 0.25).toString()}       ";
+        if (currentAttendence >= 75) {
+          final bunkable = (_attandClass - ((3 * _totalClass) / 4)).toInt();
+          needed = "   Its Okay you can bunk ${bunkable.toString()} classes.";
+        } else {
+          needed =
+              "   Classes you need to attend are: ${(((.75 * _totalClass) - _attandClass) / 0.25).toString()}       ";
+        }
       });
     }
   }

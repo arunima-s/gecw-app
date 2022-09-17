@@ -92,19 +92,20 @@ class CGPACalculator extends StatelessWidget {
                 print(sgpaList);
                 print(sgpaList.length);
                 sum = 0;
-                if (sgpaList.length != 8) {
-                  Messages.displayMessage(context, "Enter all values");
-                } else {
-                  sgpaList.values.map((e) {
-                    sum = sum + e;
-                  }).toList();
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return MarkAlert("${sum * 0.125}", "", "Your CGPA is");
-                      });
-                  // Messages.displayMessage(context, "${sum * 0.125}");
-                }
+                // if (sgpaList.length != 8) {
+                //   Messages.displayMessage(context, "Enter all values");
+                // } else {
+                sgpaList.values.map((e) {
+                  sum = sum + e;
+                }).toList();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MarkAlert(
+                          "${sum * (1 / sgpaList.length)}", "", "Your CGPA is");
+                    });
+                // Messages.displayMessage(context, "${sum * 0.125}");
+                // }
               }, screenWidth * 0.5, screenHeight * 0.08),
             )
           ],

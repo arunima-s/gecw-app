@@ -150,7 +150,7 @@ class _HostelListScreenState extends State<HostelListScreen> {
                               ),
                               child: Center(
                                   child: Text(
-                                "PTA Approved",
+                                "Boys Hostel",
                                 style: TextStyle(
                                     color: ptaSelected
                                         ? AppColors.primaryColor
@@ -189,7 +189,7 @@ class _HostelListScreenState extends State<HostelListScreen> {
                               ),
                               child: Center(
                                   child: Text(
-                                "PTA UnApproved",
+                                "Girls Hostel",
                                 style: TextStyle(
                                     color: !ptaSelected
                                         ? AppColors.primaryColor
@@ -215,11 +215,18 @@ class _HostelListScreenState extends State<HostelListScreen> {
                           shrinkWrap: true,
                           // physics: ClampingScrollPhysics(),
                           separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(height: 20);
+                            return SizedBox(height: 0);
                           },
                           itemCount: _foundItems.length,
+                          // itemBuilder: (BuildContext context, int index) {
+                          //   if (_foundItems[index].isPta == ptaSelected) {
+                          //     return HostelListItem(index);
+                          //   } else {
+                          //     return SizedBox();
+                          //   }
+                          // },
                           itemBuilder: (BuildContext context, int index) {
-                            if (_foundItems[index].isPta == ptaSelected) {
+                            if (_foundItems[index].isBoys == ptaSelected) {
                               return HostelListItem(index);
                             } else {
                               return SizedBox();

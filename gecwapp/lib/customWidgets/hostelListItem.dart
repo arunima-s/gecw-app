@@ -17,7 +17,7 @@ class HostelListItem extends StatelessWidget {
     final screenHeight = context.watch<GWValuesProvider>().height;
     final screenWidth = context.watch<GWValuesProvider>().width;
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 5, 20, 0),
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
       // width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -53,9 +53,9 @@ class HostelListItem extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          hostelListModel.isBoys
-                              ? Icon(Icons.male)
-                              : Icon(Icons.female)
+                          // hostelListModel.isBoys
+                          //     ? Icon(Icons.male)
+                          //     : Icon(Icons.female)
                         ],
                       ),
                       Text(
