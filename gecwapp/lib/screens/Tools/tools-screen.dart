@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gecwapp/Utilities/popup_messages.dart';
-import 'package:gecwapp/games/tic-tac-toe.dart';
 import 'package:gecwapp/screens/Tools/bunk-manager-screen.dart';
 import 'package:gecwapp/screens/Tools/cgpa-calculator.dart';
 import 'package:gecwapp/screens/Tools/sgpa-calculator.dart';
+import 'package:gecwapp/screens/games/tic-tac-toe.dart';
 import 'package:gecwapp/screens/studyMaterialScreen.dart';
 
 class ToolSScreen extends StatelessWidget {
