@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:gecwapp/Constants/strings.dart';
+import 'package:gecwapp/Providers/gw_values_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinkScreen extends StatelessWidget {
@@ -38,7 +42,7 @@ class LinkScreen extends StatelessWidget {
 
             // physics: ClampingScrollPhysics(),
             separatorBuilder: (BuildContext context, int index) {
-              return SizedBox(height: 20);
+              return SizedBox(height: 10);
             },
             itemCount: 4,
             itemBuilder: (BuildContext context, int index) {
@@ -53,7 +57,7 @@ class LinkScreen extends StatelessWidget {
 
 class LinkWidget extends StatelessWidget {
   final dataset = {
-    "ETLab": " https://gecwyd.etlab.in/user/login",
+    "ETLab": "https://gecwyd.etlab.in/user/login",
     "KTU Portal": "https://app.ktu.edu.in/login.htm",
     "Results": "https://app.ktu.edu.in/eu/res/viewExamStudentResults.htm",
     "College Portal": "https://www.gecwyd.ac.in/"
@@ -63,16 +67,23 @@ class LinkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = context.watch<GWValuesProvider>().height;
+    final screenWidth = context.watch<GWValuesProvider>().width;
     return GestureDetector(
       onTap: () async {
-        await launch(dataset.values.elementAt(index),
-            forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+        await launch(dataset.values.elementAt(index));
+        // await FlutterWebBrowser.openWebPage(url: dataset.values.elementAt(index))
       },
       child: Container(
-        padding: EdgeInsets.fromLTRB(25, 5, 45, 5),
+        width: screenWidth,
+        color: Colors.grey[100],
+        padding: EdgeInsets.fromLTRB(25, 10, 45, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Divider(
+            //   color: Colors.black,
+            // ),
             Text(dataset.keys.elementAt(index)),
             Divider(
               color: Colors.black,
@@ -81,5 +92,6 @@ class LinkWidget extends StatelessWidget {
         ),
       ),
     );
+    // return Container()
   }
 }
