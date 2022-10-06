@@ -140,8 +140,32 @@ class HostelDetailsScreen extends StatelessWidget {
                         height: 50,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          (_hostelListModel!.rooms.toString == "0" ||
+                                  _hostelListModel?.rooms == null)
+                              ? SizedBox()
+                              : Container(
+                                  padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
+                                  margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(_hostelListModel!.rooms.toString()),
+                                      Text(
+                                        " beds available",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          //  color: Colors.grey[600]
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                ),
                           Container(
                             height: 30,
                             child: ElevatedButton(
@@ -276,12 +300,12 @@ class HostelDetailsScreen extends StatelessWidget {
                     //     onPressed: Navigator.of(context).pop),
                     GWRoundedIcon(Navigator.of(context).pop,
                         Icon(Icons.arrow_back_ios_new)),
-                    GWRoundedIcon(
-                        Navigator.of(context).pop,
-                        Icon(
-                          Icons.share,
-                          color: Colors.black,
-                        ))
+                    // GWRoundedIcon(
+                    //     Navigator.of(context).pop,
+                    //     Icon(
+                    //       Icons.share,
+                    //       color: Colors.black,
+                    //     ))
                   ],
                 ),
               ),

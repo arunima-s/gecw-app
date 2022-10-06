@@ -52,10 +52,11 @@ class NavDrawer extends StatelessWidget {
             title: Text('Feedback'),
             onTap: () async {
               await launch(
-                  "https://docs.google.com/forms/d/e/1FAIpQLSeRhAUgDzIVP_yqlV1LFAsSeQ2nfEQh15aodJr1wvvcOm4HrA/viewform?usp=sf_link",
-                  forceSafariVC: true,
-                  forceWebView: true,
-                  enableJavaScript: true);
+                "https://docs.google.com/forms/d/e/1FAIpQLSeRhAUgDzIVP_yqlV1LFAsSeQ2nfEQh15aodJr1wvvcOm4HrA/viewform?usp=sf_link",
+                // forceSafariVC: true,
+                // forceWebView: true,
+                // enableJavaScript: true
+              );
             },
           ),
           ListTile(

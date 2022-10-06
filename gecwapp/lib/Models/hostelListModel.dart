@@ -1,6 +1,7 @@
 class HostelListModel {
   // final String id;
   final String name, location, phoneNum, warden, address, distance;
+  final String? rooms;
   final bool hasFood, hasRoom, isPta, isBoys;
   final List<dynamic> images, places;
 
@@ -16,7 +17,8 @@ class HostelListModel {
       this.hasRoom,
       this.isPta,
       this.isBoys,
-      this.distance);
+      this.distance,
+      this.rooms);
 
   HostelListModel.fromJson(Map<dynamic, dynamic> json)
       // : date = DateTime.parse(json['date'] as String),
@@ -31,7 +33,8 @@ class HostelListModel {
         places = json['near'] as List<dynamic>,
         isPta = json['ispta'] as bool,
         isBoys = json['isBoys'] as bool,
-        distance = json['distance'] as String;
+        distance = json['distance'] as String,
+        rooms = json['rooms'] as String;
 
   // Map<dynamic, dynamic> toJson() =>
   //     <dynamic, dynamic>{'id': id, 'name': name, 'image': image};
