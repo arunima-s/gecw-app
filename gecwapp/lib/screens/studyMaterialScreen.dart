@@ -135,33 +135,48 @@ class StudyMenuItem extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-      height: MediaQuery.of(context).size.width * 0.4,
+      // height: MediaQuery.of(context).size.width * 0.4,
       width: MediaQuery.of(context).size.width * 0.4,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: AppColors.systemWhite,
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.grey3,
-                offset: Offset(2.0, 2.0),
-                spreadRadius: 3.0,
-                blurRadius: 2.0)
-          ]),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        // color: AppColors.systemBlack,
+        // boxShadow: [
+        //   BoxShadow(
+        //       color: AppColors.grey3,
+        //       offset: Offset(1.0, 1.0),
+        //       spreadRadius: 1.0,
+        //       blurRadius: 2.0)
+        // ]
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            _assetPath,
-            height: MediaQuery.of(context).size.width * 0.25,
-            width: MediaQuery.of(context).size.width * 0.25,
+          Container(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: AppColors.systemWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.grey3,
+                    offset: Offset(0.0, 0.0),
+                    spreadRadius: 1.0,
+                    // blurRadius: 1.0
+                  )
+                ]),
+            child: Image.asset(
+              _assetPath,
+              height: MediaQuery.of(context).size.width * 0.25,
+              width: MediaQuery.of(context).size.width * 0.25,
+            ),
           ),
-          GWSpace(screenHeight * 0.01, 0),
+          GWSpace(screenHeight * 0.006, 0),
           Text(
             text,
             style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Nunito',
-                fontSize: 14),
+                fontSize: 16),
           )
         ],
       ),

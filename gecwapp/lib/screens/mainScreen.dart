@@ -99,6 +99,7 @@ class MainScreen extends StatelessWidget {
                     //   ),
                     // ),
                     Container(
+                      // color: Colors.red,
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: HomeScreenMenu(),
                     )
@@ -182,8 +183,10 @@ class MainScreen extends StatelessWidget {
   }
 
   Future<void> openURL(String _url) async {
-    await launch(_url,
-        forceSafariVC: true, forceWebView: true, enableJavaScript: true);
+    await launch(
+      _url,
+      // forceSafariVC: true, forceWebView: true, enableJavaScript: true
+    );
   }
 
   void passedopenDrawerFunc(BuildContext context) {

@@ -6,6 +6,7 @@ import 'package:gecwapp/Providers/hostels_provider.dart';
 import 'package:gecwapp/Providers/sharedPrefs_provider.dart';
 import 'package:gecwapp/customWidgets/hostelListItem.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer';
 
 class HostelListScreen extends StatefulWidget {
   @override
@@ -34,7 +35,8 @@ class _HostelListScreenState extends State<HostelListScreen> {
       _foundItems = hostelData;
       // firstLoad = true;
     }
-
+    // print(hostelData);
+    //debugger();
     return Scaffold(
         body: hostelData.isEmpty
             ? Center(child: CircularProgressIndicator())
@@ -227,7 +229,7 @@ class _HostelListScreenState extends State<HostelListScreen> {
                           // },
                           itemBuilder: (BuildContext context, int index) {
                             if (_foundItems[index].isBoys == ptaSelected) {
-                              return HostelListItem(index);
+                              return HostelListItem(_foundItems[index]);
                             } else {
                               return SizedBox();
                             }
@@ -263,7 +265,9 @@ class _HostelListScreenState extends State<HostelListScreen> {
 
     // Refresh the UI
     setState(() {
+      print("///////////////////////");
       _foundItems = results;
+      // debugger();
     });
   }
 

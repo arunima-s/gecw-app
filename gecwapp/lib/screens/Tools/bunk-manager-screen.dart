@@ -180,7 +180,7 @@ class _MyWidgetState extends State<BunkManagerScreen> {
         final currentAttendence =
             (100 - (((_totalClass - _attandClass) / _totalClass) * 100));
         attend =
-            "   Your current attendence is: ${currentAttendence.toString()}%     ";
+            "   Your current attendence is: ${currentAttendence.toStringAsFixed(2).toString()}%     ";
 
         if (currentAttendence >= 75) {
           final bunkable = (_attandClass - ((3 * _totalClass) / 4)).toInt();

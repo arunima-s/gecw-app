@@ -10,12 +10,12 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart' as URLLauncher;
 
 class HostelDetailsScreen extends StatelessWidget {
-  HostelListModel? _hostelListModel;
-  final int _index;
-  HostelDetailsScreen(this._index);
+  final HostelListModel _hostelListModel;
+  // final int _index;
+  HostelDetailsScreen(this._hostelListModel);
   @override
   Widget build(BuildContext context) {
-    _hostelListModel = context.watch<HostelProvider>().hostels[_index];
+    // _hostelListModel = context.watch<HostelProvider>().hostels[_index];
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(

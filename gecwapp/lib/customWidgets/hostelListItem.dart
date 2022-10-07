@@ -8,12 +8,12 @@ import 'package:gecwapp/screens/HostelScreens/hostelDetailsScreen.dart';
 import 'package:provider/provider.dart';
 
 class HostelListItem extends StatelessWidget {
-  final int index;
-  HostelListItem(this.index);
+  final HostelListModel hostelListModel;
+  HostelListItem(this.hostelListModel);
 
   @override
   Widget build(BuildContext context) {
-    final hostelListModel = context.watch<HostelProvider>().hostels[index];
+    // final hostelListModel = context.watch<HostelProvider>().hostels[index];
     final screenHeight = context.watch<GWValuesProvider>().height;
     final screenWidth = context.watch<GWValuesProvider>().width;
     return Container(
@@ -95,7 +95,9 @@ class HostelListItem extends StatelessWidget {
   }
 
   void onDetailsTap(BuildContext context, HostelListModel hostelListModel) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => HostelDetailsScreen(index)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HostelDetailsScreen(hostelListModel)));
   }
 }
