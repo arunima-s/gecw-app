@@ -30,7 +30,7 @@ class _ScholarShipScreenState extends State<ScholarShipScreen> {
               //       labelText: 'Search', suffixIcon: Icon(Icons.search)),
               // ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                 child: TextField(
                   onChanged: (value) => _runFilter(value),
                   textAlign: TextAlign.left,

@@ -151,14 +151,14 @@ class HostelDetailsScreen extends StatelessWidget {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text(_hostelListModel!.rooms.toString()),
                                       Text(
-                                        " beds available",
+                                        "Total accomodation available: ",
                                         style: TextStyle(
                                           fontSize: 12,
                                           //  color: Colors.grey[600]
                                         ),
-                                      )
+                                      ),
+                                      Text(_hostelListModel!.rooms.toString()),
                                     ],
                                   ),
                                   decoration: BoxDecoration(
