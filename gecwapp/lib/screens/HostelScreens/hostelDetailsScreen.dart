@@ -152,7 +152,7 @@ class HostelDetailsScreen extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        "Total accomodation available: ",
+                                        "Total accomodation: ",
                                         style: TextStyle(
                                           fontSize: 12,
                                           //  color: Colors.grey[600]
@@ -322,7 +322,7 @@ class HostelDetailsScreen extends StatelessWidget {
   }
 
   void _onCallButtonTapped() async {
-    await URLLauncher.launch('tel:+${_hostelListModel!.phoneNum.toString()}');
+    await URLLauncher.launch('tel:${_hostelListModel!.phoneNum.toString()}');
     // } else {
     //   throw 'Could not launch $url';
     // }

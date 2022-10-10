@@ -17,7 +17,7 @@ class StudyMaterialsScreen extends StatefulWidget {
 }
 
 class _StudyMaterialsScreenState extends State<StudyMaterialsScreen> {
-  var selectedSemesterString = "S3";
+  var selectedSemesterString = "S1 - S2";
   var semesterNames = ["S1 - S2", "S3", "S4", "S5", "S6", "S7", "S8"];
   var selectedDepartmentString = "EEE";
   List<String> departmentNames = [];
